@@ -1,3 +1,17 @@
+# Project DungeoCrawler
+
+## Install
+1. set up maven (recomend command line)
+    - Windows (recommended)
+        - https://maven.apache.org/install.html
+    - Macos (recommended)
+        - Install brew
+        - brew install Maven
+    - IntellIj 
+        - import project as a maven project and it should work out of the box
+2. `mvn clean javafx:run` will run the project
+3. `mvn checkstyle::check` will run checkstyes on the project
+
 # CS2340_team39
 
 ## 1. Creates a new branch 
