@@ -1,3 +1,36 @@
+# Project DungeoCrawler
+
+## Install
+1. set up maven (recomend command line)
+    - Windows (recommended)
+        - https://maven.apache.org/install.html
+    - Macos (recommended)
+        - Install brew
+        - brew install Maven
+    - IntellIj 
+        - import project as a maven project and it should work out of the box
+2. `mvn clean javafx:run` will run the project
+3. `mvn checkstyle::check` will run checkstyes on the project
+
+## Create a View
+1. create a folder here src/main/java/app/dungeoncrawler/views with the name of the view
+    - command Windows/MacOS `mkdir src/main/java/app/dungeoncrawler/views/NewView`
+2. create the same folder but in resources src/main/resources/app/dungeoncrawler/views
+    - `mkdir src/main/resources/app/dungeoncrawler/views/NewView`
+3. Now create your View and Controllers
+    - create Java Class in 
+    ```bash
+    src/main/resources/app/dungeoncrawler/views/NewView/NewView.java
+    src/main/resources/app/dungeoncrawler/views/NewView/NewViewController.java
+    ```
+    - View will have how you load the fxml refer to WelcomeView.java
+    - Controller will all the event from the scene refer to WelcomeController.java
+4. Create the FXML file inside the resource folder you created earlier `src/main/resources/app/dungeoncrawler/views/NewView/NewView.fxml` THIS WILL HAVE ALL YOUR VIEW CODE (VBOX, HBOX, GRIDPANE ect...) refer to WelcomeView.fxml
+5. add your New View to the module expors `src/main/java/module-info.java` 
+6. add your view to the AppScenes.java as part of a scene
+
+
+
 # CS2340_team39
 
 ## 1. Creates a new branch 
