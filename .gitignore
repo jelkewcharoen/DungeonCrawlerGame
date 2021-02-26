@@ -25,3 +25,8 @@ hs_err_pid*
 .idea
 out/**
 **/target/**
+*.iml
+.classpath
+.project
+.settings
+.vscode
