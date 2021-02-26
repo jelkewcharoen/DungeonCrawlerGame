@@ -77,6 +77,3 @@ git pull --rebase origin master
 ```bash
 git push -f origin branch-name
 ```
-## Resources
-https://openjfx.io/openjfx-docs/#maven
-https://github.com/UltraMixer/FlexBoxFX
