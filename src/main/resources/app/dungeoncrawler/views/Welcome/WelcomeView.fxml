@@ -7,15 +7,29 @@
 <?import javafx.scene.layout.*?>
 
 <GridPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="app.dungeoncrawler.views.Welcome.WelcomeViewController"
-            stylesheets="@WelcomeView.css"
+          xmlns:fx="http://javafx.com/fxml"
+	  id="pane"
+          fx:controller="app.dungeoncrawler.views.Welcome.WelcomeViewController"
+          stylesheets="@WelcomeView.css"
 >
-    <children>
-        <Label GridPane.columnIndex="0" styleClass="helloworldText" text="WELCOME" />
-        <TextField GridPane.columnIndex="2" fx:id="textfield"/>
-        <Button GridPane.columnIndex="4" fx:id="buttonNavigate" text="Go To Configuration" />
-        <Label text="${textfield.text}" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" />
 
-    </children>
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="110.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+
+  <children>
+
+    <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" fx:id="buttonNavigate" text="START"/>
+  </children>
+    
 </GridPane>
