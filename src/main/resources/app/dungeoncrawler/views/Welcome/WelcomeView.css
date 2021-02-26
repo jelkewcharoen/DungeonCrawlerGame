@@ -1,6 +1,14 @@
-.helloworldText {
-    -fx-background-color: transparent;
+.hBoxMainContainer {
+    -fx-background-image: url("../../../assets/img_welcome.png");
     -fx-text-fill: blue;
     -fx-font-size: 16px;
     -fx-cursor: hand;
+    -fx-background-repeat: repeat;
+    -fx-alignment: center;
+}
+
+.welcomeButton {
+    -fx-pref-height: 50;
+    -fx-pref-width: 200;
+    -fx-background-color: transparent;
 }
