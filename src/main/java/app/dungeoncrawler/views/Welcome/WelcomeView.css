@@ -8,7 +8,10 @@
 }
 
 .welcomeButton {
+    -fx-padding: 190 0;
     -fx-pref-height: 50;
-    -fx-pref-width: 200;
+    -fx-min-width: 200;
     -fx-background-color: transparent;
+    -fx-font-size: 50;
+    -fx-text-fill: red;
 }

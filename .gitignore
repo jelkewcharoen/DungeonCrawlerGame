@@ -29,4 +29,5 @@ out/**
 .classpath
 .project
 .settings
-.vscode
+.vscod
+DungeonCrawler.iml

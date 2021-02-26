@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+
+<fx:root xmlns="http://javafx.com/javafx/11.0.1" 
+         xmlns:fx="http://javafx.com/fxml/1"
+         type="javafx.scene.control.Button" 
+         fx:id="weaponTile" 
+         mnemonicParsing="false"
+>
+    <graphic>
+        <ImageView fitHeight="134.0" fitWidth="243.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../assets/weapon1.png"/>
+            </image>
+        </ImageView>
+    </graphic>
+</fx:root>
