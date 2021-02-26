@@ -18,10 +18,11 @@ public class App extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		AppScenes scenes = new AppScenes(stage);
-		stage.setWidth(600);
-		stage.setHeight(400);
+		stage.setWidth(720);
+		stage.setHeight(512);
 		stage.setScene(scenes.getMainPage());
-		stage.setTitle("Multi-Scene Demo");
+		stage.setTitle("Team 39: 404 Not Found");
+		stage.setResizable(false);
 		stage.show();
 	}
 	
