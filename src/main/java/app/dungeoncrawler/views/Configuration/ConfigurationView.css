@@ -1,6 +1,14 @@
-.helloworldText {
+.configContainer {
+    -fx-background-image: url("../../../assets/config_screen.png");
+    -fx-background-repeat: repeat;
+    -fx-background-position: center;
+    -fx-background-size: default;
+}
+.pickWeaponTile {
     -fx-background-color: transparent;
-    -fx-text-fill: blue;
-    -fx-font-size: 16px;
-    -fx-cursor: hand;
+    -fx-border-width: 1;
+    -fx-border-color: black;
+}
+.pickWeaponTile:hover {
+    -fx-border-color: red;
 }

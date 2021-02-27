@@ -5,12 +5,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane minHeight="800.0" 
-          xmlns="http://javafx.com/javafx/11.0.1" 
+<?import app.dungeoncrawler.components.WeaponSelectButton.WeaponSelectButton?>
+<GridPane minHeight="800.0"
+          xmlns="http://javafx.com/javafx/11.0.1"
           xmlns:fx="http://javafx.com/fxml/1"
-          minWidth="800.0" 
-          prefHeight="500.0" 
-          prefWidth="500.0" 
+          minWidth="800.0"
+          prefHeight="500.0"
+          prefWidth="500.0"
           stylesheets="@ConfigurationView.css"
           fx:controller="app.dungeoncrawler.views.Configuration.ConfigurationViewController"
 >
