@@ -21,7 +21,7 @@ public class ConfigurationViewController {
             Node node = (Node) event.getSource();
             Stage thisStage = (Stage) node.getScene().getWindow();
 
-            AppScenes.navigateTo(thisStage, SceneNames.WELCOME);
+            AppScenes.navigateTo(thisStage, SceneNames.INITIAL_GAME);
         });
     }
 }

@@ -1,17 +1,20 @@
 .hBoxMainContainer {
     -fx-background-image: url("../../../assets/img_welcome.png");
-    -fx-text-fill: blue;
-    -fx-font-size: 16px;
+  /*  -fx-text-fill: blue;
+    -fx-font-size: 16px;*/
     -fx-cursor: hand;
     -fx-background-repeat: repeat;
     -fx-alignment: center;
+    -fx-background-position: center center;
 }
 
 .welcomeButton {
-    -fx-padding: 190 0;
-    -fx-pref-height: 50;
+    -fx-alignment: center;
+    -fx-pref-height: 30;
     -fx-min-width: 200;
     -fx-background-color: transparent;
     -fx-font-size: 50;
-    -fx-text-fill: red;
+    -fx-font-weight: bold;
+    -fx-font-family: Papyrus, fantasy;
+    -fx-text-fill: rgba(237, 111, 33, 1);
 }
