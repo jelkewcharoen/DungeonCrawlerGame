@@ -2,7 +2,7 @@
     -fx-background-image: url("../../../assets/config_screen.png");
     -fx-background-repeat: repeat;
     -fx-background-position: center;
-    -fx-background-size: default;
+    -fx-background-size: cover;
 }
 .pickWeaponTile {
     -fx-background-color: transparent;

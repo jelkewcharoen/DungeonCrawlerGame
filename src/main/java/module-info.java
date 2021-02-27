@@ -1,5 +1,4 @@
 module app.dungeoncrawler {
-    requires de.saxsys.mvvmfx;
     requires javafx.fxml;
     requires javafx.controls;
     exports app.dungeoncrawler;

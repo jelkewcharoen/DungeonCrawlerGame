@@ -38,5 +38,14 @@ public class AppScenes {
             AppScenes.currentView = nextScene;
 
             stage.setScene(nextScene.getScene());
+            stage.toFront();
+    }
+
+    public static Map<SceneNames, ViewBase> getUiViews() {
+        return uiViews;
+    }
+
+    public static void setUiViews(Map<SceneNames, ViewBase> uiViews) {
+        AppScenes.uiViews = uiViews;
     }
 }

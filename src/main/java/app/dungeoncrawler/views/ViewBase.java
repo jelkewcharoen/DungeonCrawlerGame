@@ -5,6 +5,7 @@ import javafx.stage.Stage;
 public abstract class ViewBase implements ViewMaker {
     protected Stage stage;
     SceneNames sceneName;
+    
     public ViewBase(Stage stage, SceneNames name) {
         if (name == null) {
             throw new IllegalArgumentException("ViewBase: sceneName cant be null");

@@ -24,6 +24,7 @@ import java.io.IOException;
 
 public class WelcomeView extends ViewBase {
 	private Scene scene;
+	
 	public WelcomeView(Stage stage) {
 		super(stage, SceneNames.WELCOME);
 		this.buildScene();
