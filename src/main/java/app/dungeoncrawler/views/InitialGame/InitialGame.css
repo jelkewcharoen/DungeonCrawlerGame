@@ -1,0 +1,10 @@
+.hBoxMainContainer {
+    -fx-background-image: url("../../../assets/initialgamescreen.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 720 490; /*adjust this to fit the image however you want*/
+
+}
+.scoreBox {
+    -fx-text-size: 100;
+    -fx-text-color: brown
+}

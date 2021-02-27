@@ -1,6 +1,7 @@
 package app.dungeoncrawler.views;
 
 import app.dungeoncrawler.views.Configuration.ConfigurationView;
+import app.dungeoncrawler.views.InitialGame.InitialGame;
 import app.dungeoncrawler.views.Welcome.WelcomeView;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -21,6 +22,7 @@ public class AppScenes {
 
         AppScenes.uiViews.put(SceneNames.WELCOME, new WelcomeView(stage));
         AppScenes.uiViews.put(SceneNames.CONFIGURATION, new ConfigurationView(stage));
+        AppScenes.uiViews.put(SceneNames.INITIAL_GAME, new InitialGame(stage));
     }
     
     public Scene getMainPage() {
