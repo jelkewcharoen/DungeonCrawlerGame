@@ -16,7 +16,7 @@ public class ConfigurationViewController {
     public Button buttonNavigate;
 
     public void initialize() {
-        textfield.setText("this is IVAN");
+        textfield.setText("");
         buttonNavigate.setOnAction((event) -> {
             Node node = (Node) event.getSource();
             Stage thisStage = (Stage) node.getScene().getWindow();
