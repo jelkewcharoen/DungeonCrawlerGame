@@ -4,7 +4,6 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<?import app.dungeoncrawler.components.WeaponSelectButton.WeaponSelectButton?>
 <GridPane minHeight="800.0"
           xmlns="http://javafx.com/javafx/11.0.1"
           xmlns:fx="http://javafx.com/fxml/1"
@@ -13,6 +12,7 @@
           prefWidth="500.0"
           stylesheets="@ConfigurationView.css"
           fx:controller="app.dungeoncrawler.views.Configuration.ConfigurationViewController"
+          styleClass="configContainer"
 >
     <children>
         <ImageView 
