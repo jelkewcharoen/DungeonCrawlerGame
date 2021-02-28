@@ -5,29 +5,49 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane fx:id="configurationView" minHeight="800.0" minWidth="800.0" prefHeight="500.0" prefWidth="500.0" styleClass="configContainer" stylesheets="@ConfigurationView.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.dungeoncrawler.views.Configuration.ConfigurationViewController">
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+
+<GridPane minHeight="800.0"
+          xmlns="http://javafx.com/javafx/11.0.1"
+          xmlns:fx="http://javafx.com/fxml/1"
+          minWidth="800.0"
+          prefHeight="500.0"
+          prefWidth="500.0"
+          styleClass="configContainer"
+          stylesheets="@ConfigurationView.css"
+          fx:id="configurationView"
+          fx:controller="app.dungeoncrawler.views.Configuration.ConfigurationViewController"
+>
     <children>
         <ImageView fitHeight="203.0" fitWidth="224.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <image>
                 <Image url="@../../../assets/config_character.png" />
             </image>
         </ImageView>
-        <MenuButton mnemonicParsing="false" text="Game Difficulty" GridPane.columnIndex="5" GridPane.rowIndex="2">
+        <ComboBox fx:id="difficultyLevel" GridPane.columnIndex="5" GridPane.rowIndex="2">
             <items>
-                <MenuItem fx:id="easy" mnemonicParsing="false" text="EASY" />
-                <MenuItem fx:id="medium" mnemonicParsing="false" text="MEDIUM" />
-                <MenuItem fx:id="hard" mnemonicParsing="false" text="HARD" />
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="EASY" />
+                    <String fx:value="MEDIUM" />
+                    <String fx:value="HARD" />
+                </FXCollections>
             </items>
-        </MenuButton>
+        </ComboBox>
+        <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your name:" GridPane.columnIndex="1"
+              GridPane.rowIndex="6"/>
         <Text fx:id="namelabel" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your name:" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-        <TextField fx:id="nameEnter" text="" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-        <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose the difficulty:" translateY="-30.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-        <Button fx:id="buttonNavigate" prefHeight="29.0" prefWidth="67.0" text="start" GridPane.columnIndex="7" GridPane.rowIndex="7">
+        <!-- nameEnter -->
+        <TextField fx:id="nameInput" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+        <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose the difficulty:" translateY="-30.0"
+              GridPane.columnIndex="5" GridPane.rowIndex="2"/>
+        <Button fx:id="startGame" prefHeight="29.0" prefWidth="67.0" text="start" GridPane.columnIndex="7"
+                GridPane.rowIndex="7">
             <font>
                 <Font size="20.0" />
             </font>
         </Button>
-        <Button fx:id="weapon1" mnemonicParsing="false" styleClass="pickWeaponTile" GridPane.columnIndex="5" GridPane.rowIndex="4">
+        <Button fx:id="weapon1"  styleClass="pickWeaponTile" mnemonicParsing="false" GridPane.columnIndex="5" GridPane.rowIndex="4">
             <graphic>
                 <ImageView fitHeight="134.0" fitWidth="243.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -36,7 +56,8 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Button fx:id="weapon2" layoutX="275.0" layoutY="148.0" mnemonicParsing="false" styleClass="pickWeaponTile" GridPane.columnIndex="6" GridPane.rowIndex="4">
+        <Button fx:id="weapon2" styleClass="pickWeaponTile" layoutX="275.0" layoutY="148.0" mnemonicParsing="false" GridPane.columnIndex="6"
+                GridPane.rowIndex="4">
             <graphic>
                 <ImageView fitHeight="140.0" fitWidth="137.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -45,7 +66,8 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Button fx:id="weapon3" layoutX="275.0" layoutY="290.0" mnemonicParsing="false" styleClass="pickWeaponTile" GridPane.columnIndex="7" GridPane.rowIndex="4">
+        <Button fx:id="weapon3" styleClass="pickWeaponTile" layoutX="275.0" layoutY="290.0" mnemonicParsing="false" GridPane.columnIndex="7"
+                GridPane.rowIndex="4">
             <graphic>
                 <ImageView fitHeight="135.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true">
                     <image>

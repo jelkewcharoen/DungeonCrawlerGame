@@ -1,6 +1,6 @@
 package app.dungeoncrawler.views.Welcome;
 
-import app.dungeoncrawler.views.SceneNames;
+import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.ViewBase;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

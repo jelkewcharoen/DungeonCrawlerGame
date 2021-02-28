@@ -4,4 +4,5 @@ module app.dungeoncrawler {
     exports app.dungeoncrawler;
     exports app.dungeoncrawler.views.Welcome;
     exports app.dungeoncrawler.views.Configuration;
+    exports app.dungeoncrawler.views.InitialGame;
 }

@@ -1,15 +1,19 @@
 package app.dungeoncrawler.views.InitialGame;
 
-import app.dungeoncrawler.views.AppScenes;
-import app.dungeoncrawler.views.SceneNames;
+import app.dungeoncrawler.models.Game;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.stage.Stage;
+import javafx.scene.text.Text;
 
 public class InitialGameController {
-
+    
+    @FXML
+    public Text money;
+    
     public void initialize() {
-
+        System.out.println(money);    
+    }
+    
+    public void mounting() {
+        this.money.setText("$" + Game.getPlayer().getGold());
     }
 }

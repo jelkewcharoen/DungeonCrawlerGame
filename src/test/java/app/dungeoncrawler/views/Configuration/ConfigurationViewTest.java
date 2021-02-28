@@ -53,7 +53,7 @@ public class ConfigurationViewTest extends ApplicationTest {
     @Test
     public void testNameInput() {
         // when:
-        clickOn("#buttonNavigate");
+        clickOn("#startGame");
 
         // then:
         FxAssert.verifyThat("#configurationView", hasChild("#error"));

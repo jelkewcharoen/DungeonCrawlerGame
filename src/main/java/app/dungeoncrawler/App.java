@@ -1,17 +1,8 @@
 package app.dungeoncrawler;
 
 import app.dungeoncrawler.views.AppScenes;
-import app.dungeoncrawler.views.Configuration.ConfigurationView;
-import app.dungeoncrawler.views.SceneNames;
-import app.dungeoncrawler.views.Welcome.WelcomeView;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class App extends Application {
 	

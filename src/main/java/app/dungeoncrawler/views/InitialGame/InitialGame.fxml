@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.text.Text?>
-<AnchorPane
-        fx:id = "InitialGame"
-        xmlns="http://javafx.com/javafx"
-        xmlns:fx="http://javafx.com/fxml"
-        styleClass="hBoxMainContainer"
-        stylesheets="@InitialGame.css"
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            styleClass="hBoxMainContainer"
+            stylesheets="@InitialGame.css"
+            fx:controller="app.dungeoncrawler.views.InitialGame.InitialGameController"
 >
-<Text
-    fx:id = "startingMoney"></Text>
+    <Text styleClass="scoreBox"
+          textAlignment="LEFT"
+          id="score"
+    >
+        $
+    </Text>
+    <Text fx:id="money" fill="black" layoutX="80" layoutY="55" text="90">
+        <font>
+            <Font name="verdana" size="15"/>
+        </font>
+    </Text>
 </AnchorPane>
-
-

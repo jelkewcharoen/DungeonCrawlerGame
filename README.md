@@ -11,6 +11,7 @@
         - import project as a maven project and it should work out of the box
 2. `mvn clean javafx:run` will run the project
 3. `mvn checkstyle::check` will run checkstyes on the project
+3. `mvn test` to run all unit tests
 
 ## Create a View
 1. create a folder here src/main/java/app/dungeoncrawler/views with the name of the view

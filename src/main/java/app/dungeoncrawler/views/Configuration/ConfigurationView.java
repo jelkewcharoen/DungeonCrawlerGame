@@ -1,11 +1,9 @@
 package app.dungeoncrawler.views.Configuration;
 
-import app.dungeoncrawler.views.SceneNames;
+import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.ViewBase;
-import app.dungeoncrawler.views.Welcome.WelcomeViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.RadioButton;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 

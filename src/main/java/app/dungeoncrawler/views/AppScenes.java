@@ -1,5 +1,6 @@
 package app.dungeoncrawler.views;
 
+import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.Configuration.ConfigurationView;
 import app.dungeoncrawler.views.InitialGame.InitialGame;
 import app.dungeoncrawler.views.Welcome.WelcomeView;
