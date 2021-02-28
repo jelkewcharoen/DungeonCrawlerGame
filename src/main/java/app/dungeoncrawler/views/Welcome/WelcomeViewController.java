@@ -14,11 +14,11 @@ public class WelcomeViewController {
     public Button buttonNavigate;
     
     public void initialize() {
-        System.out.println("ivan contro");
+        //System.out.println("ivan contro");
         System.out.println(buttonNavigate);
         buttonNavigate.setOnMouseClicked((event) -> {
             try {
-                System.out.println("ivan 12");
+                //System.out.println("ivan 12");
     
                 Node node = (Node) event.getSource();
                 Stage thisStage = (Stage) node.getScene().getWindow();

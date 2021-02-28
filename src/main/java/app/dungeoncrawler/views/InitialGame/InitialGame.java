@@ -25,7 +25,8 @@ import java.io.FileInputStream;
 public class InitialGame extends ViewBase {
     private Scene scene;
     int StartingMoneyInt = 50;  //this will change according to the difficulty
-    String StartingMoney = "$"+StartingMoneyInt;
+    String StartingMoney = ""+StartingMoneyInt;
+    Text money;
     public InitialGame(Stage stage) {
         super(stage, SceneNames.INITIAL_GAME);
         this.buildScene();
@@ -36,18 +37,15 @@ public class InitialGame extends ViewBase {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("InitialGame.fxml"));
             AnchorPane root = loader.load();
+            System.out.println(root.getId());
             InitialGameController controller = loader.getController();
 
-            Text money = new Text(StartingMoney);
+            money = new Text(StartingMoney);
             money.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
             money.setFill(Color.BLACK);
-            //GridPane root = loader.load();
-            //root.setRowIndex(money, 10);
-            //root.setColumnIndex(money, 10);
             money.setY(55);
             money.setX(80);
 
-            //root.getChildren().add(box);
             root.getChildren().add(money);
             this.scene = new Scene(root, this.stage.getWidth(), this.stage.getHeight());
 
@@ -59,5 +57,8 @@ public class InitialGame extends ViewBase {
 
     public Scene getScene() {
         return this.scene;
+    }
+    public String getMoney() {
+        return money.getText();
     }
 }
