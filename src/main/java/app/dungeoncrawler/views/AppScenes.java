@@ -33,8 +33,9 @@ public class AppScenes {
     public static void navigateTo(Stage stage, SceneNames name) {
             ViewBase prevScene = AppScenes.currentView;
             ViewBase nextScene = AppScenes.uiViews.get(name);
-            if(prevScene!=null)
+            if(prevScene != null) {
                 prevScene.unMountingScene();
+            }
             nextScene.mountingScene();
             AppScenes.currentView = nextScene;
 

@@ -34,8 +34,8 @@ public class InitialGameTest extends ApplicationTest {
     @Override
     public void start(Stage stage) throws Exception {
         AppScenes scenes = new AppScenes(stage);
-        Map<SceneNames, ViewBase> x = scenes.getUiViews();
-        thisScene = x.get(SceneNames.INITIAL_GAME);
+        Map<SceneNames, ViewBase> scenesMap = scenes.getUiViews();
+        thisScene = scenesMap.get(SceneNames.INITIAL_GAME);
 
         stage.setWidth(720);
         stage.setHeight(512);
