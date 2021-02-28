@@ -1,6 +1,5 @@
 package app.dungeoncrawler.views.Configuration;
 
-import app.dungeoncrawler.models.Dungeon;
 import app.dungeoncrawler.models.Game;
 import app.dungeoncrawler.models.Player;
 import app.dungeoncrawler.models.Weapon;
@@ -8,6 +7,7 @@ import app.dungeoncrawler.utils.DefaultWeapons;
 import app.dungeoncrawler.views.AppScenes;
 import app.dungeoncrawler.utils.SceneNames;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -30,6 +30,8 @@ public class ConfigurationViewController implements Initializable {
     private String selectedDifficulty;
     private DefaultWeapons selectedWeapon;
     private SimpleBooleanProperty isButtonDisabled = new SimpleBooleanProperty(true);
+    private SimpleStringProperty powerObservable = new SimpleStringProperty("The power is: 0");
+    private SimpleStringProperty errorText = new SimpleStringProperty("Please enter a valid name");
     private String nameText = "";
     public int power;
 
@@ -47,8 +49,14 @@ public class ConfigurationViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.onDifficultyChange();
         this.selectWeaponEventHandler();
-        this.onnameEnterChange();
+        this.bindLabels();
         this.createSubmitButtonEventHandler();
+        this.onNameInputChange();
+    }
+    
+    public void bindLabels() {
+        this.powerDisplay.textProperty().bind(this.powerObservable);
+        this.error.textProperty().bind(this.errorText);
     }
     
     private void isFormValid() {
@@ -57,23 +65,21 @@ public class ConfigurationViewController implements Initializable {
                 || this.nameText == "" 
                 || !Player.isPlayerNameValid(this.nameText)
         ) {
+            this.errorText.set("Please enter a valid name");
             this.isButtonDisabled.set(true);
             return;
         }
 
+        this.errorText.set("");
         this.isButtonDisabled.set(false);
     };
     
     private void createSubmitButtonEventHandler() {
         this.startGame.disableProperty().bind(this.isButtonDisabled);
+
         this.startGame.setOnAction((event) -> {
             Node node = (Node) event.getSource();
             Stage thisStage = (Stage) node.getScene().getWindow();
-
-            if (!Player.isPlayerNameValid(nameText)) {
-                error.setText("Please type a valid name!");
-                return;
-            }
             
             Game.createDungeon(this.selectedDifficulty);
             Game.createPlayer(this.nameText, this.selectedWeapon);
@@ -99,11 +105,19 @@ public class ConfigurationViewController implements Initializable {
                 Button weapon = (Button) event.getSource();
                 for (int i = 0; i < weapons.length; i++) {
                     if (weapons[i].getId() == weapon.getId()) {
+                        
+                        // updating styles
                         weapons[i].getStyleClass().clear();
                         weapons[i].getStyleClass().add("pickWeaponTile");  
                         weapons[i].getStyleClass().add("selected");
                         
+                        // assigns selected weapon
                         selectedWeapon = mapWeaponIdToEnum(weapon.getId());
+                        
+                        // retrieving the power from the weapon
+                        power = Weapon.defaultWeapons.get(selectedWeapon).getPower();
+                        powerObservable.set("The power is: " + power);
+                        
                     } else {
                         weapons[i].getStyleClass().clear();
                         weapons[i].getStyleClass().add("pickWeaponTile");
@@ -126,54 +140,12 @@ public class ConfigurationViewController implements Initializable {
             }
         });
     }
-    
-    public void onnameEnterChange() {
+
+    public void onNameInputChange() {
         this.nameEnter.textProperty().addListener((observable, oldValue, newValue) -> {
             this.nameText = newValue;
             this.isFormValid();
         });
-
-        weapon1.setOnAction((event) -> {
-            power = Weapon.defaultWeapons.get(this.selectedWeapon).getPower();
-            powerDisplay.setText("The power is: " + power);
-
-        });
-
-        weapon2.setOnAction((event) -> {
-            power = Weapon.defaultWeapons.get(this.selectedWeapon).getPower();
-            powerDisplay.setText("The power is: " + power);
-
-        });
-
-        weapon3.setOnAction((event) -> {
-            power = Weapon.defaultWeapons.get(this.selectedWeapon).getPower();
-            powerDisplay.setText("The power is: " + power);
-        });
-    }
-
-    private boolean checkName() {
-        boolean result = true;
-        String n = nameEnter.getText();
-        if (n == null) {
-            result = false;
-
-        } else if (n.trim().isEmpty()) {
-            result = false;
-
-        } else if (n.equals("")) {
-            result = false;
-
-        }
-
-        return result;
-    }
-
-    public String errormessage() {
-        return error.getText();
-    }
-
-    public Text getError() {
-        return error;
     }
 
     public int getPower() {

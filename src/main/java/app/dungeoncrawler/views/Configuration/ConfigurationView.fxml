@@ -37,8 +37,7 @@
         <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your name:" GridPane.columnIndex="1"
               GridPane.rowIndex="6"/>
         <Text fx:id="namelabel" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your name:" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-        <!-- nameEnter -->
-        <TextField fx:id="nameInput" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+        <TextField fx:id="nameEnter" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
         <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose the difficulty:" translateY="-30.0"
               GridPane.columnIndex="5" GridPane.rowIndex="2"/>
         <Button fx:id="startGame" prefHeight="29.0" prefWidth="67.0" text="start" GridPane.columnIndex="7"

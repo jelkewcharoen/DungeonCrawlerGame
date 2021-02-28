@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Weapon {
+    private int power;
+
     public static Map<DefaultWeapons, Weapon> defaultWeapons = new HashMap<>(){{
         put(DefaultWeapons.WEAPON1, new Weapon(10));
         put(DefaultWeapons.WEAPON2, new Weapon(20));
@@ -18,8 +20,6 @@ public class Weapon {
         put(Difficulties.MEDIUM, 2);
         put(Difficulties.HARD, 3);
     }};
-    
-    private int power;
     
     public Weapon(int power) {
         this.power = power;
