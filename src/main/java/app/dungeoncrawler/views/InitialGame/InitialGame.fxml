@@ -7,15 +7,15 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.text.Text?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      styleClass="hBoxMainContainer"
-      stylesheets="@InitialGame.css"
+<AnchorPane
+        fx:id = "InitialGame"
+        xmlns="http://javafx.com/javafx"
+        xmlns:fx="http://javafx.com/fxml"
+        styleClass="hBoxMainContainer"
+        stylesheets="@InitialGame.css"
 >
-    <Text styleClass="scoreBox"
-          textAlignment="LEFT"
-          id="score"
-    >$</Text>
+<Text
+    fx:id = "startingMoney"></Text>
 </AnchorPane>
 
 
