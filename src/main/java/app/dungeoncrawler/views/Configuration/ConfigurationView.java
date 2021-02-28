@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 
 public class ConfigurationView extends ViewBase {
     private Scene scene;
-    public ConfigurationViewController controller;
 
     public ConfigurationView(Stage stage) {
         super(stage, SceneNames.CONFIGURATION);
@@ -24,7 +23,7 @@ public class ConfigurationView extends ViewBase {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("ConfigurationView.fxml"));
             GridPane box = loader.load();
-            controller = loader.getController();
+            ConfigurationViewController controller = loader.getController();
 
             this.scene = new Scene(box, this.stage.getWidth(), this.stage.getHeight());
 
@@ -36,8 +35,5 @@ public class ConfigurationView extends ViewBase {
     @Override
     public Scene getScene() {
         return scene;
-    }
-    public ConfigurationViewController getController() {
-        return controller;
     }
 }
