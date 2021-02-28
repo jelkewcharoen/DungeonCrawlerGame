@@ -9,14 +9,12 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class ConfigurationViewController {
-    @FXML
-    public TextField textfield;
 
     @FXML
     public Button buttonNavigate;
 
     public void initialize() {
-        textfield.setText("");
+        
         buttonNavigate.setOnAction((event) -> {
             Node node = (Node) event.getSource();
             Stage thisStage = (Stage) node.getScene().getWindow();

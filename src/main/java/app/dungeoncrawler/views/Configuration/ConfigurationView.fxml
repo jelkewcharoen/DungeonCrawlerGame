@@ -10,6 +10,7 @@
           minWidth="800.0"
           prefHeight="500.0"
           prefWidth="500.0"
+          fx:id="configurationView"
           stylesheets="@ConfigurationView.css"
           fx:controller="app.dungeoncrawler.views.Configuration.ConfigurationViewController"
           styleClass="configContainer"
@@ -34,8 +35,6 @@
                 <MenuItem fx:id="hard" mnemonicParsing="false" text="HARD"/>
             </items>
         </MenuButton>
-        <Text fill="RED" layoutX="275.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CHOOSE YOUR GAME"
-              GridPane.columnIndex="7" GridPane.rowIndex="2"/>
         <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your name:" GridPane.columnIndex="1"
               GridPane.rowIndex="6"/>
         <TextField fx:id="textfield" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
@@ -47,7 +46,7 @@
                 <Font size="20.0"/>
             </font>
         </Button>
-        <Button fx:id="weapon1" mnemonicParsing="false" GridPane.columnIndex="5" GridPane.rowIndex="4">
+        <Button styleClass="pickWeaponTile" fx:id="weapon1" mnemonicParsing="false" GridPane.columnIndex="5" GridPane.rowIndex="4">
             <graphic>
                 <ImageView fitHeight="134.0" fitWidth="243.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -56,7 +55,7 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Button fx:id="weapon11" layoutX="275.0" layoutY="148.0" mnemonicParsing="false" GridPane.columnIndex="6"
+        <Button styleClass="pickWeaponTile" fx:id="weapon11" layoutX="275.0" layoutY="148.0" mnemonicParsing="false" GridPane.columnIndex="6"
                 GridPane.rowIndex="4">
             <graphic>
                 <ImageView fitHeight="140.0" fitWidth="137.0" pickOnBounds="true" preserveRatio="true">
@@ -66,7 +65,7 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Button fx:id="weapon12" layoutX="275.0" layoutY="290.0" mnemonicParsing="false" GridPane.columnIndex="7"
+        <Button styleClass="pickWeaponTile" fx:id="weapon12" layoutX="275.0" layoutY="290.0" mnemonicParsing="false" GridPane.columnIndex="7"
                 GridPane.rowIndex="4">
             <graphic>
                 <ImageView fitHeight="135.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true">
