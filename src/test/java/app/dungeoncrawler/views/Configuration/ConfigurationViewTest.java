@@ -3,7 +3,7 @@ package app.dungeoncrawler.views.Configuration;
 import app.dungeoncrawler.models.Weapon;
 import app.dungeoncrawler.utils.DefaultWeapons;
 import app.dungeoncrawler.views.AppScenes;
-import app.dungeoncrawler.views.SceneNames;
+import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.ViewBase;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -76,7 +76,8 @@ public class ConfigurationViewTest extends ApplicationTest {
     @Test
     public void testNavigationToInitialGame() {
         clickOn("#nameEnter").write("name");
-        clickOn("#buttonNavigate");
+        clickOn("#weapon1");
+        clickOn("#startGame");
         WaitForAsyncUtils.waitForFxEvents();
         FxAssert.verifyThat("#InitialGame", NodeMatchers.isNotNull());
     }

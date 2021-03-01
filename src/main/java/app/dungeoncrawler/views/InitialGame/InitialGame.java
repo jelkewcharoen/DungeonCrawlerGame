@@ -41,7 +41,4 @@ public class InitialGame extends ViewBase {
     public Scene getScene() {
         return this.scene;
     }
-    public String getMoney() {
-        return money.getText();
-    }
 }

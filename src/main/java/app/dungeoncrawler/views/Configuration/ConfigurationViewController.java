@@ -27,9 +27,8 @@ import java.util.ResourceBundle;
 
 public class ConfigurationViewController implements Initializable {
 
-    private String selectedDifficulty;
-    private DefaultWeapons selectedWeapon;
-    private SimpleBooleanProperty isButtonDisabled = new SimpleBooleanProperty(true);
+    private String selectedDifficulty = null;
+    private DefaultWeapons selectedWeapon = null;
     private SimpleStringProperty powerObservable = new SimpleStringProperty("The power is: 0");
     private SimpleStringProperty errorText = new SimpleStringProperty("Please enter a valid name");
     private String nameText = "";
@@ -59,27 +58,26 @@ public class ConfigurationViewController implements Initializable {
         this.error.textProperty().bind(this.errorText);
     }
     
-    private void isFormValid() {
-        if (this.selectedWeapon == null 
-                || selectedDifficulty == null 
-                || this.nameText == "" 
-                || !Player.isPlayerNameValid(this.nameText)
+    private boolean isFormValid() {
+        if (this.nameText == "" || !Player.isPlayerNameValid(this.nameText)
         ) {
             this.errorText.set("Please enter a valid name");
-            this.isButtonDisabled.set(true);
-            return;
+            return false;
         }
 
         this.errorText.set("");
-        this.isButtonDisabled.set(false);
+        return true;
     };
     
     private void createSubmitButtonEventHandler() {
-        this.startGame.disableProperty().bind(this.isButtonDisabled);
 
         this.startGame.setOnAction((event) -> {
             Node node = (Node) event.getSource();
             Stage thisStage = (Stage) node.getScene().getWindow();
+            
+            if (!this.isFormValid()) {
+               return; 
+            }
             
             Game.createDungeon(this.selectedDifficulty);
             Game.createPlayer(this.nameText, this.selectedWeapon);
