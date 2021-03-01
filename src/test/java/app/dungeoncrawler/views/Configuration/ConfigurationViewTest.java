@@ -39,7 +39,7 @@ public class ConfigurationViewTest extends ApplicationTest {
 
     @Before
     public void tearUp() throws Exception {
-	
+
     }
 
     @Override
@@ -51,7 +51,7 @@ public class ConfigurationViewTest extends ApplicationTest {
         stage.setHeight(512);
         stage.setScene(thisScene.getScene());
 
-        controller = ((ConfigurationView)thisScene).getController();
+        controller = ((ConfigurationView) thisScene).getController();
         stage.show();
         stage.toFront();
     }
@@ -73,7 +73,8 @@ public class ConfigurationViewTest extends ApplicationTest {
         clickOn("#weapon1");
         WaitForAsyncUtils.waitForFxEvents();
         // then:
-        assertEquals(Weapon.getWeaponsWeaponMap().get(DefaultWeapons.WEAPON1).getPower(), controller.getPower());
+        int p = controller.getPower();
+        assertEquals(Weapon.getWeaponsWeaponMap().get(DefaultWeapons.WEAPON1).getPower(), p);
 
     }
 
@@ -83,7 +84,8 @@ public class ConfigurationViewTest extends ApplicationTest {
         clickOn("#weapon3");
         WaitForAsyncUtils.waitForFxEvents();
         // then:
-        assertEquals(Weapon.getWeaponsWeaponMap().get(DefaultWeapons.WEAPON3).getPower(), controller.getPower());
+        int p = controller.getPower();
+        assertEquals(Weapon.getWeaponsWeaponMap().get(DefaultWeapons.WEAPON3).getPower(), p);
     }
 
     @Test
@@ -92,7 +94,8 @@ public class ConfigurationViewTest extends ApplicationTest {
         clickOn("#weapon2");
         WaitForAsyncUtils.waitForFxEvents();
         // then:
-        assertEquals(Weapon.getWeaponsWeaponMap().get(DefaultWeapons.WEAPON2).getPower(), controller.getPower());
+        int p = controller.getPower();
+        assertEquals(Weapon.getWeaponsWeaponMap().get(DefaultWeapons.WEAPON2).getPower(), p);
 
     }
 
@@ -107,11 +110,10 @@ public class ConfigurationViewTest extends ApplicationTest {
 
     @Test
     public void testDifficultyEasy() {
-
-	clickOn("#nameEnter").write("easy");
-	clickOn("#difficultyLevel");
-	clickOn("EASY");
-	WaitForAsyncUtils.waitForFxEvents();
-	assertEquals(100, Game.getPlayer().getGold());
+        clickOn("#nameEnter").write("easy");
+        clickOn("#difficultyLevel");
+        clickOn("EASY");
+        WaitForAsyncUtils.waitForFxEvents();
+        assertEquals(100, Game.getPlayer().getGold());
     }
 }
