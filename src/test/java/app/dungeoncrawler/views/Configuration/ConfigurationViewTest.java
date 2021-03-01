@@ -70,6 +70,26 @@ public class ConfigurationViewTest extends ApplicationTest {
     }
 
     @Test
+    public void testWeapon2Power() {
+        // when:
+        clickOn("#weapon2");
+        WaitForAsyncUtils.waitForFxEvents();
+        // then:
+        assertEquals(Weapon.getWeaponsWeaponMap().get(DefaultWeapons.WEAPON2).getPower(), controller.getPower());
+
+    }
+
+    @Test
+    public void testWeapon3Power() {
+        // when:
+        clickOn("#weapon3");
+        WaitForAsyncUtils.waitForFxEvents();
+        // then:
+        assertEquals(Weapon.getWeaponsWeaponMap().get(DefaultWeapons.WEAPON3).getPower(), controller.getPower());
+
+    }
+
+    @Test
     public void testNavigationToInitialGame() {
         clickOn("#nameEnter").write("name");
         clickOn("#weapon1");
