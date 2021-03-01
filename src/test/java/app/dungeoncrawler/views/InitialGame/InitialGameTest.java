@@ -1,7 +1,9 @@
 package app.dungeoncrawler.views.InitialGame;
 
 
+import app.dungeoncrawler.models.Dungeon;
 import app.dungeoncrawler.models.Game;
+import app.dungeoncrawler.utils.DefaultWeapons;
 import app.dungeoncrawler.views.AppScenes;
 import app.dungeoncrawler.views.Configuration.ConfigurationView;
 import app.dungeoncrawler.utils.SceneNames;
@@ -34,6 +36,8 @@ public class InitialGameTest extends ApplicationTest {
 
     @Override
     public void start(Stage stage) throws Exception {
+        Game.createDungeon("EASY");
+        Game.createPlayer("Test player", DefaultWeapons.WEAPON1);
         AppScenes scenes = new AppScenes(stage);
         Map<SceneNames, ViewBase> scenesMap = scenes.getUiViews();
         thisScene = scenesMap.get(SceneNames.INITIAL_GAME);
