@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 public class ConfigurationView extends ViewBase {
     private Scene scene;
-    public ConfigurationViewController controller;
+    private ConfigurationViewController controller;
 
     /**
      * initialize the configuration screen

@@ -2,24 +2,30 @@ package app.dungeoncrawler.views.InitialGame;
 
 import app.dungeoncrawler.models.Game;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.text.Text;
 
-public class InitialGameController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class InitialGameController implements Initializable {
     
     @FXML
-    public Text money;
+    private Text money;
 
     /**
      * initialize the controller of the scene
      */
-    public void initialize() {
-        System.out.println(money);    
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        System.out.println(money.getText());
     }
-
     /**
      * trigger the scene to start
      */
     public void mounting() {
         this.money.setText("" + Game.getPlayer().getGold());
     }
+
+
 }

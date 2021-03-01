@@ -31,17 +31,24 @@ public class ConfigurationViewController implements Initializable {
     private SimpleStringProperty powerObservable = new SimpleStringProperty("The power is: 0");
     private SimpleStringProperty errorText = new SimpleStringProperty("Please enter a valid name");
     private String nameText = "";
-    public int power;
+    private int power;
 
     @FXML
-    public Button startGame;   
-    public Text error;
-    public Label powerDisplay;
-    public TextField nameEnter;    
-    public Button weapon1;        
-    public Button weapon2;    
-    public Button weapon3;
-    public ComboBox<String> difficultyLevel;    
+    private Button startGame;
+    @FXML
+    private Text error;
+    @FXML
+    private Label powerDisplay;
+    @FXML
+    private TextField nameEnter;
+    @FXML
+    private Button weapon1;
+    @FXML
+    private Button weapon2;
+    @FXML
+    private Button weapon3;
+    @FXML
+    private ComboBox<String> difficultyLevel;    
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
