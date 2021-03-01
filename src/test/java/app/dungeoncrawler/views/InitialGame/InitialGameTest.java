@@ -20,7 +20,7 @@ import java.util.Map;
 import static org.junit.Assert.assertTrue;
 
 public class InitialGameTest extends ApplicationTest {
-    ViewBase thisScene;
+    private ViewBase thisScene;
     @BeforeClass
     public static void config() throws Exception {
         System.getProperties().put("testfx.robot", "glass");
