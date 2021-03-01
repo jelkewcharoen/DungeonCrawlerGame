@@ -11,7 +11,10 @@ public class WelcomeViewController {
     
     @FXML
     public Button buttonNavigate;
-    
+
+    /**
+     * Initializes the WelcomeViewController screen
+     */
     public void initialize() {
         buttonNavigate.setOnMouseClicked((event) -> {
             Node node = (Node) event.getSource();
