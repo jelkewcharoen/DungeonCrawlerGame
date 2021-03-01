@@ -6,7 +6,6 @@ import app.dungeoncrawler.models.Weapon;
 import app.dungeoncrawler.utils.DefaultWeapons;
 import app.dungeoncrawler.views.AppScenes;
 import app.dungeoncrawler.utils.SceneNames;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -113,7 +112,7 @@ public class ConfigurationViewController implements Initializable {
                         selectedWeapon = mapWeaponIdToEnum(weapon.getId());
                         
                         // retrieving the power from the weapon
-                        power = Weapon.defaultWeapons.get(selectedWeapon).getPower();
+                        power = Weapon.getWeaponsWeaponMap().get(selectedWeapon).getPower();
                         powerObservable.set("The power is: " + power);
                         
                     } else {
