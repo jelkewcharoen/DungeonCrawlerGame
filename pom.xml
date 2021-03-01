@@ -68,6 +68,7 @@
           <consoleOutput>true</consoleOutput>
           <failsOnError>true</failsOnError>
           <linkXRef>false</linkXRef>
+          <includeTestResources>true</includeTestResources>
         </configuration>
         <executions>
           <execution>

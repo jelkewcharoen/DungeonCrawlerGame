@@ -5,9 +5,7 @@ import app.dungeoncrawler.utils.DefaultWeapons;
 import app.dungeoncrawler.views.AppScenes;
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.ViewBase;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.hamcrest.Matchers;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -15,14 +13,12 @@ import org.testfx.api.FxAssert;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
-import org.testfx.matcher.control.LabeledMatchers;
 import org.testfx.util.WaitForAsyncUtils;
 
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.testfx.matcher.base.NodeMatchers.hasChild;
-import static org.testfx.util.NodeQueryUtils.hasText;
 
 public class ConfigurationViewTest extends ApplicationTest {
     private static String error;
@@ -69,7 +65,7 @@ public class ConfigurationViewTest extends ApplicationTest {
         clickOn("#weapon1");
         WaitForAsyncUtils.waitForFxEvents();
         // then:
-        assertEquals(Weapon.defaultWeapons.get(DefaultWeapons.WEAPON1).getPower(), controller.getPower());
+        assertEquals(Weapon.getWeaponsWeaponMap().get(DefaultWeapons.WEAPON1).getPower(), controller.getPower());
 
     }
 
