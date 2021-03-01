@@ -11,13 +11,17 @@ public class ConfigurationView extends ViewBase {
     private Scene scene;
     public ConfigurationViewController controller;
 
+    /**
+     * initialize the configuration screen
+     * @param stage the stage for the screen
+     */
     public ConfigurationView(Stage stage) {
         super(stage, SceneNames.CONFIGURATION);
         this.buildScene();
     }
 
     @Override
-    public void buildScene(){
+    public void buildScene() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("ConfigurationView.fxml"));
@@ -35,6 +39,11 @@ public class ConfigurationView extends ViewBase {
     public Scene getScene() {
         return scene;
     }
+
+    /**
+     * getter for the controller
+     * @return the controller for the configuration screen
+     */
     public ConfigurationViewController getController() {
         return this.controller;
     }
