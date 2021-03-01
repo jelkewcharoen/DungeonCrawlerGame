@@ -9,11 +9,14 @@ import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.Before;
 import org.testfx.api.FxAssert;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
 import org.testfx.util.WaitForAsyncUtils;
+import app.dungeoncrawler.models.Game;
+
 
 import java.util.Map;
 
@@ -32,6 +35,11 @@ public class ConfigurationViewTest extends ApplicationTest {
     @After
     public void tearDown() throws Exception {
         FxToolkit.hideStage();
+    }
+
+    @Before
+    public void tearUp() throws Exception {
+	
     }
 
     @Override
@@ -69,6 +77,23 @@ public class ConfigurationViewTest extends ApplicationTest {
 
     }
 
+
+
+
+
+
+
+
+    
+    @Test
+    public void testWeapon3Power() {
+        // when:
+        clickOn("#weapon3");
+        WaitForAsyncUtils.waitForFxEvents();
+        // then:
+        assertEquals(Weapon.getWeaponsWeaponMap().get(DefaultWeapons.WEAPON3).getPower(), controller.getPower());
+    }
+
     @Test
     public void testNavigationToInitialGame() {
         clickOn("#nameEnter").write("name");
@@ -78,4 +103,13 @@ public class ConfigurationViewTest extends ApplicationTest {
         FxAssert.verifyThat("#InitialGame", NodeMatchers.isNotNull());
     }
 
+    @Test
+    public void testDifficultyEasy() {
+
+	clickOn("#nameEnter").write("easy");
+	clickOn("#difficultyLevel");
+	clickOn("EASY");
+	WaitForAsyncUtils.waitForFxEvents();
+	assertEquals(100, Game.getPlayer().getGold());
+    }
 }
