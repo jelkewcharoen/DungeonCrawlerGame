@@ -1,9 +1,11 @@
 package app.dungeoncrawler.views.InitialGame;
 
 
+import app.dungeoncrawler.models.Dungeon;
 import app.dungeoncrawler.models.Game;
 import app.dungeoncrawler.utils.DefaultWeapons;
 import app.dungeoncrawler.views.AppScenes;
+import app.dungeoncrawler.views.Configuration.ConfigurationView;
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.ViewBase;
 import javafx.stage.Stage;
@@ -17,6 +19,7 @@ import org.testfx.matcher.base.NodeMatchers;
 
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class InitialGameTest extends ApplicationTest {
