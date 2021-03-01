@@ -51,12 +51,19 @@ public class ConfigurationViewController implements Initializable {
         this.createSubmitButtonEventHandler();
         this.onNameInputChange();
     }
-    
+
+    /**
+     * add the labels for the weapon power and error message
+     */
     public void bindLabels() {
         this.powerDisplay.textProperty().bind(this.powerObservable);
         this.error.textProperty().bind(this.errorText);
     }
-    
+
+    /**
+     * check if the name field is not empty
+     * @return whether the name text field is filled
+     */
     private boolean isFormValid() {
         if (this.nameText == "" || !Player.isPlayerNameValid(this.nameText)
         ) {
@@ -67,7 +74,10 @@ public class ConfigurationViewController implements Initializable {
         this.errorText.set("");
         return true;
     };
-    
+
+    /**
+     * create the event handle for the submit button
+     */
     private void createSubmitButtonEventHandler() {
 
         this.startGame.setOnAction((event) -> {
@@ -75,7 +85,7 @@ public class ConfigurationViewController implements Initializable {
             Stage thisStage = (Stage) node.getScene().getWindow();
             
             if (!this.isFormValid()) {
-               return; 
+                return;
             }
             
             Game.createDungeon(this.selectedDifficulty);
@@ -84,18 +94,26 @@ public class ConfigurationViewController implements Initializable {
             AppScenes.navigateTo(thisStage, SceneNames.INITIAL_GAME);
         }); 
     }
-    
+
+    /**
+     * map each weapon to an id and return the weapon of the chosen id
+     * @param weaponId the id of the chosen weapon
+     * @return the chosen weapon
+     */
     private DefaultWeapons mapWeaponIdToEnum(String weaponId) {
-        Map<String, DefaultWeapons> weaponMap = new HashMap <> (){{
-            put(weapon1.getId(), DefaultWeapons.WEAPON1);
-            put(weapon2.getId(), DefaultWeapons.WEAPON2);
-            put(weapon3.getId(), DefaultWeapons.WEAPON3);
-        }};
+        Map<String, DefaultWeapons> weaponMap = new HashMap() {{
+                put(weapon1.getId(), DefaultWeapons.WEAPON1);
+                put(weapon2.getId(), DefaultWeapons.WEAPON2);
+                put(weapon3.getId(), DefaultWeapons.WEAPON3);
+                }};
         return weaponMap.get(weaponId) != null ? weaponMap.get(weaponId) : DefaultWeapons.WEAPON1;
     }
-    
+
+    /**
+     * set the event handler of the weapon selection field
+     */
     private void selectWeaponEventHandler() {
-        Button[] weapons = new Button[]{ weapon1,weapon2, weapon3 };
+        Button[] weapons = new Button[]{weapon1, weapon2, weapon3};
         EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -128,16 +146,23 @@ public class ConfigurationViewController implements Initializable {
         weapon2.setOnAction(handler);
         weapon3.setOnAction(handler);
     }
-    
+
+    /**
+     * set the difficulty level based on the player's choice
+     */
     private void onDifficultyChange() {
-        this.difficultyLevel.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (oldValue != newValue && this.selectedDifficulty != newValue) {
-                this.selectedDifficulty = newValue;
-                this.isFormValid();
-            }
-        });
+        this.difficultyLevel.getSelectionModel().selectedItemProperty().addListener(
+            (observable, oldValue, newValue) -> {
+                if (oldValue != newValue && this.selectedDifficulty != newValue) {
+                    this.selectedDifficulty = newValue;
+                    this.isFormValid();
+                }
+            });
     }
 
+    /**
+     * set the name to the name that player writes
+     */
     public void onNameInputChange() {
         this.nameEnter.textProperty().addListener((observable, oldValue, newValue) -> {
             this.nameText = newValue;
@@ -145,6 +170,10 @@ public class ConfigurationViewController implements Initializable {
         });
     }
 
+    /**
+     * getter fot the weapon's power
+     * @return the weapon's power
+     */
     public int getPower() {
         return power;
     }

@@ -11,12 +11,19 @@ import javafx.stage.Stage;
 public class InitialGame extends ViewBase {
     private Scene scene;
     private InitialGameController controller;
-    
+
+    /**
+     * initialize the scene with the passed in stage
+     * @param stage the stage for the scene
+     */
     public InitialGame(Stage stage) {
         super(stage, SceneNames.INITIAL_GAME);
         this.buildScene();
     }
 
+    /**
+     * build the scene
+     */
     public void buildScene() {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -38,6 +45,10 @@ public class InitialGame extends ViewBase {
         this.controller.mounting();
     }
 
+    /**
+     * getter for the scene
+     * @return the scene object
+     */
     public Scene getScene() {
         return this.scene;
     }
