@@ -1,5 +1,6 @@
 package app.dungeoncrawler.views;
 
+import app.dungeoncrawler.utils.SceneNames;
 import javafx.stage.Stage;
 
 public abstract class ViewBase implements ViewMaker {

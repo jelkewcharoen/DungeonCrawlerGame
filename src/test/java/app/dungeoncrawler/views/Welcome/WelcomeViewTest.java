@@ -1,13 +1,8 @@
 package app.dungeoncrawler.views.Welcome;
 
 import app.dungeoncrawler.views.AppScenes;
-import app.dungeoncrawler.views.Configuration.ConfigurationView;
-import app.dungeoncrawler.views.SceneNames;
-import app.dungeoncrawler.views.ViewBase;
 import javafx.stage.Stage;
-import org.hamcrest.Matchers;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testfx.api.FxAssert;
@@ -16,10 +11,6 @@ import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
 import org.testfx.matcher.control.LabeledMatchers;
 import org.testfx.util.WaitForAsyncUtils;
-import org.w3c.dom.Node;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class WelcomeViewTest extends ApplicationTest {
     @BeforeClass

@@ -1,80 +1,151 @@
 package app.dungeoncrawler.views.Configuration;
 
+import app.dungeoncrawler.models.Game;
+import app.dungeoncrawler.models.Player;
+import app.dungeoncrawler.models.Weapon;
+import app.dungeoncrawler.utils.DefaultWeapons;
 import app.dungeoncrawler.views.AppScenes;
-import app.dungeoncrawler.views.SceneNames;
+import app.dungeoncrawler.utils.SceneNames;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class ConfigurationViewController {
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 
+public class ConfigurationViewController implements Initializable {
+
+    private String selectedDifficulty = null;
+    private DefaultWeapons selectedWeapon = null;
+    private SimpleStringProperty powerObservable = new SimpleStringProperty("The power is: 0");
+    private SimpleStringProperty errorText = new SimpleStringProperty("Please enter a valid name");
+    private String nameText = "";
     public int power;
-    @FXML
-    public Button buttonNavigate;
-    public TextField nameEnter;
-    public Text error;
-    public Button weapon1;
-    public Button weapon2;
-    public Button weapon3;
-    public Label powerDisplay;
 
-    public void initialize() {
-        
-        buttonNavigate.setOnAction((event) -> {
+    @FXML
+    public Button startGame;   
+    public Text error;
+    public Label powerDisplay;
+    public TextField nameEnter;    
+    public Button weapon1;        
+    public Button weapon2;    
+    public Button weapon3;
+    public ComboBox<String> difficultyLevel;    
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        this.onDifficultyChange();
+        this.selectWeaponEventHandler();
+        this.bindLabels();
+        this.createSubmitButtonEventHandler();
+        this.onNameInputChange();
+    }
+    
+    public void bindLabels() {
+        this.powerDisplay.textProperty().bind(this.powerObservable);
+        this.error.textProperty().bind(this.errorText);
+    }
+    
+    private boolean isFormValid() {
+        if (this.nameText == "" || !Player.isPlayerNameValid(this.nameText)
+        ) {
+            this.errorText.set("Please enter a valid name");
+            return false;
+        }
+
+        this.errorText.set("");
+        return true;
+    };
+    
+    private void createSubmitButtonEventHandler() {
+
+        this.startGame.setOnAction((event) -> {
             Node node = (Node) event.getSource();
             Stage thisStage = (Stage) node.getScene().getWindow();
-            if (checkName()) {
-
-                AppScenes.navigateTo(thisStage, SceneNames.INITIAL_GAME);
-            } else {
-                error.setText("Please type a valid name!");
+            
+            if (!this.isFormValid()) {
+               return; 
+            }
+            
+            Game.createDungeon(this.selectedDifficulty);
+            Game.createPlayer(this.nameText, this.selectedWeapon);
+            
+            AppScenes.navigateTo(thisStage, SceneNames.INITIAL_GAME);
+        }); 
+    }
+    
+    private DefaultWeapons mapWeaponIdToEnum(String weaponId) {
+        Map<String, DefaultWeapons> weaponMap = new HashMap <> (){{
+            put(weapon1.getId(), DefaultWeapons.WEAPON1);
+            put(weapon2.getId(), DefaultWeapons.WEAPON2);
+            put(weapon3.getId(), DefaultWeapons.WEAPON3);
+        }};
+        return weaponMap.get(weaponId) != null ? weaponMap.get(weaponId) : DefaultWeapons.WEAPON1;
+    }
+    
+    private void selectWeaponEventHandler() {
+        Button[] weapons = new Button[]{ weapon1,weapon2, weapon3 };
+        EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Button weapon = (Button) event.getSource();
+                for (int i = 0; i < weapons.length; i++) {
+                    if (weapons[i].getId() == weapon.getId()) {
+                        
+                        // updating styles
+                        weapons[i].getStyleClass().clear();
+                        weapons[i].getStyleClass().add("pickWeaponTile");  
+                        weapons[i].getStyleClass().add("selected");
+                        
+                        // assigns selected weapon
+                        selectedWeapon = mapWeaponIdToEnum(weapon.getId());
+                        
+                        // retrieving the power from the weapon
+                        power = Weapon.defaultWeapons.get(selectedWeapon).getPower();
+                        powerObservable.set("The power is: " + power);
+                        
+                    } else {
+                        weapons[i].getStyleClass().clear();
+                        weapons[i].getStyleClass().add("pickWeaponTile");
+                    }
+                }
+                isFormValid();
+            }
+        };
+        
+        weapon1.setOnAction(handler);
+        weapon2.setOnAction(handler);
+        weapon3.setOnAction(handler);
+    }
+    
+    private void onDifficultyChange() {
+        this.difficultyLevel.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (oldValue != newValue && this.selectedDifficulty != newValue) {
+                this.selectedDifficulty = newValue;
+                this.isFormValid();
             }
         });
+    }
 
-        weapon1.setOnAction((event) -> {
-            power = 100;
-            powerDisplay.setText("The power is: " + power);
-
-        });
-
-        weapon2.setOnAction((event) -> {
-            power = 200;
-            powerDisplay.setText("The power is: " + power);
-
-        });
-
-        weapon3.setOnAction((event) -> {
-            power = 300;
-            powerDisplay.setText("The power is: " + power);
-
+    public void onNameInputChange() {
+        this.nameEnter.textProperty().addListener((observable, oldValue, newValue) -> {
+            this.nameText = newValue;
+            this.isFormValid();
         });
     }
 
-    private boolean checkName() {
-        boolean result = true;
-        String n = nameEnter.getText();
-        if (n == null) {
-            result = false;
-
-        } else if (n.trim().isEmpty()) {
-            result = false;
-
-        } else if (n.equals("")) {
-            result = false;
-
-        }
-        return result;
-    }
-    public String errormessage() {
-        return error.getText();
-    }
-    public Text getError() {
-        return error;
-    }
     public int getPower() {
         return power;
     }

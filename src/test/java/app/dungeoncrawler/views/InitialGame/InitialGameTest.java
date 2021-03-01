@@ -1,9 +1,10 @@
 package app.dungeoncrawler.views.InitialGame;
 
 
+import app.dungeoncrawler.models.Game;
 import app.dungeoncrawler.views.AppScenes;
 import app.dungeoncrawler.views.Configuration.ConfigurationView;
-import app.dungeoncrawler.views.SceneNames;
+import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.ViewBase;
 import javafx.stage.Stage;
 import org.junit.After;
@@ -46,10 +47,11 @@ public class InitialGameTest extends ApplicationTest {
 
     @Test
     public void testMoneyText() {
-        FxAssert.verifyThat("#startingMoney", NodeMatchers.isNotNull());
+        FxAssert.verifyThat("#money", NodeMatchers.isNotNull());
     }
+
     @Test
     public void testMoneyPositive() {
-        assertTrue(Integer.parseInt(((InitialGame)thisScene).getMoney()) > 0);
+        assertTrue(Game.getPlayer().getGold() > 0);
     }
 }

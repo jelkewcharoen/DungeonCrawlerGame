@@ -1,7 +1,9 @@
 package app.dungeoncrawler.views.Configuration;
 
+import app.dungeoncrawler.models.Weapon;
+import app.dungeoncrawler.utils.DefaultWeapons;
 import app.dungeoncrawler.views.AppScenes;
-import app.dungeoncrawler.views.SceneNames;
+import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.ViewBase;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -25,6 +27,7 @@ import static org.testfx.util.NodeQueryUtils.hasText;
 public class ConfigurationViewTest extends ApplicationTest {
     private static String error;
     private static ConfigurationViewController controller;
+    
     @BeforeClass
     public static void config() throws Exception {
         System.getProperties().put("testfx.robot", "glass");
@@ -53,7 +56,7 @@ public class ConfigurationViewTest extends ApplicationTest {
     @Test
     public void testNameInput() {
         // when:
-        clickOn("#buttonNavigate");
+        clickOn("#startGame");
 
         // then:
         FxAssert.verifyThat("#configurationView", hasChild("#error"));
@@ -64,16 +67,17 @@ public class ConfigurationViewTest extends ApplicationTest {
     public void testWeapon1Power() {
         // when:
         clickOn("#weapon1");
-
+        WaitForAsyncUtils.waitForFxEvents();
         // then:
-        assertEquals(100, controller.getPower());
+        assertEquals(Weapon.defaultWeapons.get(DefaultWeapons.WEAPON1).getPower(), controller.getPower());
 
     }
 
     @Test
     public void testNavigationToInitialGame() {
         clickOn("#nameEnter").write("name");
-        clickOn("#buttonNavigate");
+        clickOn("#weapon1");
+        clickOn("#startGame");
         WaitForAsyncUtils.waitForFxEvents();
         FxAssert.verifyThat("#InitialGame", NodeMatchers.isNotNull());
     }
