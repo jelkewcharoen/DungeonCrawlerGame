@@ -46,7 +46,5 @@ public class WelcomeViewTest extends ApplicationTest {
         FxAssert.verifyThat("#configurationView", NodeMatchers.isNotNull());
     }
 
-    @Test
-    public void getScene() {
-    }
+
 }
