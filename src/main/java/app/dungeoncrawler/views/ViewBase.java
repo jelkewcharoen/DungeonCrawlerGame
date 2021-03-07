@@ -26,7 +26,7 @@ public abstract class ViewBase implements ViewMaker {
         this.sceneName = name;
         this.stage = stage;
     }
-
+    
     /**
      * Helps build a scene of the game
      */
