@@ -8,8 +8,8 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         AppScenes scenes = new AppScenes(stage);
-        stage.setWidth(720);
-        stage.setHeight(512);
+        stage.setWidth(640);
+        stage.setHeight(480);
         stage.setScene(scenes.getMainPage());
         stage.setTitle("Team 39: 404 Not Found");
         stage.setResizable(false);

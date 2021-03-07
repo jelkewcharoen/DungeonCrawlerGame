@@ -2,7 +2,11 @@ package app.dungeoncrawler.models;
 
 import app.dungeoncrawler.utils.DefaultWeapons;
 import app.dungeoncrawler.utils.Difficulties;
+import app.dungeoncrawler.utils.Sprite;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
+import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -14,13 +18,24 @@ public class Player {
             put(Difficulties.HARD, 30);
         }
     };
-
+    private final Image playerImage = new Image(
+            getClass().getResource("/app/assets/player.png").toExternalForm(),
+            85, 
+            100,
+            false,
+            false
+    );
+    
     private final int defaultHealth = 10;
     private final int defaultGold = 10;
     private final int health;
     private Weapon weapon;
     private int gold;
     private String name;
+    private Sprite sprite;
+    private int x;
+    private int y;
+    public static int PLAYER_SPEED = 15;
 
     /**
      * Creates a new player.
@@ -35,6 +50,33 @@ public class Player {
         this.weapon = Weapon.getWeaponsWeaponMap().get(weapons);
         this.gold = defaultGold * multiplier;
         this.health = defaultHealth * multiplier;
+        this.sprite = new Sprite();
+        this.sprite.setImage(playerImage);
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setPlayerPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
+        this.sprite.setPosition(x, y);
+    }
+
+    public Sprite getSprite() {
+        return sprite;
+    }
+    
+    public void movePlayer(int x, int y, GraphicsContext c) {
+        c.restore();
+        c.clearRect(this.x,this.y,105, 200);
+        this.setPlayerPosition(x, y);
+        this.sprite.render(c);
     }
 
     /**
@@ -56,4 +98,6 @@ public class Player {
     public int getGold() {
         return gold;
     }
+    
+    
 }
