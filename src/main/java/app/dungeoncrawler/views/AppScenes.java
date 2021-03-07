@@ -35,8 +35,8 @@ public class AppScenes {
      * @return the scene that corresponds to the main page
      */
     public Scene getMainPage() {
-        AppScenes.currentView = AppScenes.uiViews.get(SceneNames.WELCOME);
-        return AppScenes.uiViews.get(SceneNames.WELCOME).getScene();
+        AppScenes.currentView = AppScenes.uiViews.get(SceneNames.INITIAL_GAME);
+        return AppScenes.uiViews.get(SceneNames.INITIAL_GAME).getScene();
     }
 
     /**

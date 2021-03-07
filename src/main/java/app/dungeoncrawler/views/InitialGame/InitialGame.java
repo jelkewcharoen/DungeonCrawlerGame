@@ -1,9 +1,15 @@
 package app.dungeoncrawler.views.InitialGame;
 
 import app.dungeoncrawler.utils.SceneNames;
+import app.dungeoncrawler.utils.Sprite;
 import app.dungeoncrawler.views.ViewBase;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -20,7 +26,7 @@ public class InitialGame extends ViewBase {
         super(stage, SceneNames.INITIAL_GAME);
         this.buildScene();
     }
-
+    
     /**
      * build the scene
      */
@@ -28,13 +34,12 @@ public class InitialGame extends ViewBase {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("InitialGame.fxml"));
-            AnchorPane root = loader.load();
-            System.out.println(root.getId());
+            Pane root = loader.load();
             InitialGameController controller = loader.getController();
             this.controller = controller;
             
             this.scene = new Scene(root, this.stage.getWidth(), this.stage.getHeight());
-            
+            this.scene.setOnKeyPressed(this.controller::handleOnKeyPressed);
         } catch (Exception e) {
             e.printStackTrace();
         }
