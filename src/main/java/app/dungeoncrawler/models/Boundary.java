@@ -14,8 +14,8 @@ public class Boundary {
      * @param y y position
      * @return true if the position is within the boundary
      */
-    public boolean withinBoundary(int x, int y) {
-        if(numOfDoor >= 3) {
+    public static boolean withinBoundary(int x, int y) {
+      /*  if(numOfDoor >= 3) {
             if (y > yPos[2] && y < yPos[4] && x < xPos[0]) {
                 return true;
             }
@@ -37,6 +37,20 @@ public class Boundary {
                 return true;
             }
         }
-        return false;
+        return false;*/
+
+         boolean result = true;
+        if (x < 150 && (y < 115 || y > 145 )) {
+            result = false;
+        } else if ((x >= 150 && x <= 405) && (y < 55 || y > 325)) {
+                result = false;
+        }
+        if (x > 405 && y != 190) {
+            result = false;
+        }
+
+
+
+        return result;
     }
 }

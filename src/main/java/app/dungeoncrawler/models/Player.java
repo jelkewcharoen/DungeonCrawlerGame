@@ -73,9 +73,13 @@ public class Player {
     }
     
     public void movePlayer(int x, int y, GraphicsContext c) {
+        System.out.println("" + x + ", " + y);
         c.restore();
         c.clearRect(this.x,this.y,105, 200);
-        this.setPlayerPosition(x, y);
+        if (Boundary.withinBoundary(x, y)) {
+            this.setPlayerPosition(x, y);
+        }
+
         this.sprite.render(c);
     }
 
