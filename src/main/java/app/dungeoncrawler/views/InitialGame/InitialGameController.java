@@ -69,7 +69,7 @@ public class InitialGameController implements Initializable {
                 getClass()
                         .getResource("/app/assets/terrain5.jpg")
                         .toExternalForm(), 640, 480, true, false);
-        player.setPlayerPosition(0,130);
+        player.setPlayerPosition(150,130);
 
         pane.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
             roomLayer.setWidth(newValue.getWidth());
