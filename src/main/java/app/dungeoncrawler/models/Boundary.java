@@ -42,10 +42,15 @@ public class Boundary {
          boolean result = true;
         if (x < 150 && (y < 115 || y > 145 )) {
             result = false;
-        } else if ((x >= 150 && x <= 405) && (y < 55 || y > 325)) {
-                result = false;
         }
-        if (x > 405 && y != 190) {
+        if ((x >= 150 && x <= 405) && (y < 55 || y > 325)) {
+            if ((x == 225 && y < 325) || (x == 330 && y > 55)) { // x = 225 is for the north door (if y < 55 should work)
+                result = true;          // x = 330 is for south door (if y > 325 should work)
+            } else {
+                result = false; // comment
+            }
+        }
+        if (x > 405 && y != 190) { // x = 405 for the east door
             result = false;
         }
 
