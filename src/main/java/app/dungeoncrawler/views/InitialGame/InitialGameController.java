@@ -61,13 +61,13 @@ public class InitialGameController implements Initializable {
 
     public void loadRoom(Pane pane) {
         Game.createDungeon("");
-        Game.createPlayer("ivna", DefaultWeapons.WEAPON1);
+        Game.createPlayer("ivan", DefaultWeapons.WEAPON1);
         Player player = Game.getPlayer();
         GraphicsContext gc = roomLayer.getGraphicsContext2D();
         GraphicsContext playerLayerGc = playerLayer.getGraphicsContext2D();
         Image original = new Image(
                 getClass()
-                        .getResource("/app/assets/terrain5.jpg")
+                        .getResource("/app/assets/terrain1.jpg")
                         .toExternalForm(), 640, 480, true, false);
         player.setPlayerPosition(150,130);
 
