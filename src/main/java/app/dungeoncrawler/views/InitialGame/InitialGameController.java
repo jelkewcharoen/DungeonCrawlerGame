@@ -67,7 +67,7 @@ public class InitialGameController implements Initializable {
         GraphicsContext playerLayerGc = playerLayer.getGraphicsContext2D();
         Image original = new Image(
                 getClass()
-                        .getResource("/app/assets/terrain1.jpg")
+                        .getResource("/app/assets/1exit.png")
                         .toExternalForm(), 640, 480, true, false);
         player.setPlayerPosition(150,130);
 
