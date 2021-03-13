@@ -6,11 +6,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.canvas.Canvas?>
 <StackPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            styleClass="hBoxMainContainer"
-            stylesheets="@InitialGame.css"
-            fx:id="initialGamePane"
-            fx:controller="app.dungeoncrawler.views.InitialGame.InitialGameController"
+           xmlns:fx="http://javafx.com/fxml"
+           styleClass="hBoxMainContainer"
+           stylesheets="@InitialGame.css"
+           fx:id="initialGamePane"
+           fx:controller="app.dungeoncrawler.views.InitialGame.InitialGameController"
            onKeyPressed="#handleOnKeyPressed"
            onKeyReleased="#handleOnKeyPressed"
 >

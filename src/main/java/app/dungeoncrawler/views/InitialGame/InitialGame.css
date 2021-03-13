@@ -8,3 +8,6 @@
     -fx-text-size: 100;
     -fx-text-color: brown
 }
+.loaderPane {
+    -fx-background-color: black;
+}

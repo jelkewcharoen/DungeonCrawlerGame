@@ -5,55 +5,169 @@ public class Boundary {
     int[] xPos = new int[5];
     int[] yPos = new int[5];
     int numOfDoor;
+
     public Boundary(int numOfDoor) {
         this.numOfDoor = numOfDoor;
     }
+
     /**
-     * check whether the x and y position is within the boundary
+     * check whether x and y are in boundary when the room has only 1 exit
+     *
      * @param x x position
      * @param y y position
      * @return true if the position is within the boundary
      */
     public static boolean withinBoundary(int x, int y) {
-      /*  if(numOfDoor >= 3) {
-            if (y > yPos[2] && y < yPos[4] && x < xPos[0]) {
-                return true;
-            }
-        }
-        if(numOfDoor >= 2) {
-            if (y > yPos[1] && y < yPos[3] && x > xPos[5]) {
-                return true;
-            }
-        }
-        if(numOfDoor >= 1) {
-            if (y > yPos[5] && x > xPos[1] && x < xPos[3]) {
-                return true;
-            }
-        }
-        if(numOfDoor >= 0) {
-            if (y > yPos[0] && y < yPos[5] && x > xPos[0] && x < xPos[5]) {
-                return true;
-            } else if (y < yPos[0] && x > xPos[2] && x < xPos[4]) {
-                return true;
-            }
-        }
-        return false;*/
 
-         boolean result = true;
-        if (x < 150 && (y < 115 || y > 145 )) {
-            result = false;
-        }
-        if ((x >= 150 && x <= 405) && (y < 0 || y > 270)) {
-            if ((x == 225 && y < 270) || (x == 330 && y > 0)) { // x = 225 is for the north door (if y < 55 should work)
-                result = true;          // x = 330 is for south door (if y > 325 should work)
+        boolean result = true;
+        if (x < 150) {
+            if (y >= 175 && y <= 205) { // left exit
+                result = true;
             } else {
-                result = false; // comment
+                result = false;
             }
         }
-        if (x > 405 && y != 190) { // x = 405 for the east door
+        if (x >= 150 && x <= 225) {
+            if (y < 55 || y > 325) { //before bottom exit
+                result = false;
+            }
+        } else if (x >= 270 && x <= 285) { //top exit - CLOSED -
+            if (y < 55 ||y > 325) {
+                result = false;
+            }
+        } else if (x > 405) { // right exit
             result = false;
+        } else {
+            if (y < 55 || y > 325) {
+                result = false;
+            }
         }
 
+
+        return result;
+    }
+
+
+
+
+    /**
+     * check whether x and y are in boundary when the room has 2 exits
+     *
+     * @param x x position
+     * @param y y position
+     * @return true if the position is within the boundary
+     */
+    public static boolean withinBoundary2Exit(int x, int y) {
+
+        boolean result = true;
+        if (x < 150) {
+            if (y >= 175 && y <= 205) { // left exit
+                result = true;
+            } else {
+                result = false;
+            }
+        }
+        if (x >= 150 && x <= 225) {
+            if (y < 55 || y > 325) { //before bottom exit
+                result = false;
+            }
+        } else if (x >= 270 && x <= 285) { //top exit
+            if (y > 325) {
+                result = false;
+            }
+        } else if (x > 405) { // right exit
+            result = false;
+        } else {
+            if (y < 55 || y > 325) {
+                result = false;
+            }
+        }
+
+
+        return result;
+    }
+
+
+    /**
+     * check whether x and y are in boundary when the room has 4 exits
+     *
+     * @param x x position
+     * @param y y position
+     * @return true if the position is within the boundary
+     */
+    public static boolean withinBoundary4Exit(int x, int y) {
+
+        boolean result = true;
+        if (x < 150) {
+            if (y >= 175 && y <= 205) { // left exit
+                result = true;
+            } else {
+                result = false;
+            }
+        }
+        if (x >= 150 && x < 210) {
+            if (y < 55 || y > 325) { //before bottom exit
+                result = false;
+            }
+        } else if (x >= 210 && x <= 225) { // bottom exit
+            if (y < 55) {
+                result = false;
+            }
+        } else if (x >= 270 && x <= 285) { //top exit
+            if (y > 325) {
+                result = false;
+            }
+        } else if (x > 405) {
+            if (y >= 130 && y <= 160) {
+                result = true;
+            } else {
+                result = false;
+            }
+        } else {
+            if (y < 55 || y > 325) {
+                result = false;
+            }
+        }
+
+
+        return result;
+    }
+
+
+    /**
+     * check whether x and y are in boundary when the room has 3 exits
+     * @param x - x coordinate of the player
+     * @param y - y coordinate of the player
+     * @return true if the player is within the boundary
+     */
+    public static boolean withinBoundary3Exits(int x, int y) {
+        boolean result = true;
+        if (x < 150) {
+            if (y >= 175 && y <= 205) { // left exit
+                result = true;
+            } else {
+                result = false;
+            }
+        }
+        if (x >= 150 && x < 210) {
+            if (y < 55 || y > 325) { //before bottom exit
+                result = false;
+            }
+        } else if (x >= 210 && x <= 225) { // bottom exit
+            if (y < 55) {
+                result = false;
+            }
+        } else if (x >= 270 && x <= 285) { //top exit
+            if (y > 325) {
+                result = false;
+            }
+        } else if (x > 405) {
+            result = false;
+        } else {
+            if (y < 55 || y > 325) {
+                result = false;
+            }
+        }
 
 
         return result;
