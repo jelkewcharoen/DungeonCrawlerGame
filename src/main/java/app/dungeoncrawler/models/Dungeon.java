@@ -9,6 +9,8 @@ import java.util.Random;
 public class Dungeon {
     public static int currentID = 0; //current id of the room
     public static HashMap<Integer, Room> rooms = new HashMap<>();
+    private Room activeRoom;
+    
     public static final Map<Difficulties, Integer> DIFFICULTIES = new HashMap<>() {
         {
             put(Difficulties.EASY, 1);
@@ -34,7 +36,14 @@ public class Dungeon {
         this.difficulty = mapStringToEnum.get(stringDifficulty) != null
                 ? mapStringToEnum.get(stringDifficulty)
                 : Difficulties.EASY;
-        rooms.put(0, new Room(0,false, false, 4, 0)); //starting room
+
+        this.activeRoom = new Room(
+                0,
+                false,
+                false,
+                4,
+                0);
+        rooms.put(0, this.activeRoom);
 
     }
 
@@ -54,24 +63,34 @@ public class Dungeon {
     public Room enterRoom(int id) {
         return rooms.get(id);
     }
-    /**
-     * method for creating a new room
-     * @param doorIndex the index of the door
-     * @return the new room
-     */
-    public Room createNewRoom(int doorIndex) {
-        Random random = new Random();
-        int newID = rooms.size();
-        int currentDepth = rooms.get(currentID).getDepth();
-        boolean isExit = false;
-        if (currentDepth >= 6) {
-            isExit = random.nextBoolean();
-        }
-        Room newRoom = new Room(currentID, random.nextBoolean(), isExit,random.nextInt(4 ), currentDepth + 1);
-        newRoom.setImage(""); //add image here
-        newRoom.setDoorID(doorIndex, newID);
-        rooms.put(newID, newRoom);
-        currentID = newID;
-        return rooms.get(currentID);
+    
+    public Room getActiveRoom() {
+        return activeRoom;
+    }
+    
+//    /**
+//     * method for creating a new room
+//     * @param doorIndex the index of the door
+//     * @return the new room
+//     */
+//    public Room createNewRoom(int doorIndex) {
+//        Random random = new Random();
+//        int newID = rooms.size();
+//        int currentDepth = rooms.get(currentID).getDepth();
+//        boolean isExit = false;
+//        
+//        if (currentDepth >= 6) {
+//            isExit = random.nextBoolean();
+//        }
+//        
+//        Room newRoom = new Room(currentID, random.nextBoolean(), isExit,random.nextInt(4 ), currentDepth + 1);
+//        newRoom.setDoorID(doorIndex, newID);
+//        rooms.put(newID, newRoom);
+//        currentID = newID;
+//        return rooms.get(currentID);
+//    }
+    
+    public Room getInitialRoom() {
+        return rooms.get(0);
     }
 }

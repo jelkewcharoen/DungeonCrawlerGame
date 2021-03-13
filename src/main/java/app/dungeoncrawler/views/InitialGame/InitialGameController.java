@@ -3,23 +3,20 @@ package app.dungeoncrawler.views.InitialGame;
 import app.dungeoncrawler.models.Dungeon;
 import app.dungeoncrawler.models.Game;
 import app.dungeoncrawler.models.Player;
+import app.dungeoncrawler.models.Room;
 import app.dungeoncrawler.utils.DefaultWeapons;
-import app.dungeoncrawler.utils.Difficulties;
-import app.dungeoncrawler.utils.Sprite;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
+import app.dungeoncrawler.utils.NodeLayer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class InitialGameController implements Initializable {
@@ -60,24 +57,40 @@ public class InitialGameController implements Initializable {
     } 
 
     public void loadRoom(Pane pane) {
+        // to be removed
         Game.createDungeon("");
         Game.createPlayer("ivan", DefaultWeapons.WEAPON1);
+        //to be removed ^
+
         Player player = Game.getPlayer();
-        GraphicsContext gc = roomLayer.getGraphicsContext2D();
+        Dungeon dungeon = Game.getDungeon();
+        GraphicsContext roomLayerGc = roomLayer.getGraphicsContext2D();
         GraphicsContext playerLayerGc = playerLayer.getGraphicsContext2D();
-        Image original = new Image(
-                getClass()
-                        .getResource("/app/assets/1exit.png")
-                        .toExternalForm(), 640, 480, true, false);
-        player.setPlayerPosition(150,130);
+        
+        Room initialRoom = dungeon.getInitialRoom();
+        NodeLayer roomNodeLayer = initialRoom.getRoomMap().getRoomLayer();
+        ArrayList<NodeLayer> inactiveDoors = initialRoom.getInactiveDoors();
+        
+        player.setPlayerPosition(
+                initialRoom.getStartingDoor().getDimension().averageX(), 
+                initialRoom.getStartingDoor().getDimension().averageY()
+        );
 
         pane.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
             roomLayer.setWidth(newValue.getWidth());
             roomLayer.setHeight(newValue.getHeight());
             playerLayer.setHeight(newValue.getHeight());
             playerLayer.setWidth(newValue.getWidth());
-            gc.drawImage(original, 0, 0);
-            player.getSprite().render(playerLayerGc);
+            roomNodeLayer.draw(roomLayerGc);
+            
+            for (int i = 0; i < inactiveDoors.size(); i++) {
+                System.out.println("SOMETHING");
+                NodeLayer doorNodeLayer = inactiveDoors.get(i);
+                doorNodeLayer.setPosition(doorNodeLayer.getDimension().averageX(), doorNodeLayer.getDimension().averageY());
+                doorNodeLayer.draw(roomLayerGc);
+            }
+
+            player.draw(playerLayerGc);
         });
     }
 }

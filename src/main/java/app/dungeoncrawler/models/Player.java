@@ -3,6 +3,7 @@ package app.dungeoncrawler.models;
 import app.dungeoncrawler.utils.DefaultWeapons;
 import app.dungeoncrawler.utils.Difficulties;
 import app.dungeoncrawler.utils.Sprite;
+import app.dungeoncrawler.utils.SpriteElement;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -11,20 +12,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-public class Player {
+public class Player extends SpriteElement {
     private static Map<Difficulties, Integer> playerLevelsMultiplier = new HashMap<>() {{
             put(Difficulties.EASY, 10);
             put(Difficulties.MEDIUM, 20);
             put(Difficulties.HARD, 30);
         }
     };
-    private final Image playerImage = new Image(
-            getClass().getResource("/app/assets/player.png").toExternalForm(),
-            85, 
-            100,
-            false,
-            false
-    );
     
     private final int defaultHealth = 10;
     private final int defaultGold = 10;
@@ -32,9 +26,6 @@ public class Player {
     private Weapon weapon;
     private int gold;
     private String name;
-    private Sprite sprite;
-    private int x;
-    private int y;
     public static int PLAYER_SPEED = 15;
 
     /**
@@ -44,43 +35,41 @@ public class Player {
      * @param difficulties the selected difficulty.
      */
     public Player(String name, DefaultWeapons weapons, Difficulties difficulties) {
+        super("/app/assets/player.png", 85, 100);
         int multiplier = Player.playerLevelsMultiplier.get(difficulties);
 
         this.name = name;
         this.weapon = Weapon.getWeaponsWeaponMap().get(weapons);
         this.gold = defaultGold * multiplier;
         this.health = defaultHealth * multiplier;
-        this.sprite = new Sprite();
-        this.sprite.setImage(playerImage);
     }
 
     public int getX() {
-        return x;
+        return this.getPositionAtX();
     }
 
     public int getY() {
-        return y;
+        return this.getPositionAtY();
     }
 
     public void setPlayerPosition(int x, int y) {
-        this.x = x;
-        this.y = y;
-        this.sprite.setPosition(x, y);
-    }
-
-    public Sprite getSprite() {
-        return sprite;
+        this.setPosition(x, y);
     }
     
     public void movePlayer(int x, int y, GraphicsContext c) {
-        System.out.println("" + x + ", " + y);
-        c.restore();
-        c.clearRect(this.x,this.y,105, 200);
-        if (Boundary.withinBoundary(x, y)) {
+        
+        System.out.println(String.format("x: %d, y: %d", x, y));
+        if (
+                Game.getDungeon()
+                        .getActiveRoom()
+                        .getRoomMap()
+                        .isCoordinateInsideTheMap(x, y)
+        ) {
             this.setPlayerPosition(x, y);
+            this.draw(c);
         }
-
-        this.sprite.render(c);
+        
+        
     }
 
     /**
