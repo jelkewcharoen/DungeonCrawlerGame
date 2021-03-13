@@ -1,10 +1,19 @@
 package app.dungeoncrawler.models;
 
 import app.dungeoncrawler.utils.DefaultWeapons;
+import app.dungeoncrawler.utils.GameMap;
+import app.dungeoncrawler.utils.MapName;
 
 public class Game {
+    public static int WINDOW_HEIGHT = 480;
+    public static int WINDOW_WIDTH = 640;
     private static Dungeon dungeon;
     private static Player player;
+    private static GameMap currentGameMap;
+
+    public static GameMap getCurrentGameMap() {
+        return currentGameMap;
+    }
 
     /**
      * returns a the player of the game.
@@ -52,6 +61,8 @@ public class Game {
      * @param difficulties the level of difficulties (EASY, MEDIUM, HARD).
      */
     public static void createDungeon(String difficulties) {
+        GameMap.generateAllGameMaps(Game.WINDOW_HEIGHT, Game.WINDOW_WIDTH);
+        Game.currentGameMap = GameMap.getAvailableMaps().get(MapName.MAP_1);
         Game.setDungeon(new Dungeon(difficulties));
     }
 }
