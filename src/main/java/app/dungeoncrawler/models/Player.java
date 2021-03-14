@@ -45,7 +45,7 @@ public class Player extends SpriteElement {
         this.gold = defaultGold * multiplier;
         this.health = defaultHealth * multiplier;
     }
-
+    
     public int getX() {
         return this.getPositionAtX();
     }
@@ -55,19 +55,19 @@ public class Player extends SpriteElement {
     }
     
     public void movePlayer(int x, int y, GraphicsContext c) {
-        
-        System.out.println(String.format("x: %d, y: %d", x, y));
         if (
-                Game.getDungeon()
-                        .getActiveRoom()
-                        .getRoomMap()
-                        .isCoordinateInsideTheMap(x, y)
+            Game.getDungeon()
+                .getActiveRoom()
+                .getRoomMap()
+                .isCoordinateInsideTheMap(x, y)
         ) {
             this.setPosition(x, y);
             this.draw(c);
         }
-        
-        
+    }    
+    
+    public void movePlayer(int x, int y) {
+        this.movePlayer(x, y, this.getGraphicsContext());
     }
 
     /**

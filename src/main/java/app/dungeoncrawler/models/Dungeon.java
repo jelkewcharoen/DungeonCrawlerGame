@@ -42,7 +42,7 @@ public class Dungeon {
                 : Difficulties.EASY;
 
         this.activeRoom = new Room(
-                0,
+                null,
                 false,
                 false,
                 4,
@@ -58,14 +58,9 @@ public class Dungeon {
     public Difficulties getDifficulty() {
         return difficulty;
     }
-
-    /**
-     * method for entering the room of id = id
-     * @param id id of the room
-     * @return Room object
-     */
-    public Room enterRoom(int id) {
-        return rooms.get(id);
+    
+    public void setActiveRoom(Room r) {
+        this.activeRoom = r;
     }
     
     public Room getActiveRoom() {

@@ -5,6 +5,8 @@ import app.dungeoncrawler.models.Game;
 import app.dungeoncrawler.models.Player;
 import app.dungeoncrawler.models.Room;
 import app.dungeoncrawler.utils.DefaultWeapons;
+import app.dungeoncrawler.utils.GameMap;
+import app.dungeoncrawler.utils.MapName;
 import app.dungeoncrawler.utils.NodeLayer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,9 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class InitialGameController implements Initializable {
     @FXML
@@ -86,6 +86,10 @@ public class InitialGameController implements Initializable {
         GraphicsContext playerLayerGc = playerLayer.getGraphicsContext2D();
         GraphicsContext doorsLayerGc = doorsLayer.getGraphicsContext2D();
 
+       Game.getCurrentGameMap().setRoomGraphics(roomLayerGc);
+       Game.getCurrentGameMap().setDoorsGraphics(doorsLayerGc);
+       player.setGraphicsContext(playerLayerGc);
+
         Room initialRoom = dungeon.getInitialRoom();
         NodeLayer roomNodeLayer = initialRoom.getRoomMap().getRoomLayer();
         ArrayList<NodeLayer> inactiveDoors = initialRoom.getInactiveDoors();
@@ -96,16 +100,15 @@ public class InitialGameController implements Initializable {
                 this.canvasList.get(i).setWidth(newValue.getWidth());
             }
             
-            roomNodeLayer.draw(roomLayerGc);
+            roomNodeLayer.draw();
 
             for (int i = 0; i < inactiveDoors.size(); i++) {
-                System.out.println("SOMETHING");
                 NodeLayer doorNodeLayer = inactiveDoors.get(i);
                 doorNodeLayer.setPosition(doorNodeLayer.getDimension().averageX(), doorNodeLayer.getDimension().averageY());
-                doorNodeLayer.draw(doorsLayerGc);
+                doorNodeLayer.draw();
             }
-            player.draw(playerLayerGc);
-
+            
+            player.draw();
         });
     }
 }
