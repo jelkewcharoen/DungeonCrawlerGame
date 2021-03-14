@@ -22,6 +22,6 @@ public class DimensionTest extends TestCase {
     @Test
     public void testAverage() {
         Dimension dimension = new Dimension(2, 4, 3, 9);
-        assertEquals(5, dimension.average(dimension.highY, dimension.lowX));
+        assertEquals(5, Dimension.average(dimension.highY, dimension.lowX));
     }
 }

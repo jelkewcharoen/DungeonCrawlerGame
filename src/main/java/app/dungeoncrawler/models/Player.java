@@ -2,18 +2,20 @@ package app.dungeoncrawler.models;
 
 import app.dungeoncrawler.utils.DefaultWeapons;
 import app.dungeoncrawler.utils.Difficulties;
-import app.dungeoncrawler.utils.Sprite;
 import app.dungeoncrawler.utils.SpriteElement;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleMapProperty;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 
-import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 public class Player extends SpriteElement {
-    private static Map<Difficulties, Integer> playerLevelsMultiplier = new HashMap<>() {{
+    private final static String positionX = "positionX";
+    private final static String positionY = "positionY";
+    
+    private static final Map<Difficulties, Integer> playerLevelsMultiplier = new HashMap<>() {{
             put(Difficulties.EASY, 10);
             put(Difficulties.MEDIUM, 20);
             put(Difficulties.HARD, 30);
@@ -23,9 +25,9 @@ public class Player extends SpriteElement {
     private final int defaultHealth = 10;
     private final int defaultGold = 10;
     private final int health;
-    private Weapon weapon;
-    private int gold;
-    private String name;
+    private final Weapon weapon;
+    private final int gold;
+    private final String name;
     public static int PLAYER_SPEED = 15;
 
     /**
@@ -43,7 +45,7 @@ public class Player extends SpriteElement {
         this.gold = defaultGold * multiplier;
         this.health = defaultHealth * multiplier;
     }
-
+    
     public int getX() {
         return this.getPositionAtX();
     }
@@ -51,25 +53,21 @@ public class Player extends SpriteElement {
     public int getY() {
         return this.getPositionAtY();
     }
-
-    public void setPlayerPosition(int x, int y) {
-        this.setPosition(x, y);
-    }
     
     public void movePlayer(int x, int y, GraphicsContext c) {
-        
-        System.out.println(String.format("x: %d, y: %d", x, y));
         if (
-                Game.getDungeon()
-                        .getActiveRoom()
-                        .getRoomMap()
-                        .isCoordinateInsideTheMap(x, y)
+            Game.getDungeon()
+                .getActiveRoom()
+                .getRoomMap()
+                .isCoordinateInsideTheMap(x, y)
         ) {
-            this.setPlayerPosition(x, y);
+            this.setPosition(x, y);
             this.draw(c);
         }
-        
-        
+    }    
+    
+    public void movePlayer(int x, int y) {
+        this.movePlayer(x, y, this.getGraphicsContext());
     }
 
     /**

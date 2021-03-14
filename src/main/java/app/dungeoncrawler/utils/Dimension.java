@@ -21,14 +21,14 @@ public class Dimension {
     }
     
     public int averageX() {
-        return this.average(this.highX, this.lowX);
+        return Dimension.average(this.highX, this.lowX);
     }
     
     public int averageY() {
-        return this.average(this.highY, this.lowY);
+        return Dimension.average(this.highY, this.lowY);
     }
     
-    public int average(int highNumber, int lowNumber) {
+    public static int average(int highNumber, int lowNumber) {
         return  (highNumber + lowNumber) / 2;
     }
 }

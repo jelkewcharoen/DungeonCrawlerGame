@@ -5,8 +5,8 @@ import javafx.scene.image.Image;
 
 public abstract class SpriteElement {
     private Image image;
-    private int positionAtX,positionAtY;
-    private int prevPositionAtX,prevPositionAtY;
+    private int positionAtX, positionAtY;
+    private int prevPositionAtX, prevPositionAtY;
     private int elementHeight, elementWidth;
     private GraphicsContext graphicsContext;
 
@@ -50,28 +50,47 @@ public abstract class SpriteElement {
         return this.positionAtX;
     }
 
+    public GraphicsContext getGraphicsContext() {
+        return graphicsContext;
+    }
+
+    public void setGraphicsContext(GraphicsContext graphicsContext) {
+        this.graphicsContext = graphicsContext;
+    }
+
     public int getPositionAtY() {
         return this.positionAtY;
     }
 
+    public void draw() {
+        this.draw(this.graphicsContext);
+    }
+
     public void draw(GraphicsContext graphicsContext)
     {
+        this.clear(graphicsContext);
+        this.graphicsContext.drawImage(image, this.positionAtX, this.positionAtY);
+    }
+    
+    public void clear() {
+        this.clear(this.graphicsContext);
+    }
+    
+    public void clear(GraphicsContext c) {
         if (graphicsContext != null) {
             this.graphicsContext = graphicsContext;
         }
-        
+
         double porcentage = (double)20/(double)100;
         int widthWithExtraPadding = (int)((double)this.elementWidth * porcentage) + this.elementWidth;
         int heightWithExtraPadding = (int)((double)this.elementHeight * porcentage) + this.elementHeight;
-        
+
         this.graphicsContext.restore();
         this.graphicsContext.clearRect(
-                this.prevPositionAtX, 
+                this.prevPositionAtX,
                 this.prevPositionAtY,
-                widthWithExtraPadding, 
+                widthWithExtraPadding,
                 heightWithExtraPadding
         );
-
-        this.graphicsContext.drawImage(image, this.positionAtX, this.positionAtY);
     }
 }
