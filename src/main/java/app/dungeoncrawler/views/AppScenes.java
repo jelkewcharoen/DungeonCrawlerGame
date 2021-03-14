@@ -4,6 +4,7 @@ import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.Configuration.ConfigurationView;
 import app.dungeoncrawler.views.InitialGame.InitialGame;
 import app.dungeoncrawler.views.Welcome.WelcomeView;
+import app.dungeoncrawler.views.Win.WinView;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -28,6 +29,7 @@ public class AppScenes {
         AppScenes.uiViews.put(SceneNames.WELCOME, new WelcomeView(stage));
         AppScenes.uiViews.put(SceneNames.CONFIGURATION, new ConfigurationView(stage));
         AppScenes.uiViews.put(SceneNames.INITIAL_GAME, new InitialGame(stage));
+        AppScenes.uiViews.put(SceneNames.WIN, new WinView(stage));
     }
 
     /**
