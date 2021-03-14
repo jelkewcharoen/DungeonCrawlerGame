@@ -151,7 +151,15 @@ public class Room {
                 Game.getDungeon().setActiveRoom(this.parent);
                 this.removeDoorsOfCanvas();
                 this.parent.drawRoom(false);
+                
             } else if (isPlayerInsideDoorDimension && !isPlayerInDoorWhereHeEntered) {
+                if (roomsTree.get(doorNode.getId()) != null) {
+                    Room alreadyCreatedRoom = roomsTree.get(doorNode.getId());
+                    this.removeDoorsOfCanvas();
+                    alreadyCreatedRoom.drawRoom(true);
+                    return;
+                }
+                
                 this.doorIdWherePlayerLeftTheRoom = doorNode.getId();
                 this.createRandomRoom(doorNode.getId());
             }
@@ -178,8 +186,7 @@ public class Room {
                 randomNumberOfDoors,
                 this.depth + 1
         );
-
-        System.out.println(randomRoom.activeDoors);
+        
         this.roomsTree.put(doorId, randomRoom);
         return randomRoom;
     }

@@ -79,8 +79,5 @@ public class Dungeon {
         );
 
         this.activePlayer = activePlayer;
-//        this.activePlayer.getPlayerLocationProperty().addListener((observable, oldValue, newValue) -> {
-//            System.out.println(newValue);
-//        });
     }
 }
