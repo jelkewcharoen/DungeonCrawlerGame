@@ -2,14 +2,9 @@ package app.dungeoncrawler.models;
 
 import app.dungeoncrawler.utils.GameMap;
 import app.dungeoncrawler.utils.NodeLayer;
-import app.dungeoncrawler.utils.Sprite;
-import app.dungeoncrawler.utils.SpriteElement;
-import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Random;
 
 public class Room {
     private final int ROOM_HEIGHT = 480;
@@ -26,8 +21,8 @@ public class Room {
     private HashMap<Integer, Boolean> activeDoors = new HashMap<>();
     private GameMap roomMap;
     
-    private NodeLayer doorWherePlayerEnterRoom;
-    private NodeLayer doorWherePlayerLeftTheRoom;
+    private int doorIndexWherePlayerEnterRoom;
+    private int doorIndexWherePlayerLeftTheRoom;
 
     /**
      * instructor for the class Room
@@ -54,14 +49,18 @@ public class Room {
     public void setDoorWherePlayerEnterRoom() {
         for (int key : this.activeDoors.keySet()) {
             if (this.activeDoors.get(key)) {
-                this.doorWherePlayerEnterRoom = doorsNodes.get(key);
+                this.doorIndexWherePlayerEnterRoom = key;
                 break;
             }
         }
     }
-    
+
     public NodeLayer getStartingDoor() {
-        return doorWherePlayerEnterRoom;
+        return this.doorsNodes.get(this.doorIndexWherePlayerEnterRoom);
+    }
+
+    public int getStartingDoorIndex() {
+        return doorIndexWherePlayerEnterRoom;
     }
     
     public void setDoors(int numberOfDoors) {
@@ -96,6 +95,18 @@ public class Room {
         }
         
         return doorsInactive;
+    }
+
+    public void trackPlayerMovement(int x, int y) {
+        for (int i = 0; i < this.doorsNodes.size(); i++) {
+            if (this.activeDoors.get(i)) {
+                if (this.doorsNodes.get(i).getDimension().isInsideCoordinates(x, y)) {
+                    if (i == this.doorIndexWherePlayerEnterRoom) {
+                        
+                    }
+                }
+            }
+        }
     }
     /**
      * getter for the monster status

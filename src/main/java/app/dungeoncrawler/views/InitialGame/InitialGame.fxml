@@ -5,6 +5,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.canvas.Canvas?>
+<?import java.util.ArrayList?>
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            styleClass="hBoxMainContainer"
@@ -26,5 +27,13 @@
         </font>
     </Text>
     <Canvas fx:id="roomLayer"/>
+    <Canvas fx:id="doorsLayer"/>
     <Canvas fx:id="playerLayer"/>
+    <fx:define>
+        <ArrayList fx:id="canvasList" >
+            <fx:reference source="roomLayer" />
+            <fx:reference source="doorsLayer" />
+            <fx:reference source="playerLayer" />
+        </ArrayList>
+    </fx:define>
 </StackPane>

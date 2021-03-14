@@ -3,6 +3,7 @@ package app.dungeoncrawler.models;
 import app.dungeoncrawler.utils.DefaultWeapons;
 import app.dungeoncrawler.utils.GameMap;
 import app.dungeoncrawler.utils.MapName;
+import javafx.beans.property.SimpleIntegerProperty;
 
 public class Game {
     public static int WINDOW_HEIGHT = 480;

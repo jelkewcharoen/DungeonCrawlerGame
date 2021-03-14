@@ -17,6 +17,7 @@ import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class InitialGameController implements Initializable {
@@ -25,6 +26,8 @@ public class InitialGameController implements Initializable {
     
     @FXML private Canvas roomLayer;
     @FXML private Canvas playerLayer;
+    @FXML private Canvas doorsLayer;
+    @FXML private List<Canvas> canvasList;
     @FXML private Pane initialGamePane;
     
     /**
@@ -44,16 +47,29 @@ public class InitialGameController implements Initializable {
     
     @FXML public void handleOnKeyPressed(KeyEvent e) {
         Player player = Game.getPlayer();
-
+        int x = 0;
+        int y = 0;
         if (e.getCode().equals(KeyCode.DOWN)) {
-            player.movePlayer(player.getX(), player.getY() + Player.PLAYER_SPEED, playerLayer.getGraphicsContext2D());
+            x = player.getX();
+            y = player.getY() + Player.PLAYER_SPEED;
+            
         } else if (e.getCode().equals(KeyCode.UP)) {
-            player.movePlayer(player.getX(), player.getY() - Player.PLAYER_SPEED, playerLayer.getGraphicsContext2D());
+            x = player.getX();
+            y = player.getY() - Player.PLAYER_SPEED;
+
         } else if (e.getCode().equals(KeyCode.LEFT)) {
-            player.movePlayer(player.getX() - Player.PLAYER_SPEED, player.getY(), playerLayer.getGraphicsContext2D());
+            x = player.getX() - Player.PLAYER_SPEED;
+            y = player.getY();
+
         } else if (e.getCode().equals(KeyCode.RIGHT)) {
-            player.movePlayer(player.getX() + Player.PLAYER_SPEED, player.getY(), playerLayer.getGraphicsContext2D());
+            x = player.getX() + Player.PLAYER_SPEED;
+            y = player.getY();
         }
+
+        Room room = Game.getDungeon().getActiveRoom();
+
+        player.movePlayer(x,y, playerLayer.getGraphicsContext2D());
+        room.trackPlayerMovement(player.getX(), player.getY());
     } 
 
     public void loadRoom(Pane pane) {
@@ -64,33 +80,32 @@ public class InitialGameController implements Initializable {
 
         Player player = Game.getPlayer();
         Dungeon dungeon = Game.getDungeon();
+        dungeon.setActivePlayer(player);
+                
         GraphicsContext roomLayerGc = roomLayer.getGraphicsContext2D();
         GraphicsContext playerLayerGc = playerLayer.getGraphicsContext2D();
-        
+        GraphicsContext doorsLayerGc = doorsLayer.getGraphicsContext2D();
+
         Room initialRoom = dungeon.getInitialRoom();
         NodeLayer roomNodeLayer = initialRoom.getRoomMap().getRoomLayer();
         ArrayList<NodeLayer> inactiveDoors = initialRoom.getInactiveDoors();
-        
-        player.setPlayerPosition(
-                initialRoom.getStartingDoor().getDimension().averageX(), 
-                initialRoom.getStartingDoor().getDimension().averageY()
-        );
 
         pane.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
-            roomLayer.setWidth(newValue.getWidth());
-            roomLayer.setHeight(newValue.getHeight());
-            playerLayer.setHeight(newValue.getHeight());
-            playerLayer.setWidth(newValue.getWidth());
-            roomNodeLayer.draw(roomLayerGc);
+            for (int i = 0; i < this.canvasList.size(); i++) {
+                this.canvasList.get(i).setHeight(newValue.getHeight());
+                this.canvasList.get(i).setWidth(newValue.getWidth());
+            }
             
+            roomNodeLayer.draw(roomLayerGc);
+
             for (int i = 0; i < inactiveDoors.size(); i++) {
                 System.out.println("SOMETHING");
                 NodeLayer doorNodeLayer = inactiveDoors.get(i);
                 doorNodeLayer.setPosition(doorNodeLayer.getDimension().averageX(), doorNodeLayer.getDimension().averageY());
-                doorNodeLayer.draw(roomLayerGc);
+                doorNodeLayer.draw(doorsLayerGc);
             }
-
             player.draw(playerLayerGc);
+
         });
     }
 }

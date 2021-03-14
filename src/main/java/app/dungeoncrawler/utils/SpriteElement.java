@@ -5,8 +5,8 @@ import javafx.scene.image.Image;
 
 public abstract class SpriteElement {
     private Image image;
-    private int positionAtX,positionAtY;
-    private int prevPositionAtX,prevPositionAtY;
+    private int positionAtX, positionAtY;
+    private int prevPositionAtX, prevPositionAtY;
     private int elementHeight, elementWidth;
     private GraphicsContext graphicsContext;
 

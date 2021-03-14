@@ -1,15 +1,9 @@
 package app.dungeoncrawler.views.InitialGame;
 
 import app.dungeoncrawler.utils.SceneNames;
-import app.dungeoncrawler.utils.Sprite;
 import app.dungeoncrawler.views.ViewBase;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
