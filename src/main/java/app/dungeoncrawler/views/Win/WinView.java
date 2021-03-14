@@ -3,6 +3,7 @@ package app.dungeoncrawler.views.Win;
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.ViewBase;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +25,7 @@ public class WinView extends ViewBase{
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("WinView.fxml"));
-            GridPane box = loader.load();
+            BorderPane box = loader.load();
             this.controller = loader.getController();
 
             this.scene = new Scene(box, this.stage.getWidth(), this.stage.getHeight());
