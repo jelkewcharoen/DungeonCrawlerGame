@@ -1,7 +1,10 @@
 package app.dungeoncrawler.models;
 
 import app.dungeoncrawler.utils.Difficulties;
+import app.dungeoncrawler.utils.NodeLayer;
+import javafx.collections.MapChangeListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -10,6 +13,7 @@ public class Dungeon {
     public static int currentID = 0; //current id of the room
     public static HashMap<Integer, Room> rooms = new HashMap<>();
     private Room activeRoom;
+    private Player activePlayer;
     
     public static final Map<Difficulties, Integer> DIFFICULTIES = new HashMap<>() {
         {
@@ -38,7 +42,7 @@ public class Dungeon {
                 : Difficulties.EASY;
 
         this.activeRoom = new Room(
-                0,
+                null,
                 false,
                 false,
                 4,
@@ -54,43 +58,29 @@ public class Dungeon {
     public Difficulties getDifficulty() {
         return difficulty;
     }
-
-    /**
-     * method for entering the room of id = id
-     * @param id id of the room
-     * @return Room object
-     */
-    public Room enterRoom(int id) {
-        return rooms.get(id);
+    
+    public void setActiveRoom(Room r) {
+        this.activeRoom = r;
     }
     
     public Room getActiveRoom() {
         return activeRoom;
     }
     
-//    /**
-//     * method for creating a new room
-//     * @param doorIndex the index of the door
-//     * @return the new room
-//     */
-//    public Room createNewRoom(int doorIndex) {
-//        Random random = new Random();
-//        int newID = rooms.size();
-//        int currentDepth = rooms.get(currentID).getDepth();
-//        boolean isExit = false;
-//        
-//        if (currentDepth >= 6) {
-//            isExit = random.nextBoolean();
-//        }
-//        
-//        Room newRoom = new Room(currentID, random.nextBoolean(), isExit,random.nextInt(4 ), currentDepth + 1);
-//        newRoom.setDoorID(doorIndex, newID);
-//        rooms.put(newID, newRoom);
-//        currentID = newID;
-//        return rooms.get(currentID);
-//    }
-    
     public Room getInitialRoom() {
         return rooms.get(0);
+    }
+
+    public void setActivePlayer(Player activePlayer) {
+        Room initialRoom = this.getInitialRoom();
+        activePlayer.setPosition(
+                initialRoom.getStartingDoor().getDimension().averageX(),
+                initialRoom.getStartingDoor().getDimension().averageY()
+        );
+
+        this.activePlayer = activePlayer;
+//        this.activePlayer.getPlayerLocationProperty().addListener((observable, oldValue, newValue) -> {
+//            System.out.println(newValue);
+//        });
     }
 }
