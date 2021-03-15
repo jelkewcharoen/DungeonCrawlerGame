@@ -11,7 +11,7 @@ public class GameMap {
     public ArrayList<NodeLayer> doorsLayers = new ArrayList<>();
 
     public static Map<MapName, GameMap> availableMaps = new HashMap() {
-        
+
     };
     
     private GameMap() {};
