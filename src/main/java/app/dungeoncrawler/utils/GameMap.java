@@ -7,27 +7,51 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GameMap {
-    public NodeLayer roomLayer;
-    public ArrayList<NodeLayer> doorsLayers = new ArrayList<>();
+    private NodeLayer roomLayer;
+    private ArrayList<NodeLayer> doorsLayers = new ArrayList<>();
 
-    public static Map<MapName, GameMap> availableMaps = new HashMap() {
-        
+    private static Map<MapName, GameMap> availableMaps = new HashMap() {
+
     };
-    
-    private GameMap() {};
+
+    /**
+     * constructs game map
+     */
+    public GameMap() {
+
+    };
+
+    /**
+     * constructs game map
+     * @param roomLayer room layer to create the game map
+     * @param doorsLayers doors layer to create the game map
+     */
     public GameMap(NodeLayer roomLayer, ArrayList<NodeLayer> doorsLayers) {
         this.roomLayer = roomLayer;
         this.doorsLayers = doorsLayers;
     }
-    
+
+    /**
+     * generates all game map
+     * @param screenHeight screen height used to generate game map
+     * @param screenWidth screen width used to generage game map
+     */
     public static void generateAllGameMaps(int screenHeight, int screenWidth) {
         GameMap.generateMap1(screenHeight, screenWidth);
     }
-    
+
+    /**
+     * sets room graphics
+     * @param c graphics context used to set room graphics
+     */
     public void setRoomGraphics(GraphicsContext c) {
         this.roomLayer.setGraphicsContext(c);
     }
-    
+
+    /**
+     * sets doors graphics
+     * @param c graphics context used to set doors graphics
+     */
     public void setDoorsGraphics(GraphicsContext c) {
         for (int i = 0; i < this.doorsLayers.size(); i++) {
             NodeLayer door = this.doorsLayers.get(i);

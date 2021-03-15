@@ -51,15 +51,27 @@ public class Room {
             this.drawRoom(true);
         }
     }
-    
+
+    /**
+     * gets room map
+     * @return room map
+     */
     public GameMap getRoomMap() {
         return roomMap;
     }
 
+    /**
+     * gets door id where player left the room
+     * @return gets door id where player left the room
+     */
     public int getDoorIdWherePlayerLeftTheRoom() {
         return doorIdWherePlayerLeftTheRoom;
     }
 
+    /**
+     * gets starting door
+     * @return starting door
+     */
     public NodeLayer getStartingDoor() {
         return this.doorsNodes.get(this.doorIdWherePlayerEnterRoom);
     }
@@ -75,10 +87,17 @@ public class Room {
         return doorsInactive;
     }
 
+    /**
+     * gets starting door index
+     * @return starting door index
+     */
     public int getStartingDoorIndex() {
         return doorIdWherePlayerEnterRoom;
     }
-    
+
+    /**
+     * sets door where player enters room
+     */
     public void setDoorWherePlayerEnterRoom() {
         if (this.parent != null) {
             int parentDoor = this.parent.getDoorIdWherePlayerLeftTheRoom();
@@ -94,6 +113,10 @@ public class Room {
         }
     }
 
+    /**
+     * creates room map
+     * @param numberOfDoors number of doors needed to create the room map
+     */
     public void createRoomMap(int numberOfDoors) {
         ArrayList<NodeLayer> doors = new ArrayList<>(Game.getCurrentGameMap().getDoorsLayer());
         ArrayList<NodeLayer> activeDoorsNode = new ArrayList<>();
@@ -120,7 +143,11 @@ public class Room {
         
         this.roomMap = new GameMap(Game.getCurrentGameMap().getRoomLayer(), activeDoorsNode);
     }
-    
+
+    /**
+     * draws room
+     * @param enteringRoom entering room where player enters to enter room
+     */
     public void drawRoom(boolean enteringRoom) {
         this.getRoomMap().getRoomLayer().draw();
         Game.getDungeon().setActiveRoom(this);
@@ -140,6 +167,11 @@ public class Room {
         Game.getPlayer().movePlayer(initialDoorDimension.getPositionXForPlayer(), initialDoorDimension.getPositionYForPlayer());
     }
 
+    /**
+     * tracks player movement
+     * @param x where x represents x position of player
+     * @param y where y represents y position of player
+     */
     public void trackPlayerMovement(int x, int y) {
         for (int i = 0; i < this.doorsNodes.size(); i++) {
             NodeLayer doorNode = this.doorsNodes.get(i);
@@ -165,13 +197,21 @@ public class Room {
             }
         }
     }
-    
+
+    /**
+     * removes doors of canvas
+     */
     public void removeDoorsOfCanvas() {
         for (int i = 0; i < this.doorsNodes.size(); i++) {
             this.doorsNodes.get(i).clear();
         }
     }
-    
+
+    /**
+     * creates random room
+     * @param doorId door id which will be assigned to new room
+     * @return
+     */
     public Room createRandomRoom(int doorId) {
         ArrayList<NodeLayer> doors = Game.getCurrentGameMap().getDoorsLayer();
 
