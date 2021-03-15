@@ -164,8 +164,8 @@ public class Room {
             layer.draw();
         }
 
-        int playerLocationDoorId = enteringRoom ?
-                this.doorIdWherePlayerEnterRoom : this.doorIdWherePlayerLeftTheRoom;
+        int playerLocationDoorId = enteringRoom
+                ? this.doorIdWherePlayerEnterRoom : this.doorIdWherePlayerLeftTheRoom;
         NodeLayer initialDoor = this.doorsNodes.get(playerLocationDoorId);
         DoorDimension initialDoorDimension = (DoorDimension) initialDoor.getDimension();
         
@@ -181,8 +181,8 @@ public class Room {
     public void trackPlayerMovement(int x, int y) {
         for (int i = 0; i < this.doorsNodes.size(); i++) {
             NodeLayer doorNode = this.doorsNodes.get(i);
-            boolean isPlayerInDoorWhereHeEntered = doorNode.getId() ==
-                    this.doorIdWherePlayerEnterRoom;
+            boolean isPlayerInDoorWhereHeEntered = doorNode.getId()
+                    == this.doorIdWherePlayerEnterRoom;
             boolean isPlayerInsideDoorDimension = this.activeDoors.get(doorNode.getId())
                     && doorNode.getDimension().isInsideCoordinates(x, y);
 

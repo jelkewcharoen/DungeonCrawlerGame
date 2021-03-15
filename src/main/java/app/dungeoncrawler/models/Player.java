@@ -10,10 +10,10 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 public class Player extends SpriteElement {
-    private final static String positionX = "positionX";
-    private final static String positionY = "positionY";
+    private static String positionX = "positionX";
+    private static String positionY = "positionY";
     
-    private static final Map<Difficulties, Integer> playerLevelsMultiplier = new HashMap<>() {{
+    private static Map<Difficulties, Integer> playerLevelsMultiplier = new HashMap<>() {{
             put(Difficulties.EASY, 10);
             put(Difficulties.MEDIUM, 20);
             put(Difficulties.HARD, 30);
@@ -26,7 +26,7 @@ public class Player extends SpriteElement {
     private final Weapon weapon;
     private final int gold;
     private final String name;
-    public static int PLAYER_SPEED = 15;
+    public static final int PLAYER_SPEED = 15;
 
     /**
      * Creates a new player.

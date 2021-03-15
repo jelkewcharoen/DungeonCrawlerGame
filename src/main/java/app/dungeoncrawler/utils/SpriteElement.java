@@ -13,10 +13,6 @@ public abstract class SpriteElement {
     private int elementWidth;
     private GraphicsContext graphicsContext;
 
-    private SpriteElement(Image image) {
-
-    }
-
     /**
      * constructs sprite element
      * @param imagePath image path used to construct sprite elements
