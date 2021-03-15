@@ -6,6 +6,7 @@ import app.dungeoncrawler.utils.DefaultWeapons;
 import app.dungeoncrawler.views.AppScenes;
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.ViewBase;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -17,6 +18,8 @@ import org.testfx.matcher.base.NodeMatchers;
 
 import java.util.Map;
 
+import static javafx.scene.input.KeyCode.*;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class InitialGameTest extends ApplicationTest {
@@ -55,4 +58,53 @@ public class InitialGameTest extends ApplicationTest {
     public void testMoneyPositive() {
         assertTrue(Game.getPlayer().getGold() > 0);
     }
+
+    @Test
+    public void testPlayerMoveRight(){
+        int original = Game.getPlayer().getX();
+        for(int i = 0; i < 10; i++) {
+            press(RIGHT).release(RIGHT);
+        }
+
+        int testrightcalc = original + (15 * 10);
+        assertEquals(testrightcalc, Game.getPlayer().getX());
+    }
+    @Test
+    public void testPlayerMoveLeft(){
+        int original = Game.getPlayer().getX();
+        for(int i = 0; i < 6; i++) {
+            press(RIGHT).release(RIGHT);
+        }
+        press(LEFT).release(LEFT);
+
+        int testrightcalc = original + (15 * 5);
+        assertEquals(testrightcalc, Game.getPlayer().getX());
+    }
+
+    @Test
+    public void testPlayerMoveUp(){
+        int original = Game.getPlayer().getY();
+        for(int i = 0; i < 10; i++) {
+            press(RIGHT).release(RIGHT);
+        }
+        press(UP).release(UP);
+        press(UP).release(UP);
+
+        int testrightcalc = original - (15 * 2);
+        assertEquals(testrightcalc, Game.getPlayer().getY());
+    }
+
+    @Test
+    public void testPlayerMoveDown(){
+        int original = Game.getPlayer().getY();
+        for(int i = 0; i < 10; i++) {
+            press(RIGHT).release(RIGHT);
+        }
+        press(DOWN).release(DOWN);
+        press(DOWN).release(DOWN);
+
+        int testrightcalc = original + (15 * 2);
+        assertEquals(testrightcalc, Game.getPlayer().getY());
+    }
+
 }
