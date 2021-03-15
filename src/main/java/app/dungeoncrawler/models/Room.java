@@ -9,8 +9,8 @@ import java.util.Collections;
 import java.util.HashMap;
 
 public class Room {
-    private final int ROOM_HEIGHT = 480;
-    private final int ROOM_WIDTH = 640;
+    private static final int ROOM_HEIGHT = 480;
+    private static final int ROOM_WIDTH = 640;
     
     private Room parent;
     private boolean hasMonster; //has a monster
@@ -76,6 +76,10 @@ public class Room {
         return this.doorsNodes.get(this.doorIdWherePlayerEnterRoom);
     }
 
+    /**
+     * gets inactive doors
+     * @return inactive doors
+     */
     public ArrayList<NodeLayer> getInactiveDoors() {
         ArrayList<NodeLayer> doorsInactive = new ArrayList<>();
         for (int key : this.doorsNodes.keySet()) {
@@ -160,11 +164,13 @@ public class Room {
             layer.draw();
         }
 
-        int playerLocationDoorId = enteringRoom ? this.doorIdWherePlayerEnterRoom : this.doorIdWherePlayerLeftTheRoom;
+        int playerLocationDoorId = enteringRoom ?
+                this.doorIdWherePlayerEnterRoom : this.doorIdWherePlayerLeftTheRoom;
         NodeLayer initialDoor = this.doorsNodes.get(playerLocationDoorId);
-        DoorDimension initialDoorDimension = (DoorDimension)initialDoor.getDimension();
+        DoorDimension initialDoorDimension = (DoorDimension) initialDoor.getDimension();
         
-        Game.getPlayer().movePlayer(initialDoorDimension.getPositionXForPlayer(), initialDoorDimension.getPositionYForPlayer());
+        Game.getPlayer().movePlayer(initialDoorDimension.getPositionXForPlayer(),
+                initialDoorDimension.getPositionYForPlayer());
     }
 
     /**
@@ -175,11 +181,13 @@ public class Room {
     public void trackPlayerMovement(int x, int y) {
         for (int i = 0; i < this.doorsNodes.size(); i++) {
             NodeLayer doorNode = this.doorsNodes.get(i);
-            boolean isPlayerInDoorWhereHeEntered = doorNode.getId() == this.doorIdWherePlayerEnterRoom;
+            boolean isPlayerInDoorWhereHeEntered = doorNode.getId() ==
+                    this.doorIdWherePlayerEnterRoom;
             boolean isPlayerInsideDoorDimension = this.activeDoors.get(doorNode.getId())
                     && doorNode.getDimension().isInsideCoordinates(x, y);
 
-            if (isPlayerInsideDoorDimension && isPlayerInDoorWhereHeEntered && this.parent != null) {
+            if (isPlayerInsideDoorDimension && isPlayerInDoorWhereHeEntered
+                    && this.parent != null) {
                 Game.getDungeon().setActiveRoom(this.parent);
                 this.removeDoorsOfCanvas();
                 this.parent.drawRoom(false);
@@ -210,12 +218,12 @@ public class Room {
     /**
      * creates random room
      * @param doorId door id which will be assigned to new room
-     * @return
+     * @return random room created
      */
     public Room createRandomRoom(int doorId) {
         ArrayList<NodeLayer> doors = Game.getCurrentGameMap().getDoorsLayer();
 
-        int randomNumberOfDoors = (int)(Math.random() * (3 - 1 + 1) + 1);
+        int randomNumberOfDoors = (int) (Math.random() * (3 - 1 + 1) + 1);
         
         this.removeDoorsOfCanvas();
         System.out.println("REMOVE FROM CANVAS");
