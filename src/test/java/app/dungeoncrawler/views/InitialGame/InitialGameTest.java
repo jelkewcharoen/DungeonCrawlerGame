@@ -6,7 +6,6 @@ import app.dungeoncrawler.utils.DefaultWeapons;
 import app.dungeoncrawler.views.AppScenes;
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.ViewBase;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -60,9 +59,9 @@ public class InitialGameTest extends ApplicationTest {
     }
 
     @Test
-    public void testPlayerMoveRight(){
+    public void testPlayerMoveRight() {
         int original = Game.getPlayer().getX();
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             press(RIGHT).release(RIGHT);
         }
 
@@ -70,9 +69,9 @@ public class InitialGameTest extends ApplicationTest {
         assertEquals(testrightcalc, Game.getPlayer().getX());
     }
     @Test
-    public void testPlayerMoveLeft(){
+    public void testPlayerMoveLeft() {
         int original = Game.getPlayer().getX();
-        for(int i = 0; i < 6; i++) {
+        for (int i = 0; i < 6; i++) {
             press(RIGHT).release(RIGHT);
         }
         press(LEFT).release(LEFT);
@@ -82,9 +81,9 @@ public class InitialGameTest extends ApplicationTest {
     }
 
     @Test
-    public void testPlayerMoveUp(){
+    public void testPlayerMoveUp() {
         int original = Game.getPlayer().getY();
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             press(RIGHT).release(RIGHT);
         }
         press(UP).release(UP);
@@ -95,9 +94,9 @@ public class InitialGameTest extends ApplicationTest {
     }
 
     @Test
-    public void testPlayerMoveDown(){
+    public void testPlayerMoveDown() {
         int original = Game.getPlayer().getY();
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             press(RIGHT).release(RIGHT);
         }
         press(DOWN).release(DOWN);
