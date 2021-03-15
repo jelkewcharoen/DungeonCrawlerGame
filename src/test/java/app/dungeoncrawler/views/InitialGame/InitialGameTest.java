@@ -20,6 +20,7 @@ import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -151,7 +152,7 @@ public class InitialGameTest extends ApplicationTest {
         DoorDimension initialDoorDimension = (DoorDimension)initialDoor.getDimension();
         assertEquals(player.getY(), initialDoorDimension.getPositionYForPlayer());
     }
-    /*@Test
+    @Test
     public void testPlayerEnterPreviousRoom() {
         Room initialRoom = Game.getDungeon().getInitialRoom();
         Player player = Game.getPlayer();
@@ -165,14 +166,8 @@ public class InitialGameTest extends ApplicationTest {
         for (int i = 0; i < 10; i++) {
             press(DOWN).release(DOWN);
         }
-        Room currentRoom = Game.getDungeon().getActiveRoom();
-        HashMap<Integer, Boolean> doors1 = currentRoom.getActiveDoorsNodes();
-        if(doors1.get(1))
-        for (int i = 0; i < 10; i++) {
-            press(DOWN).release(DOWN);
-        }
-        for (int i = 0; i < 10; i++) {
-            press(DOWN).release(DOWN);
-        }
-    }*/
+        press(UP).release(UP);
+        Room room1 = Game.getDungeon().getActiveRoom();
+        assertEquals(room1, initialRoom);
+    }
 }
