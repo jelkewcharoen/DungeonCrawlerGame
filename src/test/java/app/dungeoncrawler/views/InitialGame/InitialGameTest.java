@@ -151,7 +151,7 @@ public class InitialGameTest extends ApplicationTest {
         DoorDimension initialDoorDimension = (DoorDimension)initialDoor.getDimension();
         assertEquals(player.getY(), initialDoorDimension.getPositionYForPlayer());
     }
-    @Test
+    /*@Test
     public void testPlayerEnterPreviousRoom() {
         Room initialRoom = Game.getDungeon().getInitialRoom();
         Player player = Game.getPlayer();
@@ -174,5 +174,5 @@ public class InitialGameTest extends ApplicationTest {
         for (int i = 0; i < 10; i++) {
             press(DOWN).release(DOWN);
         }
-    }
+    }*/
 }
