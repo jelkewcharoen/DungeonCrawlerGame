@@ -4,11 +4,10 @@ import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.ViewBase;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 
-public class WinView extends ViewBase{
+public class WinView extends ViewBase {
     private Scene scene;
     private WinViewController controller;
 
@@ -36,11 +35,15 @@ public class WinView extends ViewBase{
     }
 
     @Override
-    public Scene getScene() { return scene; }
+    public Scene getScene() {
+        return scene;
+    }
 
     /**
      * getter for the controller
      * @return the controller for the win screen
      */
-    public WinViewController getController() { return controller; }
+    public WinViewController getController() {
+        return controller;
+    }
 }
