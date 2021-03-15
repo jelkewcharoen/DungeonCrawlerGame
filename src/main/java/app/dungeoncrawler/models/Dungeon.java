@@ -1,17 +1,13 @@
 package app.dungeoncrawler.models;
 
 import app.dungeoncrawler.utils.Difficulties;
-import app.dungeoncrawler.utils.NodeLayer;
-import javafx.collections.MapChangeListener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 public class Dungeon {
-    public static int currentID = 0; //current id of the room
-    public static HashMap<Integer, Room> rooms = new HashMap<>();
+    private static int currentID = 0; //current id of the room
+    private static HashMap<Integer, Room> rooms = new HashMap<>();
     private Room activeRoom;
     private Player activePlayer;
     
@@ -58,19 +54,35 @@ public class Dungeon {
     public Difficulties getDifficulty() {
         return difficulty;
     }
-    
+
+    /**
+     * sets active room
+     * @param r room which we want to activate
+     */
     public void setActiveRoom(Room r) {
         this.activeRoom = r;
     }
-    
+
+    /**
+     * gets active room
+     * @return returns active room
+     */
     public Room getActiveRoom() {
         return activeRoom;
     }
-    
+
+    /**
+     * gets initial room
+     * @return returns initial room
+     */
     public Room getInitialRoom() {
         return rooms.get(0);
     }
 
+    /**
+     * sets active player
+     * @param activePlayer who we want to make active
+     */
     public void setActivePlayer(Player activePlayer) {
         Room initialRoom = this.getInitialRoom();
         activePlayer.setPosition(

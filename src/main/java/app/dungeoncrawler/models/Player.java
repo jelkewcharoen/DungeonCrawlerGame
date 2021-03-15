@@ -3,8 +3,6 @@ package app.dungeoncrawler.models;
 import app.dungeoncrawler.utils.DefaultWeapons;
 import app.dungeoncrawler.utils.Difficulties;
 import app.dungeoncrawler.utils.SpriteElement;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleMapProperty;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.HashMap;
@@ -45,15 +43,29 @@ public class Player extends SpriteElement {
         this.gold = defaultGold * multiplier;
         this.health = defaultHealth * multiplier;
     }
-    
+
+    /**
+     * gets position at x
+     * @return position at x
+     */
     public int getX() {
         return this.getPositionAtX();
     }
 
+    /**
+     * gets position at y
+     * @return position at y
+     */
     public int getY() {
         return this.getPositionAtY();
     }
-    
+
+    /**
+     * moves player
+     * @param x x where we want to move player to
+     * @param y y where we want to move player to
+     * @param c graphic content
+     */
     public void movePlayer(int x, int y, GraphicsContext c) {
         if (
             Game.getDungeon()
@@ -64,8 +76,13 @@ public class Player extends SpriteElement {
             this.setPosition(x, y);
             this.draw(c);
         }
-    }    
-    
+    }
+
+    /**
+     * moves player
+     * @param x x where we want to move player to
+     * @param y y where we want to move player to
+     */
     public void movePlayer(int x, int y) {
         this.movePlayer(x, y, this.getGraphicsContext());
     }

@@ -7,25 +7,51 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GameMap {
-    public NodeLayer roomLayer;
-    public ArrayList<NodeLayer> doorsLayers = new ArrayList<>();
+    private NodeLayer roomLayer;
+    private ArrayList<NodeLayer> doorsLayers = new ArrayList<>();
 
-    public static Map<MapName, GameMap> availableMaps = new HashMap(){};
-    
-    private GameMap() {};
+    private static Map<MapName, GameMap> availableMaps = new HashMap() {
+
+    };
+
+    /**
+     * constructs game map
+     */
+    public GameMap() {
+
+    };
+
+    /**
+     * constructs game map
+     * @param roomLayer room layer to create the game map
+     * @param doorsLayers doors layer to create the game map
+     */
     public GameMap(NodeLayer roomLayer, ArrayList<NodeLayer> doorsLayers) {
         this.roomLayer = roomLayer;
         this.doorsLayers = doorsLayers;
     }
-    
+
+    /**
+     * generates all game map
+     * @param screenHeight screen height used to generate game map
+     * @param screenWidth screen width used to generage game map
+     */
     public static void generateAllGameMaps(int screenHeight, int screenWidth) {
         GameMap.generateMap1(screenHeight, screenWidth);
     }
-    
+
+    /**
+     * sets room graphics
+     * @param c graphics context used to set room graphics
+     */
     public void setRoomGraphics(GraphicsContext c) {
         this.roomLayer.setGraphicsContext(c);
     }
-    
+
+    /**
+     * sets doors graphics
+     * @param c graphics context used to set doors graphics
+     */
     public void setDoorsGraphics(GraphicsContext c) {
         for (int i = 0; i < this.doorsLayers.size(); i++) {
             NodeLayer door = this.doorsLayers.get(i);
@@ -37,18 +63,27 @@ public class GameMap {
         NodeLayer roomLayer;
         ArrayList<NodeLayer> doorsLayer = new ArrayList<>();
 
-        Dimension roomDimensions = new Dimension(135, 405,35,325);
-        roomLayer = new NodeLayer(0, "/app/assets/4door.png", screenWidth, screenHeight, roomDimensions);
+        Dimension roomDimensions = new Dimension(135, 405, 35, 325);
+        roomLayer = new NodeLayer(
+                0, "/app/assets/4door.png", screenWidth, screenHeight, roomDimensions);
         
-        Dimension doorDimesion1 = new DoorDimension(135, -5,210,140, 135, 0); // put in term of porcetange
-        Dimension doorDimesion2 = new DoorDimension(250, 295,35,-45, 0, 35);// put in term of porcetange
-        Dimension doorDimesion3 = new DoorDimension(405, 565,85,160, 405, 0);// put in term of porcetange
-        Dimension doorDimesion4 = new DoorDimension(200, 240,370,325, 0, 325);// put in term of porcetange
+        Dimension doorDimesion1 = new DoorDimension(
+                135, -5, 210, 140, 135, 0); // put in term of porcetange
+        Dimension doorDimesion2 = new DoorDimension(
+                250, 295, 35,-45, 0, 35);// put in term of porcetange
+        Dimension doorDimesion3 = new DoorDimension(
+                405, 565, 85, 160, 405, 0);// put in term of porcetange
+        Dimension doorDimesion4 = new DoorDimension(
+                200, 240, 370, 325, 0, 325);// put in term of porcetange
         
-        NodeLayer door1 = new NodeLayer(0,"/app/assets/construction.png", 80, 100, doorDimesion1);
-        NodeLayer door2 = new NodeLayer(1, "/app/assets/construction.png", 80, 100, doorDimesion2);
-        NodeLayer door3 = new NodeLayer(2, "/app/assets/construction.png", 80, 100, doorDimesion3);
-        NodeLayer door4 = new NodeLayer(3, "/app/assets/construction.png", 80, 100, doorDimesion4);
+        NodeLayer door1 = new NodeLayer(
+                0, "/app/assets/construction.png", 80, 100, doorDimesion1);
+        NodeLayer door2 = new NodeLayer(
+                1, "/app/assets/construction.png", 80, 100, doorDimesion2);
+        NodeLayer door3 = new NodeLayer(
+                2, "/app/assets/construction.png", 80, 100, doorDimesion3);
+        NodeLayer door4 = new NodeLayer(
+                3, "/app/assets/construction.png", 80, 100, doorDimesion4);
         
         door1.setPosition(doorDimesion1.averageX(), doorDimesion1.averageY());
         door2.setPosition(doorDimesion2.averageX(), doorDimesion2.averageY());
@@ -85,7 +120,7 @@ public class GameMap {
                 break;
             }
 
-            coordinatesAreInside = availableSpace.get(i).getDimension().isInsideCoordinates(x,y);
+            coordinatesAreInside = availableSpace.get(i).getDimension().isInsideCoordinates(x, y);
         }
         
         return coordinatesAreInside;

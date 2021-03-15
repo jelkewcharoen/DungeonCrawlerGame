@@ -3,15 +3,18 @@ package app.dungeoncrawler.models;
 import app.dungeoncrawler.utils.DefaultWeapons;
 import app.dungeoncrawler.utils.GameMap;
 import app.dungeoncrawler.utils.MapName;
-import javafx.beans.property.SimpleIntegerProperty;
 
 public class Game {
-    public static int WINDOW_HEIGHT = 480;
-    public static int WINDOW_WIDTH = 640;
+    public static final int WINDOW_HEIGHT = 480;
+    public static final int WINDOW_WIDTH = 640;
     private static Dungeon dungeon;
     private static Player player;
     private static GameMap currentGameMap;
 
+    /**
+     * gets current game map
+     * @return returns current game map
+     */
     public static GameMap getCurrentGameMap() {
         return currentGameMap;
     }
