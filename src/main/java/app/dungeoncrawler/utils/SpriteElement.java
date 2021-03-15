@@ -4,14 +4,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public abstract class SpriteElement {
-    private Image image;
-    private int positionAtX;
-    private int positionAtY;
-    private int prevPositionAtX;
-    private int prevPositionAtY;
-    private int elementHeight;
-    private int elementWidth;
+    private String image;
+    private int positionAtX, positionAtY;
+    private int prevPositionAtX, prevPositionAtY;
+    private int elementHeight, elementWidth;
     private GraphicsContext graphicsContext;
+    private boolean preserveRatio, smooth;
 
     /**
      * constructs sprite element
@@ -41,18 +39,11 @@ public abstract class SpriteElement {
     ) {
         this.elementHeight = height;
         this.elementWidth = width;
+        this.preserveRatio = preserveRatio;
+        this.smooth = smooth;
         
         if (imagePath != "") {
-            this.image = new Image(
-                    getClass()
-                            .getResource(imagePath)
-                            .toExternalForm(),
-                    width,
-                    height,
-                    preserveRatio,
-                    smooth
-            );
-
+            this.image = imagePath;
         }
 
     }
@@ -114,6 +105,17 @@ public abstract class SpriteElement {
      */
     public void draw(GraphicsContext graphicsContext) {
         this.clear(graphicsContext);
+
+        Image image = new Image(
+                getClass()
+                        .getResource(this.image)
+                        .toExternalForm(),
+                this.elementWidth,
+                this.elementHeight,
+                this.preserveRatio,
+                this.smooth
+        );
+                
         this.graphicsContext.drawImage(image, this.positionAtX, this.positionAtY);
     }
 
@@ -146,5 +148,16 @@ public abstract class SpriteElement {
                 widthWithExtraPadding,
                 heightWithExtraPadding
         );
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        SpriteElement spriteElement = (SpriteElement) obj;
+        
+        return this.image == spriteElement.image 
+                && this.elementWidth == spriteElement.elementWidth 
+                && this.elementHeight == spriteElement.elementHeight
+                && this.smooth == spriteElement.smooth
+                && this.preserveRatio == spriteElement.preserveRatio;
     }
 }

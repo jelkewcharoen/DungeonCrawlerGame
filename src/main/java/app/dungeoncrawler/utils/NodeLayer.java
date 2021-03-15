@@ -1,8 +1,12 @@
 package app.dungeoncrawler.utils;
 
-public class NodeLayer extends SpriteElement {
-    private int id;
-    private Dimension dimension;
+import app.dungeoncrawler.models.Game;
+import javafx.scene.Node;
+import javafx.scene.image.Image;
+
+public class NodeLayer extends SpriteElement{
+    public int id;
+    public Dimension dimension;
 
     /**
      * constructs node layer
@@ -50,5 +54,14 @@ public class NodeLayer extends SpriteElement {
      */
     public int getId() {
         return id;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        NodeLayer nodeLayer = (NodeLayer) obj;
+        
+        return this.id == nodeLayer.id 
+                && this.dimension.equals(nodeLayer.dimension)
+                && super.equals(nodeLayer);
     }
 }

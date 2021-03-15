@@ -45,7 +45,7 @@ public class ConfigurationViewTest extends ApplicationTest {
     @Override
     public void start(Stage stage) throws Exception {
         AppScenes scenes = new AppScenes(stage);
-        Map<SceneNames, ViewBase> x = scenes.getUiViews();
+        Map<SceneNames, ViewBase> x = AppScenes.getUiViews();
         ViewBase thisScene = x.get(SceneNames.CONFIGURATION);
         stage.setWidth(720);
         stage.setHeight(512);
