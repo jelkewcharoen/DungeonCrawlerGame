@@ -5,8 +5,6 @@ import app.dungeoncrawler.models.Game;
 import app.dungeoncrawler.models.Player;
 import app.dungeoncrawler.models.Room;
 import app.dungeoncrawler.utils.DefaultWeapons;
-import app.dungeoncrawler.utils.GameMap;
-import app.dungeoncrawler.utils.MapName;
 import app.dungeoncrawler.utils.NodeLayer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -44,7 +42,11 @@ public class InitialGameController implements Initializable {
     public void mounting() {
         this.money.setText("" + Game.getPlayer().getGold());
     }
-    
+
+    /**
+     * moves character each time we press key
+     * @param e key event
+     */
     @FXML public void handleOnKeyPressed(KeyEvent e) {
         Player player = Game.getPlayer();
         int x = 0;
@@ -68,10 +70,14 @@ public class InitialGameController implements Initializable {
 
         Room room = Game.getDungeon().getActiveRoom();
 
-        player.movePlayer(x,y, playerLayer.getGraphicsContext2D());
+        player.movePlayer(x, y, playerLayer.getGraphicsContext2D());
         room.trackPlayerMovement(player.getX(), player.getY());
-    } 
+    }
 
+    /**
+     * loads room
+     * @param pane pane which can be a room set
+     */
     public void loadRoom(Pane pane) {
         // to be removed
         Game.createDungeon("");
@@ -86,9 +92,9 @@ public class InitialGameController implements Initializable {
         GraphicsContext playerLayerGc = playerLayer.getGraphicsContext2D();
         GraphicsContext doorsLayerGc = doorsLayer.getGraphicsContext2D();
 
-       Game.getCurrentGameMap().setRoomGraphics(roomLayerGc);
-       Game.getCurrentGameMap().setDoorsGraphics(doorsLayerGc);
-       player.setGraphicsContext(playerLayerGc);
+        Game.getCurrentGameMap().setRoomGraphics(roomLayerGc);
+        Game.getCurrentGameMap().setDoorsGraphics(doorsLayerGc);
+        player.setGraphicsContext(playerLayerGc);
 
         Room initialRoom = dungeon.getInitialRoom();
         NodeLayer roomNodeLayer = initialRoom.getRoomMap().getRoomLayer();
@@ -104,7 +110,8 @@ public class InitialGameController implements Initializable {
 
             for (int i = 0; i < inactiveDoors.size(); i++) {
                 NodeLayer doorNodeLayer = inactiveDoors.get(i);
-                doorNodeLayer.setPosition(doorNodeLayer.getDimension().averageX(), doorNodeLayer.getDimension().averageY());
+                doorNodeLayer.setPosition(doorNodeLayer.getDimension().averageX(),
+                        doorNodeLayer.getDimension().averageY());
                 doorNodeLayer.draw();
             }
             

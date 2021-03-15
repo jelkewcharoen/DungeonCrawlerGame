@@ -9,8 +9,8 @@ import java.util.Collections;
 import java.util.HashMap;
 
 public class Room {
-    private final int ROOM_HEIGHT = 480;
-    private final int ROOM_WIDTH = 640;
+    private static final int ROOM_HEIGHT = 480;
+    private static final int ROOM_WIDTH = 640;
     
     private Room parent;
     private boolean hasMonster; //has a monster
@@ -51,19 +51,35 @@ public class Room {
             this.drawRoom(true);
         }
     }
-    
+
+    /**
+     * gets room map
+     * @return room map
+     */
     public GameMap getRoomMap() {
         return roomMap;
     }
 
+    /**
+     * gets door id where player left the room
+     * @return gets door id where player left the room
+     */
     public int getDoorIdWherePlayerLeftTheRoom() {
         return doorIdWherePlayerLeftTheRoom;
     }
 
+    /**
+     * gets starting door
+     * @return starting door
+     */
     public NodeLayer getStartingDoor() {
         return this.doorsNodes.get(this.doorIdWherePlayerEnterRoom);
     }
 
+    /**
+     * gets inactive doors
+     * @return inactive doors
+     */
     public ArrayList<NodeLayer> getInactiveDoors() {
         ArrayList<NodeLayer> doorsInactive = new ArrayList<>();
         for (int key : this.doorsNodes.keySet()) {
@@ -75,10 +91,17 @@ public class Room {
         return doorsInactive;
     }
 
+    /**
+     * gets starting door index
+     * @return starting door index
+     */
     public int getStartingDoorIndex() {
         return doorIdWherePlayerEnterRoom;
     }
-    
+
+    /**
+     * sets door where player enters room
+     */
     public void setDoorWherePlayerEnterRoom() {
         if (this.parent != null) {
             int parentDoor = this.parent.getDoorIdWherePlayerLeftTheRoom();
@@ -94,6 +117,10 @@ public class Room {
         }
     }
 
+    /**
+     * creates room map
+     * @param numberOfDoors number of doors needed to create the room map
+     */
     public void createRoomMap(int numberOfDoors) {
         ArrayList<NodeLayer> doors = new ArrayList<>(Game.getCurrentGameMap().getDoorsLayer());
         ArrayList<NodeLayer> activeDoorsNode = new ArrayList<>();
@@ -120,7 +147,11 @@ public class Room {
         
         this.roomMap = new GameMap(Game.getCurrentGameMap().getRoomLayer(), activeDoorsNode);
     }
-    
+
+    /**
+     * draws room
+     * @param enteringRoom entering room where player enters to enter room
+     */
     public void drawRoom(boolean enteringRoom) {
         this.getRoomMap().getRoomLayer().draw();
         Game.getDungeon().setActiveRoom(this);
@@ -133,41 +164,66 @@ public class Room {
             layer.draw();
         }
 
-        int playerLocationDoorId = enteringRoom ? this.doorIdWherePlayerEnterRoom : this.doorIdWherePlayerLeftTheRoom;
+        int playerLocationDoorId = enteringRoom ?
+                this.doorIdWherePlayerEnterRoom : this.doorIdWherePlayerLeftTheRoom;
         NodeLayer initialDoor = this.doorsNodes.get(playerLocationDoorId);
-        DoorDimension initialDoorDimension = (DoorDimension)initialDoor.getDimension();
+        DoorDimension initialDoorDimension = (DoorDimension) initialDoor.getDimension();
         
-        Game.getPlayer().movePlayer(initialDoorDimension.getPositionXForPlayer(), initialDoorDimension.getPositionYForPlayer());
+        Game.getPlayer().movePlayer(initialDoorDimension.getPositionXForPlayer(),
+                initialDoorDimension.getPositionYForPlayer());
     }
 
+    /**
+     * tracks player movement
+     * @param x where x represents x position of player
+     * @param y where y represents y position of player
+     */
     public void trackPlayerMovement(int x, int y) {
         for (int i = 0; i < this.doorsNodes.size(); i++) {
             NodeLayer doorNode = this.doorsNodes.get(i);
-            boolean isPlayerInDoorWhereHeEntered = doorNode.getId() == this.doorIdWherePlayerEnterRoom;
+            boolean isPlayerInDoorWhereHeEntered = doorNode.getId() ==
+                    this.doorIdWherePlayerEnterRoom;
             boolean isPlayerInsideDoorDimension = this.activeDoors.get(doorNode.getId())
                     && doorNode.getDimension().isInsideCoordinates(x, y);
 
-            if (isPlayerInsideDoorDimension && isPlayerInDoorWhereHeEntered && this.parent != null) {
+            if (isPlayerInsideDoorDimension && isPlayerInDoorWhereHeEntered
+                    && this.parent != null) {
                 Game.getDungeon().setActiveRoom(this.parent);
                 this.removeDoorsOfCanvas();
                 this.parent.drawRoom(false);
+                
             } else if (isPlayerInsideDoorDimension && !isPlayerInDoorWhereHeEntered) {
+                if (roomsTree.get(doorNode.getId()) != null) {
+                    Room alreadyCreatedRoom = roomsTree.get(doorNode.getId());
+                    this.removeDoorsOfCanvas();
+                    alreadyCreatedRoom.drawRoom(true);
+                    return;
+                }
+                
                 this.doorIdWherePlayerLeftTheRoom = doorNode.getId();
                 this.createRandomRoom(doorNode.getId());
             }
         }
     }
-    
+
+    /**
+     * removes doors of canvas
+     */
     public void removeDoorsOfCanvas() {
         for (int i = 0; i < this.doorsNodes.size(); i++) {
             this.doorsNodes.get(i).clear();
         }
     }
-    
+
+    /**
+     * creates random room
+     * @param doorId door id which will be assigned to new room
+     * @return random room created
+     */
     public Room createRandomRoom(int doorId) {
         ArrayList<NodeLayer> doors = Game.getCurrentGameMap().getDoorsLayer();
 
-        int randomNumberOfDoors = (int)(Math.random() * (3 - 1 + 1) + 1);
+        int randomNumberOfDoors = (int) (Math.random() * (3 - 1 + 1) + 1);
         
         this.removeDoorsOfCanvas();
         System.out.println("REMOVE FROM CANVAS");
@@ -178,8 +234,7 @@ public class Room {
                 randomNumberOfDoors,
                 this.depth + 1
         );
-
-        System.out.println(randomRoom.activeDoors);
+        
         this.roomsTree.put(doorId, randomRoom);
         return randomRoom;
     }

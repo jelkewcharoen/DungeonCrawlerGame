@@ -9,14 +9,21 @@ import java.util.Map;
 public class GameMap {
     private NodeLayer roomLayer;
     private ArrayList<NodeLayer> doorsLayers = new ArrayList<>();
+    private static Map<MapName, GameMap> availableMaps = new HashMap() {
 
-    private static Map<MapName, GameMap> availableMaps = new HashMap() { };
+    };
 
     /**
-     * initializes a new Game Map
-     *
-     * @param roomLayer the layer of the room
-     * @param doorsLayers the layer of the doors
+     * constructs game map
+     */
+    public GameMap() {
+
+    };
+
+    /**
+     * constructs game map
+     * @param roomLayer room layer to create the game map
+     * @param doorsLayers doors layer to create the game map
      */
     public GameMap(NodeLayer roomLayer, ArrayList<NodeLayer> doorsLayers) {
         this.roomLayer = roomLayer;
@@ -24,28 +31,25 @@ public class GameMap {
     }
 
     /**
-     * generates game maps
-     *
-     * @param screenHeight the height of the screen
-     * @param screenWidth the width of the screen
+     * generates all game map
+     * @param screenHeight screen height used to generate game map
+     * @param screenWidth screen width used to generage game map
      */
     public static void generateAllGameMaps(int screenHeight, int screenWidth) {
         GameMap.generateMap1(screenHeight, screenWidth);
     }
 
     /**
-     * sets the room graphics
-     *
-     * @param c the graphics context
+     * sets room graphics
+     * @param c graphics context used to set room graphics
      */
     public void setRoomGraphics(GraphicsContext c) {
         this.roomLayer.setGraphicsContext(c);
     }
 
     /**
-     * sets the doors graphics
-     *
-     * @param c the graphics context
+     * sets doors graphics
+     * @param c graphics context used to set doors graphics
      */
     public void setDoorsGraphics(GraphicsContext c) {
         for (int i = 0; i < this.doorsLayers.size(); i++) {

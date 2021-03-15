@@ -24,4 +24,14 @@ public class DimensionTest extends TestCase {
         Dimension dimension = new Dimension(2, 4, 3, 9);
         assertEquals(5, Dimension.average(dimension.getHighY(), dimension.getLowX()));
     }
+
+    @Test
+    public void testIsInsideCoordinates() {
+
+        Dimension dimension = new Dimension(2, 4, 3, 9);
+
+        assertEquals(true, dimension.isInsideCoordinates(3, 6));
+        assertEquals(false, dimension.isInsideCoordinates(5, 6));
+    }
+
 }

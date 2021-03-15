@@ -7,12 +7,11 @@ public class Dimension {
     private int highY;
 
     /**
-     * intializes dimensions for rooms
-     *
-     * @param x1 x coordinate
-     * @param x2 x coordinate
-     * @param y1 y coordinate
-     * @param y2 y coordinate
+     * Constructs dimension
+     * @param x1 first x candidates for low or high x value
+     * @param x2 second x candidates for low or high x value
+     * @param y1 first y candidates for low or high y value
+     * @param y2 second y candidates for low or high y value
      */
     public Dimension(int x1, int x2, int y1, int y2) {
         this.lowX = Math.min(x1, x2);     
@@ -22,11 +21,10 @@ public class Dimension {
     }
 
     /**
-     * returns true if coordinates passed in are inside the dimensions
-     *
-     * @param x x coordinate
-     * @param y y coordinate
-     * @return boolean on if coordinates are inside the dimensions
+     * checks if player is inside coordinates
+     * @param x x coordinates of player position
+     * @param y y coordinates of player position
+     * @return true if player is inside coordinates, false otherwise
      */
     public boolean isInsideCoordinates(int x, int y) {
         return x <= this.highX 
@@ -36,29 +34,26 @@ public class Dimension {
     }
 
     /**
-     * averages the high and low x coordinate values
-     *
-     * @return the average between the high and low coordinate values
+     * returns average x value
+     * @return average x value
      */
     public int averageX() {
         return Dimension.average(this.highX, this.lowX);
     }
 
     /**
-     * averages the high and low y coordinate values
-     *
-     * @return the average between the high and low coordinate values
+     * returns average y value
+     * @return average y value
      */
     public int averageY() {
         return Dimension.average(this.highY, this.lowY);
     }
 
     /**
-     * calculates the average of two numbers
-     *
-     * @param highNumber the greater integer
-     * @param lowNumber the smaller integer
-     * @return the average of both integers
+     * returns average value of two given values
+     * @param highNumber high value to divide by 2 after addition
+     * @param lowNumber low value to divide by 2 after addition
+     * @return average value of high number and low number
      */
     public static int average(int highNumber, int lowNumber) {
         return  (highNumber + lowNumber) / 2;
