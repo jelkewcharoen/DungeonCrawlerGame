@@ -2,7 +2,11 @@ package app.dungeoncrawler.views.InitialGame;
 
 
 import app.dungeoncrawler.models.Game;
+import app.dungeoncrawler.models.Player;
+import app.dungeoncrawler.models.Room;
 import app.dungeoncrawler.utils.DefaultWeapons;
+import app.dungeoncrawler.utils.DoorDimension;
+import app.dungeoncrawler.utils.NodeLayer;
 import app.dungeoncrawler.views.AppScenes;
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.ViewBase;
@@ -16,6 +20,7 @@ import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import static javafx.scene.input.KeyCode.*;
@@ -106,5 +111,68 @@ public class InitialGameTest extends ApplicationTest {
         int testrightcalc = original + (15 * 2);
         assertEquals(testrightcalc, Game.getPlayer().getY());
     }
-
+    @Test
+    public void testPlayerEnterNewRoomPositionX() {
+        Room initialRoom = Game.getDungeon().getInitialRoom();
+        Player player = Game.getPlayer();
+        player.setPosition(
+                initialRoom.getStartingDoor().getDimension().averageX(),
+                initialRoom.getStartingDoor().getDimension().averageY()
+        );
+        for (int i = 0; i < 10; i++) {
+            press(RIGHT).release(RIGHT);
+        }
+        for (int i = 0; i < 10; i++) {
+            press(DOWN).release(DOWN);
+        }
+        Room currentRoom = Game.getDungeon().getActiveRoom();
+        int playerLocationDoorId = currentRoom.getDoorIdWherePlayerEnterTheRoom();
+        NodeLayer initialDoor = currentRoom.getDoorsNodes().get(playerLocationDoorId);
+        DoorDimension initialDoorDimension = (DoorDimension)initialDoor.getDimension();
+        assertEquals(player.getX(), initialDoorDimension.getPositionXForPlayer());
+    }
+    @Test
+    public void testPlayerEnterNewRoomPositionY() {
+        Room initialRoom = Game.getDungeon().getInitialRoom();
+        Player player = Game.getPlayer();
+        player.setPosition(
+                initialRoom.getStartingDoor().getDimension().averageX(),
+                initialRoom.getStartingDoor().getDimension().averageY()
+        );
+        for (int i = 0; i < 10; i++) {
+            press(RIGHT).release(RIGHT);
+        }
+        for (int i = 0; i < 10; i++) {
+            press(DOWN).release(DOWN);
+        }
+        Room currentRoom = Game.getDungeon().getActiveRoom();
+        int playerLocationDoorId = currentRoom.getDoorIdWherePlayerEnterTheRoom();
+        NodeLayer initialDoor = currentRoom.getDoorsNodes().get(playerLocationDoorId);
+        DoorDimension initialDoorDimension = (DoorDimension)initialDoor.getDimension();
+        assertEquals(player.getY(), initialDoorDimension.getPositionYForPlayer());
+    }
+    @Test
+    public void testPlayerEnterPreviousRoom() {
+        Room initialRoom = Game.getDungeon().getInitialRoom();
+        Player player = Game.getPlayer();
+        player.setPosition(
+                initialRoom.getStartingDoor().getDimension().averageX(),
+                initialRoom.getStartingDoor().getDimension().averageY()
+        );
+        for (int i = 0; i < 10; i++) {
+            press(RIGHT).release(RIGHT);
+        }
+        for (int i = 0; i < 10; i++) {
+            press(DOWN).release(DOWN);
+        }
+        Room currentRoom = Game.getDungeon().getActiveRoom();
+        HashMap<Integer, Boolean> doors1 = currentRoom.getActiveDoorsNodes();
+        if(doors1.get(1))
+        for (int i = 0; i < 10; i++) {
+            press(DOWN).release(DOWN);
+        }
+        for (int i = 0; i < 10; i++) {
+            press(DOWN).release(DOWN);
+        }
+    }
 }
