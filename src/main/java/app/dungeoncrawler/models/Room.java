@@ -67,7 +67,27 @@ public class Room {
     public int getDoorIdWherePlayerLeftTheRoom() {
         return doorIdWherePlayerLeftTheRoom;
     }
-
+    /**
+     * gets door id where player entered the room
+     * @return gets door id where player entered the room
+     */
+    public int getDoorIdWherePlayerEnterTheRoom() {
+        return doorIdWherePlayerEnterRoom;
+    }
+    /**
+     * gets door nodes of the active room
+     * @return gets door nodes of the active room
+     */
+    public HashMap<Integer, NodeLayer> getDoorsNodes() {
+        return doorsNodes;
+    }
+    /**
+     * gets the list of active door nodes of the active room
+     * @return gets active door nodes of the active room
+     */
+    public HashMap<Integer, Boolean> getActiveDoorsNodes() {
+        return activeDoors;
+    }
     /**
      * gets starting door
      * @return starting door
@@ -90,6 +110,7 @@ public class Room {
 
         return doorsInactive;
     }
+
 
     /**
      * gets starting door index
@@ -134,14 +155,11 @@ public class Room {
         for (int i = 0; i < doors.size(); i++) {
             NodeLayer door = doors.get(i);
             doorsNodes.put(door.getId(), door);
-
             if (numberOfDoors > i) {
                 activeDoors.put(door.getId(), true);
                 activeDoorsNode.add(door);
                 continue;
             }
-
-            
             activeDoors.put(door.getId(), false);
         }
         
