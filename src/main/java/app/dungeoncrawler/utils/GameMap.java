@@ -9,7 +9,6 @@ import java.util.Map;
 public class GameMap {
     private NodeLayer roomLayer;
     private ArrayList<NodeLayer> doorsLayers = new ArrayList<>();
-
     private static Map<MapName, GameMap> availableMaps = new HashMap() {
 
     };
@@ -58,37 +57,43 @@ public class GameMap {
             door.setGraphicsContext(c);
         }
     }
-    
+
+    /**
+     * generates a map with 4 doors
+     *
+     * @param screenHeight the height of the screen
+     * @param screenWidth the height of the width
+     */
     private static void generateMap1(int screenHeight, int screenWidth) {
         NodeLayer roomLayer;
         ArrayList<NodeLayer> doorsLayer = new ArrayList<>();
 
         Dimension roomDimensions = new Dimension(135, 405, 35, 325);
-        roomLayer = new NodeLayer(
-                0, "/app/assets/4door.png", screenWidth, screenHeight, roomDimensions);
+        roomLayer = new NodeLayer(0, "/app/assets/4door.png",
+                screenWidth, screenHeight, roomDimensions);
         
-        Dimension doorDimesion1 = new DoorDimension(
-                135, -5, 210, 140, 135, 0); // put in term of porcetange
-        Dimension doorDimesion2 = new DoorDimension(
-                250, 295, 35,-45, 0, 35);// put in term of porcetange
-        Dimension doorDimesion3 = new DoorDimension(
-                405, 565, 85, 160, 405, 0);// put in term of porcetange
-        Dimension doorDimesion4 = new DoorDimension(
-                200, 240, 370, 325, 0, 325);// put in term of porcetange
+        Dimension doorDimension1 = new DoorDimension(135, -5, 210, 140,
+                135, 0); // put in term of percentage
+        Dimension doorDimension2 = new DoorDimension(250, 295, 35, -45,
+                0, 35); // put in term of percentage
+        Dimension doorDimension3 = new DoorDimension(405, 565, 85, 160,
+                405, 0); // put in term of percentage
+        Dimension doorDimension4 = new DoorDimension(200, 240, 370, 325,
+                0, 325); // put in term of percentage
         
-        NodeLayer door1 = new NodeLayer(
-                0, "/app/assets/construction.png", 80, 100, doorDimesion1);
-        NodeLayer door2 = new NodeLayer(
-                1, "/app/assets/construction.png", 80, 100, doorDimesion2);
-        NodeLayer door3 = new NodeLayer(
-                2, "/app/assets/construction.png", 80, 100, doorDimesion3);
-        NodeLayer door4 = new NodeLayer(
-                3, "/app/assets/construction.png", 80, 100, doorDimesion4);
+        NodeLayer door1 = new NodeLayer(0, "/app/assets/construction.png",
+                80, 100, doorDimension1);
+        NodeLayer door2 = new NodeLayer(1, "/app/assets/construction.png",
+                80, 100, doorDimension2);
+        NodeLayer door3 = new NodeLayer(2, "/app/assets/construction.png",
+                80, 100, doorDimension3);
+        NodeLayer door4 = new NodeLayer(3, "/app/assets/construction.png",
+                80, 100, doorDimension4);
         
-        door1.setPosition(doorDimesion1.averageX(), doorDimesion1.averageY());
-        door2.setPosition(doorDimesion2.averageX(), doorDimesion2.averageY());
-        door3.setPosition(doorDimesion3.averageX(), doorDimesion3.averageY());
-        door4.setPosition(doorDimesion4.averageX(), doorDimesion4.averageY());
+        door1.setPosition(doorDimension1.averageX(), doorDimension1.averageY());
+        door2.setPosition(doorDimension2.averageX(), doorDimension2.averageY());
+        door3.setPosition(doorDimension3.averageX(), doorDimension3.averageY());
+        door4.setPosition(doorDimension4.averageX(), doorDimension4.averageY());
         
         doorsLayer.add(door1);
         doorsLayer.add(door2);
@@ -98,18 +103,40 @@ public class GameMap {
         GameMap.availableMaps.put(MapName.MAP_1, new GameMap(roomLayer, doorsLayer));
     }
 
+    /**
+     * gets the available maps
+     *
+     * @return available maps
+     */
     public static Map<MapName, GameMap> getAvailableMaps() {
         return availableMaps;
     }
 
+    /**
+     * gets the door layers
+     *
+     * @return door layers
+     */
     public ArrayList<NodeLayer> getDoorsLayer() {
         return doorsLayers;
     }
 
+    /**
+     * gets the room layer
+     *
+     * @return room layer
+     */
     public NodeLayer getRoomLayer() {
         return roomLayer;
     }
-    
+
+    /**
+     * returns a boolean based on if the coordinates passed in are in the map
+     *
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @return boolean on if the coordinate is in the map
+     */
     public boolean isCoordinateInsideTheMap(int x, int y) {
         boolean coordinatesAreInside = false;
         ArrayList<NodeLayer> availableSpace = this.doorsLayers;
