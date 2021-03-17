@@ -14,6 +14,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import app.dungeoncrawler.views.AppScenes;
+import app.dungeoncrawler.utils.SceneNames;
+import javafx.scene.Node;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
 
 import java.net.URL;
 import java.util.*;
@@ -72,6 +77,12 @@ public class InitialGameController implements Initializable {
 
         player.movePlayer(x, y, playerLayer.getGraphicsContext2D());
         room.trackPlayerMovement(player.getX(), player.getY());
+        if (room.getIsExit() && room.getPlayerExitsExitRoom()) {
+            Scene thisScene = (Scene) e.getSource();
+            Stage thisStage = (Stage) thisScene.getWindow();
+            AppScenes.navigateTo(thisStage, SceneNames.WIN);
+
+        }
     }
 
     /**
