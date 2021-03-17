@@ -19,8 +19,6 @@ import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import static javafx.scene.input.KeyCode.*;
@@ -128,7 +126,7 @@ public class InitialGameTest extends ApplicationTest {
         Room currentRoom = Game.getDungeon().getActiveRoom();
         int playerLocationDoorId = currentRoom.getDoorIdWherePlayerEnterTheRoom();
         NodeLayer initialDoor = currentRoom.getDoorsNodes().get(playerLocationDoorId);
-        DoorDimension initialDoorDimension = (DoorDimension)initialDoor.getDimension();
+        DoorDimension initialDoorDimension = (DoorDimension) initialDoor.getDimension();
         assertEquals(player.getX(), initialDoorDimension.getPositionXForPlayer());
     }
     @Test
@@ -148,7 +146,7 @@ public class InitialGameTest extends ApplicationTest {
         Room currentRoom = Game.getDungeon().getActiveRoom();
         int playerLocationDoorId = currentRoom.getDoorIdWherePlayerEnterTheRoom();
         NodeLayer initialDoor = currentRoom.getDoorsNodes().get(playerLocationDoorId);
-        DoorDimension initialDoorDimension = (DoorDimension)initialDoor.getDimension();
+        DoorDimension initialDoorDimension = (DoorDimension) initialDoor.getDimension();
         assertEquals(player.getY(), initialDoorDimension.getPositionYForPlayer());
     }
     @Test
