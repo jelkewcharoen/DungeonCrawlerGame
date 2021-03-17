@@ -7,6 +7,7 @@ import app.dungeoncrawler.utils.NodeLayer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Random;
 
 public class Room {
     private static final int ROOM_HEIGHT = 480;
@@ -17,6 +18,7 @@ public class Room {
     private boolean isExit; //is an exit room
     private int doors; //number of doors
     private int depth;
+    private boolean playerExitsExitRoom = false;
     
     private HashMap<Integer, Room> roomsTree = new HashMap<>();
     private HashMap<Integer, NodeLayer> doorsNodes = new HashMap<>();
@@ -120,6 +122,14 @@ public class Room {
         return doorIdWherePlayerEnterRoom;
     }
 
+    public boolean getIsExit() {
+        return isExit;
+    }
+
+    public boolean getPlayerExitsExitRoom() {
+        return playerExitsExitRoom;
+    }
+
     /**
      * sets door where player enters room
      */
@@ -217,9 +227,12 @@ public class Room {
                     alreadyCreatedRoom.drawRoom(true);
                     return;
                 }
-                
-                this.doorIdWherePlayerLeftTheRoom = doorNode.getId();
-                this.createRandomRoom(doorNode.getId());
+                if (isExit) {
+                    playerExitsExitRoom = true;
+                } else {
+                    this.doorIdWherePlayerLeftTheRoom = doorNode.getId();
+                    this.createRandomRoom(doorNode.getId());
+                }
             }
         }
     }
@@ -242,17 +255,25 @@ public class Room {
         ArrayList<NodeLayer> doors = Game.getCurrentGameMap().getDoorsLayer();
 
         int randomNumberOfDoors = (int) (Math.random() * (3 - 1 + 1) + 1);
-        
+
+        boolean nextRoomExit = false;
+        if (this.depth > 5) {
+            Random nextExit = new Random();
+            nextRoomExit = nextExit.nextBoolean();
+        }
+//        if (nextRoomExit) {
+//            randomNumberOfDoors = 1;
+//        }
         this.removeDoorsOfCanvas();
         System.out.println("REMOVE FROM CANVAS");
         Room randomRoom = new Room(
                 this,
                 false,
-                false,
+                nextRoomExit,
                 randomNumberOfDoors,
                 this.depth + 1
         );
-        
+        System.out.println(isExit);
         this.roomsTree.put(doorId, randomRoom);
         return randomRoom;
     }
