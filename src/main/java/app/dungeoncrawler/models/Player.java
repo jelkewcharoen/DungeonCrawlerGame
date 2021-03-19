@@ -67,6 +67,7 @@ public class Player extends SpriteElement {
      * @param c graphic content
      */
     public void movePlayer(int x, int y, GraphicsContext c) {
+        System.out.println(this.getX());
         if (
             Game.getDungeon()
                 .getActiveRoom()

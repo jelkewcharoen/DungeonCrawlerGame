@@ -142,6 +142,7 @@ public abstract class SpriteElement {
         int heightWithExtraPadding = (int) ((double) this.elementHeight * porcentage)
                 + this.elementHeight;
 
+        System.out.println(this.graphicsContext);
         this.graphicsContext.restore();
         this.graphicsContext.clearRect(
                 this.prevPositionAtX,

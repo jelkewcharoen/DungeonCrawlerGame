@@ -98,7 +98,7 @@ public class InitialGameController implements Initializable {
         GraphicsContext roomLayerGc = roomLayer.getGraphicsContext2D();
         GraphicsContext playerLayerGc = playerLayer.getGraphicsContext2D();
         GraphicsContext doorsLayerGc = doorsLayer.getGraphicsContext2D();
-
+        
         Game.getCurrentGameMap().setRoomGraphics(roomLayerGc);
         Game.getCurrentGameMap().setDoorsGraphics(doorsLayerGc);
         player.setGraphicsContext(playerLayerGc);

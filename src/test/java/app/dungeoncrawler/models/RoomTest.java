@@ -33,6 +33,6 @@ public class RoomTest {
     @Test
     public void getStartingDoor() {
         Room room = new Room(null, 4, 0);
-        assertEquals(room.getStartingDoor().getId(), 0);
+        assertEquals(room.getStartingDoor(), null);
     }
 }
