@@ -1,36 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.canvas.Canvas?>
 <?import java.util.ArrayList?>
-<StackPane xmlns="http://javafx.com/javafx"
-           xmlns:fx="http://javafx.com/fxml"
-           styleClass="hBoxMainContainer"
-           stylesheets="@InitialGame.css"
-           fx:id="initialGamePane"
-           fx:controller="app.dungeoncrawler.views.InitialGame.InitialGameController"
-           onKeyPressed="#handleOnKeyPressed"
-           onKeyReleased="#handleOnKeyPressed"
->
-    <Text styleClass="scoreBox"
-          textAlignment="LEFT"
-          id="score"
-    >
-        $
-    </Text>
-    <Text fx:id="money" fill="black" layoutX="80" layoutY="55" text="90">
+<StackPane fx:id="initialGamePane" onKeyPressed="#handleOnKeyPressed" onKeyReleased="#handleOnKeyPressed" styleClass="hBoxMainContainer" stylesheets="@InitialGame.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.dungeoncrawler.views.InitialGame.InitialGameController">
+    <Canvas fx:id="roomLayer" />
+    <Canvas fx:id="doorsLayer" />
+    <Canvas fx:id="playerLayer" />
+    <Text fx:id="money" fill="white" StackPane.alignment="TOP_LEFT">
         <font>
-            <Font name="verdana" size="15"/>
+            <Font name="verdana" size="35" />
         </font>
     </Text>
-    <Canvas fx:id="roomLayer"/>
-    <Canvas fx:id="doorsLayer"/>
-    <Canvas fx:id="playerLayer"/>
     <fx:define>
-        <ArrayList fx:id="canvasList" >
+        <ArrayList fx:id="canvasList">
             <fx:reference source="roomLayer" />
             <fx:reference source="doorsLayer" />
             <fx:reference source="playerLayer" />
