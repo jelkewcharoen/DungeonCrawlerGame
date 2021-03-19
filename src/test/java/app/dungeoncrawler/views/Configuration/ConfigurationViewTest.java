@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.Before;
 import org.testfx.api.FxAssert;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
@@ -17,8 +16,6 @@ import org.testfx.matcher.base.NodeMatchers;
 import org.testfx.util.WaitForAsyncUtils;
 import app.dungeoncrawler.models.Game;
 
-
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.testfx.matcher.base.NodeMatchers.hasChild;

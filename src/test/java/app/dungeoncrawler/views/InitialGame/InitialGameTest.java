@@ -10,24 +10,17 @@ import app.dungeoncrawler.utils.NodeLayer;
 import app.dungeoncrawler.views.AppScenes;
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.ViewBase;
-import javafx.fxml.FXML;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
+
 import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testfx.api.FxAssert;
-import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
-import org.testfx.service.finder.impl.NodeFinderImpl;
-import org.testfx.service.finder.impl.WindowFinderImpl;
-import org.testfx.service.query.NodeQuery;
-import org.testfx.util.WaitForAsyncUtils;
 
-import java.util.Map;
+import org.testfx.util.WaitForAsyncUtils;
 
 import static javafx.scene.input.KeyCode.*;
 import static org.junit.Assert.assertEquals;
@@ -119,12 +112,9 @@ public class InitialGameTest extends ApplicationTest {
     }
     @Test
     public void testPlayerEnterNewRoomPositionX() {
-//        Room initialRoom = Game.getDungeon().getInitialRoom();
+
         Player player = Game.getPlayer();
-//        player.setPosition(
-//                initialRoom.getRoomDimensions().averageX(),
-//                initialRoom.getRoomDimensions().averageY()
-//        );
+
         for (int i = 0; i < 2; i++) {
             press(LEFT).release(LEFT);
         }
@@ -139,12 +129,9 @@ public class InitialGameTest extends ApplicationTest {
     }
     @Test
     public void testPlayerEnterNewRoomPositionY() {
-//        Room initialRoom = Game.getDungeon().getInitialRoom();
+
         Player player = Game.getPlayer();
-//        player.setPosition(
-//                initialRoom.getRoomDimensions().averageX(),
-//                initialRoom.getRoomDimensions().averageY()
-//        );
+
         for (int i = 0; i < 2; i++) {
             press(LEFT).release(LEFT);
         }
@@ -160,11 +147,7 @@ public class InitialGameTest extends ApplicationTest {
     @Test
     public void testPlayerEnterPreviousRoom() {
         Room initialRoom = Game.getDungeon().getInitialRoom();
-//        Player player = Game.getPlayer();
-//        player.setPosition(
-//                initialRoom.getRoomDimensions().averageX(),
-//                initialRoom.getRoomDimensions().averageY()
-//        );
+
         for (int i = 0; i < 2; i++) {
             press(LEFT).release(LEFT);
         }
