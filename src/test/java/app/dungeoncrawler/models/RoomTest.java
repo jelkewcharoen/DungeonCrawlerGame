@@ -1,15 +1,11 @@
 package app.dungeoncrawler.models;
 
 import app.dungeoncrawler.utils.DefaultWeapons;
-import app.dungeoncrawler.utils.Difficulties;
+
 import app.dungeoncrawler.utils.GameMap;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.stage.Stage;
+
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.testfx.framework.junit.ApplicationTest;
 
 import static org.junit.Assert.*;
 
