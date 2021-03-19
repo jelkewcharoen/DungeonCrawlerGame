@@ -11,8 +11,6 @@ import java.util.Map;
 public class GameMap {
     private NodeLayer roomLayer;
     private ArrayList<NodeLayer> doorsLayers = new ArrayList<>();
-    private static Map<MapName, GameMap> availableMaps = new HashMap() {
-
     public static Map<MapName, GameMap> availableMaps = new HashMap(){};
     
     private GameMap() {}

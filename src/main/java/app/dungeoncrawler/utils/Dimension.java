@@ -67,4 +67,20 @@ public class Dimension {
                 && this.highY == dimension.highY
                 && this.highX == dimension.highX;
     }
+
+    public int getLowX() {
+        return lowX;
+    }
+
+    public int getHighX() {
+        return highX;
+    }
+
+    public int getLowY() {
+        return lowY;
+    }
+
+    public int getHighY() {
+        return highY;
+    }
 }
