@@ -9,4 +9,5 @@ module app.dungeoncrawler {
     opens app.dungeoncrawler.views.Welcome;
     opens app.dungeoncrawler.views.Configuration;
     opens app.dungeoncrawler.views.InitialGame;
+    opens app.dungeoncrawler.views.Win;
 }

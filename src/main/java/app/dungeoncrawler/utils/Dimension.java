@@ -59,40 +59,28 @@ public class Dimension {
         return  (highNumber + lowNumber) / 2;
     }
 
-    /**
-     * returns low x coordinate value
-     *
-     * @return low x coordinate
-     */
+    @Override
+    public boolean equals(Object obj) {
+        Dimension dimension = (Dimension) obj;
+        return this.lowY == dimension.lowY 
+                && this.lowX == dimension.lowX 
+                && this.highY == dimension.highY
+                && this.highX == dimension.highX;
+    }
+
     public int getLowX() {
-        return this.lowX;
+        return lowX;
     }
 
-    /**
-     * returns high x coordinate value
-     *
-     * @return high x coordinate
-     */
     public int getHighX() {
-        return this.highX;
+        return highX;
     }
 
-    /**
-     * returns low y coordinate value
-     *
-     * @return low y coordinate
-     */
     public int getLowY() {
-        return this.lowY;
+        return lowY;
     }
 
-    /**
-     * returns high y coordinate value
-     *
-     * @return high y coordinate
-     */
     public int getHighY() {
-        return this.highY;
+        return highY;
     }
-
 }

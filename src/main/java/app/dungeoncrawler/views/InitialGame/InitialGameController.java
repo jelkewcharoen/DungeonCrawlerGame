@@ -90,10 +90,6 @@ public class InitialGameController implements Initializable {
      * @param pane pane which can be a room set
      */
     public void loadRoom(Pane pane) {
-        // to be removed
-        Game.createDungeon("");
-        Game.createPlayer("ivan", DefaultWeapons.WEAPON1);
-        //to be removed ^
 
         Player player = Game.getPlayer();
         Dungeon dungeon = Game.getDungeon();

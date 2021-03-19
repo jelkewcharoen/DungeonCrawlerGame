@@ -20,6 +20,9 @@ public class Dungeon {
     };
     private Difficulties difficulty;
 
+    public Dungeon() {
+        this("EASY");
+    }
     /**
      * Creates a Dungeon with a difficulty.
      *
@@ -86,8 +89,8 @@ public class Dungeon {
     public void setActivePlayer(Player activePlayer) {
         Room initialRoom = this.getInitialRoom();
         activePlayer.setPosition(
-                initialRoom.getStartingDoor().getDimension().averageX(),
-                initialRoom.getStartingDoor().getDimension().averageY()
+                initialRoom.getRoomMap().getRoomLayer().getDimension().averageX(),
+                initialRoom.getRoomMap().getRoomLayer().getDimension().averageY()
         );
 
         this.activePlayer = activePlayer;

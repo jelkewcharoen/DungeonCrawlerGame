@@ -4,14 +4,13 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public abstract class SpriteElement {
-    private Image image;
-    private int positionAtX;
-    private int positionAtY;
-    private int prevPositionAtX;
-    private int prevPositionAtY;
-    private int elementHeight;
-    private int elementWidth;
+    private String image;
+    private int positionAtX, positionAtY;
+    private int prevPositionAtX, prevPositionAtY;
+    private int elementHeight, elementWidth;
     private GraphicsContext graphicsContext;
+    private boolean preserveRatio, smooth;
+    private Image imageCached;
 
     /**
      * constructs sprite element
@@ -20,7 +19,6 @@ public abstract class SpriteElement {
      * @param height height of the element height
      */
     public SpriteElement(String imagePath, int width, int height) {
-
         this(imagePath, width, height, false, false);
     }
 
@@ -41,18 +39,11 @@ public abstract class SpriteElement {
     ) {
         this.elementHeight = height;
         this.elementWidth = width;
+        this.preserveRatio = preserveRatio;
+        this.smooth = smooth;
         
         if (imagePath != "") {
-            this.image = new Image(
-                    getClass()
-                            .getResource(imagePath)
-                            .toExternalForm(),
-                    width,
-                    height,
-                    preserveRatio,
-                    smooth
-            );
-
+            this.image = imagePath;
         }
 
     }
@@ -114,7 +105,19 @@ public abstract class SpriteElement {
      */
     public void draw(GraphicsContext graphicsContext) {
         this.clear(graphicsContext);
-        this.graphicsContext.drawImage(image, this.positionAtX, this.positionAtY);
+        this.imageCached = this.imageCached == null 
+            ? new Image(
+                getClass()
+                        .getResource(this.image)
+                        .toExternalForm(),
+                this.elementWidth,
+                this.elementHeight,
+                this.preserveRatio,
+                this.smooth
+            )
+            : this.imageCached;
+                
+        this.graphicsContext.drawImage(this.imageCached, this.positionAtX, this.positionAtY);
     }
 
     /**
@@ -146,5 +149,16 @@ public abstract class SpriteElement {
                 widthWithExtraPadding,
                 heightWithExtraPadding
         );
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        SpriteElement spriteElement = (SpriteElement) obj;
+        
+        return this.image == spriteElement.image 
+                && this.elementWidth == spriteElement.elementWidth 
+                && this.elementHeight == spriteElement.elementHeight
+                && this.smooth == spriteElement.smooth
+                && this.preserveRatio == spriteElement.preserveRatio;
     }
 }

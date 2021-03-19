@@ -17,7 +17,7 @@ public class WinViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        exit.setOnMouseClicked((event) -> {
+        exit.setOnAction((event) -> {
             Node node = (Node) event.getSource();
             Stage thisStage = (Stage) node.getScene().getWindow();
             AppScenes.navigateTo(thisStage, SceneNames.WELCOME);

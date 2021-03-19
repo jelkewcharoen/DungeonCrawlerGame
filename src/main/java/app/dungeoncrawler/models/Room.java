@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.List;
 
 public class Room {
     private static final int ROOM_HEIGHT = 480;
@@ -25,8 +26,12 @@ public class Room {
     private HashMap<Integer, Boolean> activeDoors = new HashMap<>();
     private GameMap roomMap;
     
-    private int doorIdWherePlayerEnterRoom;
-    private int doorIdWherePlayerLeftTheRoom;
+    private int doorIdWherePlayerEnterRoom = -1;
+    private int doorIdWherePlayerLeftTheRoom = -1;
+    
+    public Room(Room parent, int doors, int depth) {
+        this(parent, false, false, doors, depth);
+    }
 
     /**
      * instructor for the class Room
@@ -52,6 +57,8 @@ public class Room {
         if (this.parent != null) {
             this.drawRoom(true);
         }
+
+        System.out.println(this.activeDoors);
     }
 
     /**
@@ -136,15 +143,12 @@ public class Room {
     public void setDoorWherePlayerEnterRoom() {
         if (this.parent != null) {
             int parentDoor = this.parent.getDoorIdWherePlayerLeftTheRoom();
-            System.out.println(parentDoor);
             if (parentDoor > 1) {
                 this.doorIdWherePlayerEnterRoom = parentDoor - 2;
                 return;
             }
             
             this.doorIdWherePlayerEnterRoom = parentDoor + 2;
-        } else {
-            this.doorIdWherePlayerEnterRoom = 0;
         }
     }
 
@@ -156,10 +160,12 @@ public class Room {
         ArrayList<NodeLayer> doors = new ArrayList<>(Game.getCurrentGameMap().getDoorsLayer());
         ArrayList<NodeLayer> activeDoorsNode = new ArrayList<>();
 
-        NodeLayer initDoor = doors.remove(this.doorIdWherePlayerEnterRoom);
-        activeDoors.put(initDoor.getId(), true);
-        doorsNodes.put(initDoor.getId(), initDoor);
-        activeDoorsNode.add(initDoor);
+        if (this.parent != null) {
+            NodeLayer initDoor = doors.remove(this.doorIdWherePlayerEnterRoom);
+            activeDoors.put(initDoor.getId(), true);
+            doorsNodes.put(initDoor.getId(), initDoor);
+            activeDoorsNode.add(initDoor);
+        }
         
         Collections.shuffle(doors);
         for (int i = 0; i < doors.size(); i++) {
@@ -213,20 +219,23 @@ public class Room {
                     == this.doorIdWherePlayerEnterRoom;
             boolean isPlayerInsideDoorDimension = this.activeDoors.get(doorNode.getId())
                     && doorNode.getDimension().isInsideCoordinates(x, y);
-
+            
             if (isPlayerInsideDoorDimension && isPlayerInDoorWhereHeEntered
                     && this.parent != null) {
                 Game.getDungeon().setActiveRoom(this.parent);
                 this.removeDoorsOfCanvas();
                 this.parent.drawRoom(false);
                 
-            } else if (isPlayerInsideDoorDimension && !isPlayerInDoorWhereHeEntered) {
+            }  else if (isPlayerInsideDoorDimension && !isPlayerInDoorWhereHeEntered) {
+                this.doorIdWherePlayerLeftTheRoom = doorNode.getId();
+                this.removeDoorsOfCanvas();
+
                 if (roomsTree.get(doorNode.getId()) != null) {
                     Room alreadyCreatedRoom = roomsTree.get(doorNode.getId());
-                    this.removeDoorsOfCanvas();
                     alreadyCreatedRoom.drawRoom(true);
                     return;
                 }
+
                 if (isExit) {
                     playerExitsExitRoom = true;
                 } else {
@@ -245,12 +254,26 @@ public class Room {
             this.doorsNodes.get(i).clear();
         }
     }
+    
+    public int getRandomNumberOfDoors() {
+        ArrayList<Integer> doorsPossibilities = new ArrayList<>();
+        // 3 - 3/10 will have 3 doors
+        // 2 - 5/10 will have 2 doors
+        // 1 - 2/10 will have 1 doors
+        for (int i = 1; i < 11; i++) {
+            if (i <= 3) {
+                doorsPossibilities.add(3);
+            } else if (i >= 8) {
+                doorsPossibilities.add(1);
+            } else {
+                doorsPossibilities.add(1);
+            }
+        }
 
-    /**
-     * creates random room
-     * @param doorId door id which will be assigned to new room
-     * @return random room created
-     */
+        Collections.shuffle(doorsPossibilities);
+        return doorsPossibilities.get(0);
+    }
+    
     public Room createRandomRoom(int doorId) {
         ArrayList<NodeLayer> doors = Game.getCurrentGameMap().getDoorsLayer();
 
@@ -261,9 +284,7 @@ public class Room {
             Random nextExit = new Random();
             nextRoomExit = nextExit.nextBoolean();
         }
-//        if (nextRoomExit) {
-//            randomNumberOfDoors = 1;
-//        }
+ 
         this.removeDoorsOfCanvas();
         System.out.println("REMOVE FROM CANVAS");
         Room randomRoom = new Room(
@@ -276,5 +297,19 @@ public class Room {
         System.out.println(isExit);
         this.roomsTree.put(doorId, randomRoom);
         return randomRoom;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Room room = (Room) obj;
+        
+        return this.doorsNodes.equals(room)
+                && this.doorIdWherePlayerEnterRoom == room.doorIdWherePlayerEnterRoom
+                && this.doorIdWherePlayerLeftTheRoom == room.doorIdWherePlayerLeftTheRoom
+                && this.roomMap.equals(room.roomMap);
+    }
+
+    public Room getParent() {
+        return parent;
     }
 }
