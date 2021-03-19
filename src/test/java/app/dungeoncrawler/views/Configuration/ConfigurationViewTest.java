@@ -109,5 +109,6 @@ public class ConfigurationViewTest extends ApplicationTest {
         clickOn("#startGame");
         WaitForAsyncUtils.waitForFxEvents();
         assertEquals(100, Game.getPlayer().getGold());
+        //test
     }
 }
