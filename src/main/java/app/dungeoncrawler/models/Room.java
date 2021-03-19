@@ -1,5 +1,6 @@
 package app.dungeoncrawler.models;
 
+import app.dungeoncrawler.utils.Dimension;
 import app.dungeoncrawler.utils.DoorDimension;
 import app.dungeoncrawler.utils.GameMap;
 import app.dungeoncrawler.utils.NodeLayer;
@@ -8,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.List;
 
 public class Room {
     private static final int ROOM_HEIGHT = 480;
@@ -118,6 +118,10 @@ public class Room {
         }
 
         return doorsInactive;
+    }
+    
+    public Dimension getRoomDimensions() {
+        return this.roomMap.getRoomLayer().getDimension();
     }
 
 
@@ -274,7 +278,7 @@ public class Room {
         return doorsPossibilities.get(0);
     }
     
-    public Room createRandomRoom(int doorId) {
+    public void createRandomRoom(int doorId) {
         ArrayList<NodeLayer> doors = Game.getCurrentGameMap().getDoorsLayer();
 
         int randomNumberOfDoors = (int) (Math.random() * (3 - 1 + 1) + 1);
@@ -296,15 +300,13 @@ public class Room {
         );
         System.out.println(isExit);
         this.roomsTree.put(doorId, randomRoom);
-        return randomRoom;
     }
 
     @Override
     public boolean equals(Object obj) {
         Room room = (Room) obj;
         
-        return this.doorsNodes.equals(room)
-                && this.doorIdWherePlayerEnterRoom == room.doorIdWherePlayerEnterRoom
+        return this.doorIdWherePlayerEnterRoom == room.doorIdWherePlayerEnterRoom
                 && this.doorIdWherePlayerLeftTheRoom == room.doorIdWherePlayerLeftTheRoom
                 && this.roomMap.equals(room.roomMap);
     }

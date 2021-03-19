@@ -1,5 +1,6 @@
 package app.dungeoncrawler.views.Welcome;
 
+import app.dungeoncrawler.models.Game;
 import app.dungeoncrawler.views.AppScenes;
 import javafx.stage.Stage;
 import org.junit.After;
@@ -26,8 +27,8 @@ public class WelcomeViewTest extends ApplicationTest {
     @Override
     public void start(Stage stage) throws Exception {
         AppScenes scenes = new AppScenes(stage);
-        stage.setWidth(720);
-        stage.setHeight(512);
+        stage.setWidth(Game.WINDOW_WIDTH);
+        stage.setHeight(Game.WINDOW_HEIGHT);
         stage.setScene(scenes.getMainPage());
         stage.show();
         stage.toFront();

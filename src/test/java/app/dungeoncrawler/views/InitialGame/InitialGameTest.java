@@ -10,14 +10,22 @@ import app.dungeoncrawler.utils.NodeLayer;
 import app.dungeoncrawler.views.AppScenes;
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.ViewBase;
+import javafx.fxml.FXML;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testfx.api.FxAssert;
+import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
+import org.testfx.service.finder.impl.NodeFinderImpl;
+import org.testfx.service.finder.impl.WindowFinderImpl;
+import org.testfx.service.query.NodeQuery;
+import org.testfx.util.WaitForAsyncUtils;
 
 import java.util.Map;
 
@@ -26,6 +34,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class InitialGameTest extends ApplicationTest {
+
     private ViewBase thisScene;
     @BeforeClass
     public static void config() throws Exception {
@@ -39,16 +48,19 @@ public class InitialGameTest extends ApplicationTest {
 
     @Override
     public void start(Stage stage) throws Exception {
+        AppScenes.clearUiViews();
         Game.createDungeon("EASY");
         Game.createPlayer("Test player", DefaultWeapons.WEAPON1);
-        AppScenes scenes = new AppScenes(stage);
+        
+        AppScenes scenes = new AppScenes(stage, SceneNames.INITIAL_GAME);
         thisScene = scenes.getScreen(SceneNames.INITIAL_GAME);
-
-        stage.setWidth(720);
-        stage.setHeight(512);
+        
+        stage.setWidth(Game.WINDOW_WIDTH);
+        stage.setHeight(Game.WINDOW_HEIGHT);
         stage.setScene(thisScene.getScene());
         stage.show();
-        stage.toFront();
+
+        System.out.println("brand new");
     }
 
     @Test
@@ -64,33 +76,33 @@ public class InitialGameTest extends ApplicationTest {
     @Test
     public void testPlayerMoveRight() {
         int original = Game.getPlayer().getX();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 2; i++) {
             press(RIGHT).release(RIGHT);
         }
+        WaitForAsyncUtils.waitForFxEvents();
 
-        int testrightcalc = original + (15 * 10);
+        int testrightcalc = original + (15 * 2);
         assertEquals(testrightcalc, Game.getPlayer().getX());
     }
     @Test
     public void testPlayerMoveLeft() {
         int original = Game.getPlayer().getX();
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 2; i++) {
             press(RIGHT).release(RIGHT);
         }
         press(LEFT).release(LEFT);
+        WaitForAsyncUtils.waitForFxEvents();
 
-        int testrightcalc = original + (15 * 5);
+        int testrightcalc = original + (15 * 1);
         assertEquals(testrightcalc, Game.getPlayer().getX());
     }
 
     @Test
     public void testPlayerMoveUp() {
         int original = Game.getPlayer().getY();
-        for (int i = 0; i < 10; i++) {
-            press(RIGHT).release(RIGHT);
-        }
         press(UP).release(UP);
         press(UP).release(UP);
+        WaitForAsyncUtils.waitForFxEvents();
 
         int testrightcalc = original - (15 * 2);
         assertEquals(testrightcalc, Game.getPlayer().getY());
@@ -99,9 +111,6 @@ public class InitialGameTest extends ApplicationTest {
     @Test
     public void testPlayerMoveDown() {
         int original = Game.getPlayer().getY();
-        for (int i = 0; i < 10; i++) {
-            press(RIGHT).release(RIGHT);
-        }
         press(DOWN).release(DOWN);
         press(DOWN).release(DOWN);
 
@@ -110,14 +119,14 @@ public class InitialGameTest extends ApplicationTest {
     }
     @Test
     public void testPlayerEnterNewRoomPositionX() {
-        Room initialRoom = Game.getDungeon().getInitialRoom();
+//        Room initialRoom = Game.getDungeon().getInitialRoom();
         Player player = Game.getPlayer();
-        player.setPosition(
-                initialRoom.getStartingDoor().getDimension().averageX(),
-                initialRoom.getStartingDoor().getDimension().averageY()
-        );
-        for (int i = 0; i < 10; i++) {
-            press(RIGHT).release(RIGHT);
+//        player.setPosition(
+//                initialRoom.getRoomDimensions().averageX(),
+//                initialRoom.getRoomDimensions().averageY()
+//        );
+        for (int i = 0; i < 2; i++) {
+            press(LEFT).release(LEFT);
         }
         for (int i = 0; i < 10; i++) {
             press(DOWN).release(DOWN);
@@ -130,14 +139,14 @@ public class InitialGameTest extends ApplicationTest {
     }
     @Test
     public void testPlayerEnterNewRoomPositionY() {
-        Room initialRoom = Game.getDungeon().getInitialRoom();
+//        Room initialRoom = Game.getDungeon().getInitialRoom();
         Player player = Game.getPlayer();
-        player.setPosition(
-                initialRoom.getStartingDoor().getDimension().averageX(),
-                initialRoom.getStartingDoor().getDimension().averageY()
-        );
-        for (int i = 0; i < 10; i++) {
-            press(RIGHT).release(RIGHT);
+//        player.setPosition(
+//                initialRoom.getRoomDimensions().averageX(),
+//                initialRoom.getRoomDimensions().averageY()
+//        );
+        for (int i = 0; i < 2; i++) {
+            press(LEFT).release(LEFT);
         }
         for (int i = 0; i < 10; i++) {
             press(DOWN).release(DOWN);
@@ -151,13 +160,13 @@ public class InitialGameTest extends ApplicationTest {
     @Test
     public void testPlayerEnterPreviousRoom() {
         Room initialRoom = Game.getDungeon().getInitialRoom();
-        Player player = Game.getPlayer();
-        player.setPosition(
-                initialRoom.getStartingDoor().getDimension().averageX(),
-                initialRoom.getStartingDoor().getDimension().averageY()
-        );
-        for (int i = 0; i < 10; i++) {
-            press(RIGHT).release(RIGHT);
+//        Player player = Game.getPlayer();
+//        player.setPosition(
+//                initialRoom.getRoomDimensions().averageX(),
+//                initialRoom.getRoomDimensions().averageY()
+//        );
+        for (int i = 0; i < 2; i++) {
+            press(LEFT).release(LEFT);
         }
         for (int i = 0; i < 10; i++) {
             press(DOWN).release(DOWN);

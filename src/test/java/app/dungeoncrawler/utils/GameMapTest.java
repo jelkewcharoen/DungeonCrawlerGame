@@ -32,6 +32,7 @@ public class GameMapTest extends ApplicationTest {
         Game.createDungeon("EASY");
         Game.createPlayer("Test player", DefaultWeapons.WEAPON1);
         AppScenes scenes = new AppScenes(stage);
+        AppScenes.buildScreen(SceneNames.INITIAL_GAME, stage);
         thisScene = scenes.getScreen(SceneNames.INITIAL_GAME);
 
         stage.setWidth(720);

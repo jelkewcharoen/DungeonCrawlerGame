@@ -21,11 +21,23 @@ public class AppScenes {
      * Helps set the stage of the App Scene
      * @param stage - creates the game view
      */
-    public AppScenes(Stage stage) {
+    public AppScenes(Stage stage, SceneNames sceneNames) {
         if (stage == null) {
             throw new IllegalArgumentException("stage can not be null");
         }
-        AppScenes.navigateTo(stage, SceneNames.WELCOME);
+        AppScenes.navigateTo(stage, sceneNames);
+    }
+    
+    public static void clearUiViews() {
+        uiViews = new HashMap<>();
+    }
+    
+    /**
+     * Helps set the stage of the App Scene
+     * @param stage - creates the game view
+     */
+    public AppScenes(Stage stage) {
+        this(stage, SceneNames.WELCOME);
     }
     
     public ViewBase getScreen(SceneNames sceneNames) {
@@ -41,7 +53,7 @@ public class AppScenes {
     }
     
     public static ViewBase buildScreen(SceneNames scene, Stage stage) {
-        
+        System.out.println(AppScenes.uiViews.get(scene));
         if (AppScenes.uiViews.get(scene) != null) {
             return AppScenes.uiViews.get(scene);
         } else if (SceneNames.CONFIGURATION == scene) {
@@ -67,7 +79,7 @@ public class AppScenes {
      * @param name scene that it needs to be navigated to
      */
     public static void navigateTo(Stage stage, SceneNames name) {
-        if (AppScenes.currentView != null) {
+        if (AppScenes.currentView != null && AppScenes.currentView.sceneName != name) {
             AppScenes.currentView.unMountingScene();
         }
         

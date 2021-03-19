@@ -44,6 +44,10 @@ public class Game {
         Game.setPlayer(new Player(name, weapons, Game.getDungeon().getDifficulty()));
     }
 
+    public static void createPlayer(Player player) {
+        Game.setPlayer(player);
+    }
+    
     /**
      * get the Dungeon of the game.
      * @return the Dungeon of the game.

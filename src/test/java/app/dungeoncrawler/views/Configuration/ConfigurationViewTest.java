@@ -26,6 +26,8 @@ import static org.testfx.matcher.base.NodeMatchers.hasChild;
 public class ConfigurationViewTest extends ApplicationTest {
     private static String error;
     private static ConfigurationViewController controller;
+    private Stage stage;
+    private AppScenes scene;
     
     @BeforeClass
     public static void config() throws Exception {
@@ -37,19 +39,16 @@ public class ConfigurationViewTest extends ApplicationTest {
         FxToolkit.hideStage();
     }
 
-    @Before
-    public void tearUp() throws Exception {
-
-    }
-
     @Override
     public void start(Stage stage) throws Exception {
-        AppScenes scenes = new AppScenes(stage);
-        ViewBase thisScene = scenes.getScreen(SceneNames.CONFIGURATION);
-        stage.setWidth(720);
-        stage.setHeight(512);
+        System.out.println("ivans");
+        this.stage = stage;
+        this.scene = new AppScenes(stage);
+        AppScenes.buildScreen(SceneNames.CONFIGURATION, stage);
+        ViewBase thisScene = this.scene.getScreen(SceneNames.CONFIGURATION);
         stage.setScene(thisScene.getScene());
-
+        stage.setWidth(Game.WINDOW_WIDTH);
+        stage.setHeight(Game.WINDOW_HEIGHT);
         controller = ((ConfigurationView) thisScene).getController();
         stage.show();
         stage.toFront();
@@ -58,9 +57,6 @@ public class ConfigurationViewTest extends ApplicationTest {
     //checks to see if there is a error message on the screen
     @Test
     public void testNameInput() {
-        // when:
-        clickOn("#startGame");
-
         // then:
         FxAssert.verifyThat("#configurationView", hasChild("#error"));
 
@@ -104,7 +100,7 @@ public class ConfigurationViewTest extends ApplicationTest {
         clickOn("#weapon1");
         clickOn("#startGame");
         WaitForAsyncUtils.waitForFxEvents();
-        FxAssert.verifyThat("#InitialGame", NodeMatchers.isNotNull());
+        FxAssert.verifyThat("#initialGamePane", NodeMatchers.isNotNull());
     }
 
     @Test
