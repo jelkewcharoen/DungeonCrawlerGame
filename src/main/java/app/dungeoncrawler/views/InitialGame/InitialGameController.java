@@ -45,7 +45,7 @@ public class InitialGameController implements Initializable {
      * trigger the scene to start
      */
     public void mounting() {
-        this.money.setText("" + Game.getPlayer().getGold());
+        this.money.setText("$" + Game.getPlayer().getGold());
     }
 
     /**
