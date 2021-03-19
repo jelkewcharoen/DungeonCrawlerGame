@@ -25,11 +25,11 @@ public class AppScenes {
         if (stage == null) {
             throw new IllegalArgumentException("stage can not be null");
         }
-
-        AppScenes.uiViews.put(SceneNames.WELCOME, new WelcomeView(stage));
-        AppScenes.uiViews.put(SceneNames.CONFIGURATION, new ConfigurationView(stage));
-        AppScenes.uiViews.put(SceneNames.INITIAL_GAME, new InitialGame(stage));
-        AppScenes.uiViews.put(SceneNames.WIN, new WinView(stage));
+        AppScenes.navigateTo(stage, SceneNames.WELCOME);
+    }
+    
+    public ViewBase getScreen(SceneNames sceneNames) {
+        return AppScenes.uiViews.get(sceneNames);
     }
 
     /**
@@ -37,8 +37,28 @@ public class AppScenes {
      * @return the scene that corresponds to the main page
      */
     public Scene getMainPage() {
-        AppScenes.currentView = AppScenes.uiViews.get(SceneNames.INITIAL_GAME);
-        return AppScenes.uiViews.get(SceneNames.INITIAL_GAME).getScene();
+        return this.getScreen(SceneNames.WELCOME).getScene();
+    }
+    
+    public static ViewBase buildScreen(SceneNames scene, Stage stage) {
+        
+        if (AppScenes.uiViews.get(scene) != null) {
+            return AppScenes.uiViews.get(scene);
+        } else if (SceneNames.CONFIGURATION == scene) {
+            AppScenes.uiViews.put(SceneNames.CONFIGURATION, new ConfigurationView(stage));
+            
+        } else if (SceneNames.INITIAL_GAME == scene) {
+            AppScenes.uiViews.put(SceneNames.INITIAL_GAME, new InitialGame(stage));
+            
+        } else if (SceneNames.WIN == scene) {
+            AppScenes.uiViews.put(SceneNames.WIN, new WinView(stage));
+
+        } else {
+            AppScenes.uiViews.put(SceneNames.WELCOME, new WelcomeView(stage));
+
+        }
+        
+        return AppScenes.uiViews.get(scene);
     }
 
     /**
@@ -47,14 +67,14 @@ public class AppScenes {
      * @param name scene that it needs to be navigated to
      */
     public static void navigateTo(Stage stage, SceneNames name) {
-        ViewBase prevScene = AppScenes.currentView;
-        ViewBase nextScene = AppScenes.uiViews.get(name);
-        if (prevScene != null) {
-            prevScene.unMountingScene();
+        if (AppScenes.currentView != null) {
+            AppScenes.currentView.unMountingScene();
         }
-        nextScene.mountingScene();
-        AppScenes.currentView = nextScene;
-        stage.setScene(nextScene.getScene());
+        
+        AppScenes.currentView = AppScenes.buildScreen(name, stage);
+        System.out.println(uiViews);
+        AppScenes.currentView.mountingScene();
+        stage.setScene(AppScenes.currentView.getScene());
         stage.toFront();
     }
 

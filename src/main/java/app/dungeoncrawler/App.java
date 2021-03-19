@@ -8,12 +8,12 @@ import javafx.stage.Stage;
 public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        AppScenes scenes = new AppScenes(stage);
         stage.setWidth(Game.WINDOW_WIDTH);
         stage.setHeight(Game.WINDOW_HEIGHT);
-        stage.setScene(scenes.getMainPage());
         stage.setTitle("Team 39: 404 Not Found");
         stage.setResizable(false);
+        AppScenes scenes = new AppScenes(stage);
+        stage.setScene(scenes.getMainPage());
         stage.show();
     }
 

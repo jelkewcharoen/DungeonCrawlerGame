@@ -42,8 +42,7 @@ public class InitialGameTest extends ApplicationTest {
         Game.createDungeon("EASY");
         Game.createPlayer("Test player", DefaultWeapons.WEAPON1);
         AppScenes scenes = new AppScenes(stage);
-        Map<SceneNames, ViewBase> scenesMap = scenes.getUiViews();
-        thisScene = scenesMap.get(SceneNames.INITIAL_GAME);
+        thisScene = scenes.getScreen(SceneNames.INITIAL_GAME);
 
         stage.setWidth(720);
         stage.setHeight(512);

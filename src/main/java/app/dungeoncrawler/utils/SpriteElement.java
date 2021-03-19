@@ -10,6 +10,7 @@ public abstract class SpriteElement {
     private int elementHeight, elementWidth;
     private GraphicsContext graphicsContext;
     private boolean preserveRatio, smooth;
+    private Image imageCached;
 
     /**
      * constructs sprite element
@@ -18,7 +19,6 @@ public abstract class SpriteElement {
      * @param height height of the element height
      */
     public SpriteElement(String imagePath, int width, int height) {
-
         this(imagePath, width, height, false, false);
     }
 
@@ -105,8 +105,8 @@ public abstract class SpriteElement {
      */
     public void draw(GraphicsContext graphicsContext) {
         this.clear(graphicsContext);
-
-        Image image = new Image(
+        this.imageCached = this.imageCached == null 
+            ? new Image(
                 getClass()
                         .getResource(this.image)
                         .toExternalForm(),
@@ -114,9 +114,10 @@ public abstract class SpriteElement {
                 this.elementHeight,
                 this.preserveRatio,
                 this.smooth
-        );
+            )
+            : this.imageCached;
                 
-        this.graphicsContext.drawImage(image, this.positionAtX, this.positionAtY);
+        this.graphicsContext.drawImage(this.imageCached, this.positionAtX, this.positionAtY);
     }
 
     /**
