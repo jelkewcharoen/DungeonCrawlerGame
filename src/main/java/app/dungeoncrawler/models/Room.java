@@ -28,7 +28,13 @@ public class Room {
     
     private int doorIdWherePlayerEnterRoom = -1;
     private int doorIdWherePlayerLeftTheRoom = -1;
-    
+
+    /**
+     * construcs room
+     * @param parent needed to create the room
+     * @param doors number of doors will be created in the room
+     * @param depth depth of the room
+     */
     public Room(Room parent, int doors, int depth) {
         this(parent, false, false, doors, depth);
     }
@@ -119,7 +125,11 @@ public class Room {
 
         return doorsInactive;
     }
-    
+
+    /**
+     * returns room dimensions
+     * @return room dimensions
+     */
     public Dimension getRoomDimensions() {
         return this.roomMap.getRoomLayer().getDimension();
     }
@@ -133,10 +143,18 @@ public class Room {
         return doorIdWherePlayerEnterRoom;
     }
 
+    /**
+     * returns whether if the room is exit room
+     * @return true if the room is exit room. false otherwise.
+     */
     public boolean getIsExit() {
         return isExit;
     }
 
+    /**
+     * returns whether player exits exit room
+     * @return true if player exits exit room. false otherwise.
+     */
     public boolean getPlayerExitsExitRoom() {
         return playerExitsExitRoom;
     }
@@ -258,7 +276,11 @@ public class Room {
             this.doorsNodes.get(i).clear();
         }
     }
-    
+
+    /**
+     * gets random number of doors
+     * @return random number of doors
+     */
     public int getRandomNumberOfDoors() {
         ArrayList<Integer> doorsPossibilities = new ArrayList<>();
         // 3 - 3/10 will have 3 doors
@@ -277,7 +299,11 @@ public class Room {
         Collections.shuffle(doorsPossibilities);
         return doorsPossibilities.get(0);
     }
-    
+
+    /**
+     * creates random room
+     * @param doorId door id that will be needed to create a random room
+     */
     public void createRandomRoom(int doorId) {
         ArrayList<NodeLayer> doors = Game.getCurrentGameMap().getDoorsLayer();
 
@@ -311,6 +337,10 @@ public class Room {
                 && this.roomMap.equals(room.roomMap);
     }
 
+    /**
+     * returns parent
+     * @return parent
+     */
     public Room getParent() {
         return parent;
     }

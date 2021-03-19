@@ -1,12 +1,8 @@
 package app.dungeoncrawler.utils;
 
-import app.dungeoncrawler.models.Game;
-import javafx.scene.Node;
-import javafx.scene.image.Image;
-
-public class NodeLayer extends SpriteElement{
-    public int id;
-    public Dimension dimension;
+public class NodeLayer extends SpriteElement {
+    private int id;
+    private Dimension dimension;
 
     /**
      * constructs node layer

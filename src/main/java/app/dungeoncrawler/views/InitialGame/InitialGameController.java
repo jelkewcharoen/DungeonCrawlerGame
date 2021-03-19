@@ -4,7 +4,6 @@ import app.dungeoncrawler.models.Dungeon;
 import app.dungeoncrawler.models.Game;
 import app.dungeoncrawler.models.Player;
 import app.dungeoncrawler.models.Room;
-import app.dungeoncrawler.utils.DefaultWeapons;
 import app.dungeoncrawler.utils.NodeLayer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,7 +15,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import app.dungeoncrawler.views.AppScenes;
 import app.dungeoncrawler.utils.SceneNames;
-import javafx.scene.Node;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 

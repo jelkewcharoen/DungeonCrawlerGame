@@ -68,18 +68,34 @@ public class Dimension {
                 && this.highX == dimension.highX;
     }
 
+    /**
+     * gets low x value
+     * @return low x value
+     */
     public int getLowX() {
         return lowX;
     }
 
+    /**
+     * gets high x value
+     * @return high x value
+     */
     public int getHighX() {
         return highX;
     }
 
+    /**
+     * gets low y value
+     * @return low y value
+     */
     public int getLowY() {
         return lowY;
     }
 
+    /**
+     * gets high y value
+     * @return high y value
+     */
     public int getHighY() {
         return highY;
     }

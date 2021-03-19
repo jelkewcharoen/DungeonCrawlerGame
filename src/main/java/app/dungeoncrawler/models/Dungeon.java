@@ -20,9 +20,13 @@ public class Dungeon {
     };
     private Difficulties difficulty;
 
+    /**
+     * constructs dungeon with easy version
+     */
     public Dungeon() {
         this("EASY");
     }
+
     /**
      * Creates a Dungeon with a difficulty.
      *
