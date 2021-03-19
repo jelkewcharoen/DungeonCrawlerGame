@@ -105,7 +105,10 @@ public class ConfigurationViewTest extends ApplicationTest {
         clickOn("#nameEnter").write("easy");
         clickOn("#difficultyLevel");
         clickOn("EASY");
+        clickOn("#weapon1");
+        clickOn("#startGame");
         WaitForAsyncUtils.waitForFxEvents();
         assertEquals(100, Game.getPlayer().getGold());
+        //test
     }
 }
