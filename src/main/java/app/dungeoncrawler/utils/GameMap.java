@@ -1,7 +1,5 @@
 package app.dungeoncrawler.utils;
 
-import app.dungeoncrawler.models.Game;
-import app.dungeoncrawler.models.Room;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
@@ -11,9 +9,8 @@ import java.util.Map;
 public class GameMap {
     private NodeLayer roomLayer;
     private ArrayList<NodeLayer> doorsLayers = new ArrayList<>();
-    public static Map<MapName, GameMap> availableMaps = new HashMap(){};
-    
-    private GameMap() {}
+    private static Map<MapName, GameMap> availableMaps = new HashMap();
+
     public GameMap(NodeLayer roomLayer, ArrayList<NodeLayer> doorsLayers) {
         this.roomLayer = roomLayer;
         this.doorsLayers = doorsLayers;

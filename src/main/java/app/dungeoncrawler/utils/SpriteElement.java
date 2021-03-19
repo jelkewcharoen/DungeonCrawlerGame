@@ -5,11 +5,15 @@ import javafx.scene.image.Image;
 
 public abstract class SpriteElement {
     private String image;
-    private int positionAtX, positionAtY;
-    private int prevPositionAtX, prevPositionAtY;
-    private int elementHeight, elementWidth;
+    private int positionAtX;
+    private int positionAtY;
+    private int prevPositionAtX;
+    private int prevPositionAtY;
+    private int elementHeight;
+    private int elementWidth;
     private GraphicsContext graphicsContext;
-    private boolean preserveRatio, smooth;
+    private boolean preserveRatio;
+    private boolean smooth;
     private Image imageCached;
 
     /**

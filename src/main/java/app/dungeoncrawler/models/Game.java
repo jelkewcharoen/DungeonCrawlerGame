@@ -44,6 +44,10 @@ public class Game {
         Game.setPlayer(new Player(name, weapons, Game.getDungeon().getDifficulty()));
     }
 
+    /**
+     * creates player
+     * @param player player frame will be needed to create a player
+     */
     public static void createPlayer(Player player) {
         Game.setPlayer(player);
     }

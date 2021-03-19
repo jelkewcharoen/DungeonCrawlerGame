@@ -20,6 +20,7 @@ public class AppScenes {
     /**
      * Helps set the stage of the App Scene
      * @param stage - creates the game view
+     * @param sceneNames - creates the game view
      */
     public AppScenes(Stage stage, SceneNames sceneNames) {
         if (stage == null) {
@@ -27,7 +28,10 @@ public class AppScenes {
         }
         AppScenes.navigateTo(stage, sceneNames);
     }
-    
+
+    /**
+     * clears ui views
+     */
     public static void clearUiViews() {
         uiViews = new HashMap<>();
     }
@@ -39,7 +43,12 @@ public class AppScenes {
     public AppScenes(Stage stage) {
         this(stage, SceneNames.WELCOME);
     }
-    
+
+    /**
+     * returns screen
+     * @param sceneNames scene names to be used to get screen
+     * @return screen
+     */
     public ViewBase getScreen(SceneNames sceneNames) {
         return AppScenes.uiViews.get(sceneNames);
     }
@@ -51,7 +60,13 @@ public class AppScenes {
     public Scene getMainPage() {
         return this.getScreen(SceneNames.WELCOME).getScene();
     }
-    
+
+    /**
+     * builds screen
+     * @param scene scene to be used to build screen
+     * @param stage stage to be used to build screen
+     * @return uiViews of appScenes
+     */
     public static ViewBase buildScreen(SceneNames scene, Stage stage) {
         System.out.println(AppScenes.uiViews.get(scene));
         if (AppScenes.uiViews.get(scene) != null) {
