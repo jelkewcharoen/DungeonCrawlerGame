@@ -25,6 +25,7 @@ public class Room {
     private HashMap<Integer, NodeLayer> doorsNodes = new HashMap<>();
     private HashMap<Integer, Boolean> activeDoors = new HashMap<>();
     private GameMap roomMap;
+    private Monster monster = new Monster();
     
     private int doorIdWherePlayerEnterRoom = -1;
     private int doorIdWherePlayerLeftTheRoom = -1;
@@ -134,6 +135,7 @@ public class Room {
         return this.roomMap.getRoomLayer().getDimension();
     }
 
+    public Monster getMonster() { return this.monster; }
 
     /**
      * gets starting door index
@@ -224,7 +226,7 @@ public class Room {
                 ? this.doorIdWherePlayerEnterRoom : this.doorIdWherePlayerLeftTheRoom;
         NodeLayer initialDoor = this.doorsNodes.get(playerLocationDoorId);
         DoorDimension initialDoorDimension = (DoorDimension) initialDoor.getDimension();
-        
+
         Game.getPlayer().movePlayer(initialDoorDimension.getPositionXForPlayer(),
                 initialDoorDimension.getPositionYForPlayer());
     }
@@ -324,6 +326,15 @@ public class Room {
                 randomNumberOfDoors,
                 this.depth + 1
         );
+
+        Random rand = new Random();
+
+        int x = rand.nextInt(225) + 160;
+        int y = rand.nextInt(240) + 60;
+
+        monster.setPosition(x, y);
+        monster.draw();
+
         System.out.println(isExit);
         this.roomsTree.put(doorId, randomRoom);
     }

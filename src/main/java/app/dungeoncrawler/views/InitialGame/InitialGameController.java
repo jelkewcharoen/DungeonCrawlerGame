@@ -4,6 +4,7 @@ import app.dungeoncrawler.models.Dungeon;
 import app.dungeoncrawler.models.Game;
 import app.dungeoncrawler.models.Player;
 import app.dungeoncrawler.models.Room;
+import app.dungeoncrawler.models.Monster;
 import app.dungeoncrawler.utils.NodeLayer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,6 +29,7 @@ public class InitialGameController implements Initializable {
     @FXML private Canvas roomLayer;
     @FXML private Canvas playerLayer;
     @FXML private Canvas doorsLayer;
+    @FXML private Canvas monsterLayer;
     @FXML private List<Canvas> canvasList;
     @FXML private Pane initialGamePane;
     
@@ -92,14 +94,17 @@ public class InitialGameController implements Initializable {
         Player player = Game.getPlayer();
         Dungeon dungeon = Game.getDungeon();
         dungeon.setActivePlayer(player);
+        Monster monster = Game.getDungeon().getActiveRoom().getMonster();
                 
         GraphicsContext roomLayerGc = roomLayer.getGraphicsContext2D();
         GraphicsContext playerLayerGc = playerLayer.getGraphicsContext2D();
         GraphicsContext doorsLayerGc = doorsLayer.getGraphicsContext2D();
+        GraphicsContext monsterLayerGc = monsterLayer.getGraphicsContext2D();
         
         Game.getCurrentGameMap().setRoomGraphics(roomLayerGc);
         Game.getCurrentGameMap().setDoorsGraphics(doorsLayerGc);
         player.setGraphicsContext(playerLayerGc);
+        monster.setGraphicsContext(monsterLayerGc);
 
         Room initialRoom = dungeon.getInitialRoom();
         NodeLayer roomNodeLayer = initialRoom.getRoomMap().getRoomLayer();
