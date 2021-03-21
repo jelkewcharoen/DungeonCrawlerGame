@@ -9,6 +9,7 @@
     <Canvas fx:id="roomLayer" />
     <Canvas fx:id="doorsLayer" />
     <Canvas fx:id="playerLayer" />
+    <Canvas fx:id="monsterLayer" />
     <Text fx:id="money" fill="white" StackPane.alignment="TOP_LEFT">
         <font>
             <Font name="verdana" size="35" />
@@ -19,6 +20,7 @@
             <fx:reference source="roomLayer" />
             <fx:reference source="doorsLayer" />
             <fx:reference source="playerLayer" />
+            <fx:reference source="monsterLayer" />
         </ArrayList>
     </fx:define>
 </StackPane>
