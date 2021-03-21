@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.Before;
 import org.testfx.api.FxAssert;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
@@ -17,8 +16,6 @@ import org.testfx.matcher.base.NodeMatchers;
 import org.testfx.util.WaitForAsyncUtils;
 import app.dungeoncrawler.models.Game;
 
-
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.testfx.matcher.base.NodeMatchers.hasChild;
@@ -108,7 +105,10 @@ public class ConfigurationViewTest extends ApplicationTest {
         clickOn("#nameEnter").write("easy");
         clickOn("#difficultyLevel");
         clickOn("EASY");
+        clickOn("#weapon1");
+        clickOn("#startGame");
         WaitForAsyncUtils.waitForFxEvents();
         assertEquals(100, Game.getPlayer().getGold());
+        //test
     }
 }

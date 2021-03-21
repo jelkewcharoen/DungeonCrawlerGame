@@ -10,7 +10,6 @@ import org.junit.Test;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 
-import java.util.Map;
 
 import static org.junit.Assert.assertTrue;
 
