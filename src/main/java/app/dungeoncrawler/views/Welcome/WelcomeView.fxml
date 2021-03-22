@@ -8,6 +8,7 @@
       styleClass="hBoxMainContainer"
       fx:controller="app.dungeoncrawler.views.Welcome.WelcomeViewController"
       stylesheets="@WelcomeView.css"
+      fx:id="welcomeView"
 >
     <Button mnemonicParsing="false"
             styleClass="welcomeButton"
