@@ -22,7 +22,7 @@ public class Player extends SpriteElement {
     
     private final int defaultHealth = 10;
     private final int defaultGold = 10;
-    private final int health;
+    private int health;
     private final Weapon weapon;
     private final int gold;
     private final String name;
@@ -61,13 +61,25 @@ public class Player extends SpriteElement {
     }
 
     /**
+     * gets the player's health
+     * @return player's health
+     */
+    public int getHealth() {
+        return this.health;
+    }
+    /**
+     * set the health of the monster
+     * @param health new health
+     */
+    public void setHealth(int health) { this.health = health; }
+
+    /**
      * moves player
      * @param x x where we want to move player to
      * @param y y where we want to move player to
      * @param c graphic content
      */
     public void movePlayer(int x, int y, GraphicsContext c) {
-        System.out.println(this.getX());
         if (
             Game.getDungeon()
                 .getActiveRoom()

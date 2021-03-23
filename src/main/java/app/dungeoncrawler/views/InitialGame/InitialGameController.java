@@ -6,6 +6,9 @@ import app.dungeoncrawler.models.Player;
 import app.dungeoncrawler.models.Room;
 import app.dungeoncrawler.models.Monster;
 import app.dungeoncrawler.utils.NodeLayer;
+import javafx.beans.binding.DoubleBinding;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -13,6 +16,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import app.dungeoncrawler.views.AppScenes;
 import app.dungeoncrawler.utils.SceneNames;
@@ -23,16 +28,17 @@ import java.net.URL;
 import java.util.*;
 
 public class InitialGameController implements Initializable {
-    @FXML
-    private Text money;
-    
+    @FXML private Text money;
+    @FXML private Rectangle healthBar;
+    @FXML private Rectangle monsterBar;
     @FXML private Canvas roomLayer;
     @FXML private Canvas playerLayer;
     @FXML private Canvas doorsLayer;
     @FXML private Canvas monsterLayer;
     @FXML private List<Canvas> canvasList;
-    @FXML private Pane initialGamePane;
-    
+    @FXML private Pane initialGamePane = new Pane();
+
+    private int multipler;
     /**
      * initialize the controller of the scene
      */
@@ -46,6 +52,11 @@ public class InitialGameController implements Initializable {
      */
     public void mounting() {
         this.money.setText("$" + Game.getPlayer().getGold());
+        healthBar.setHeight(20);
+        healthBar.setWidth(200);
+        multipler = 200 / Game.getPlayer().getHealth();
+        monsterBar.setWidth(200);
+        monsterBar.setHeight(20);
     }
 
     /**
@@ -83,6 +94,9 @@ public class InitialGameController implements Initializable {
             AppScenes.navigateTo(thisStage, SceneNames.WIN);
 
         }
+        System.out.println(player.getHealth());
+        player.setHealth(player.getHealth() - 1);
+        healthBar.setWidth(player.getHealth() * multipler);
     }
 
     /**
@@ -95,12 +109,11 @@ public class InitialGameController implements Initializable {
         Dungeon dungeon = Game.getDungeon();
         dungeon.setActivePlayer(player);
         Monster monster = Game.getDungeon().getActiveRoom().getMonster();
-                
+
         GraphicsContext roomLayerGc = roomLayer.getGraphicsContext2D();
         GraphicsContext playerLayerGc = playerLayer.getGraphicsContext2D();
         GraphicsContext doorsLayerGc = doorsLayer.getGraphicsContext2D();
         GraphicsContext monsterLayerGc = monsterLayer.getGraphicsContext2D();
-        
         Game.getCurrentGameMap().setRoomGraphics(roomLayerGc);
         Game.getCurrentGameMap().setDoorsGraphics(doorsLayerGc);
         player.setGraphicsContext(playerLayerGc);
@@ -124,7 +137,6 @@ public class InitialGameController implements Initializable {
                         doorNodeLayer.getDimension().averageY());
                 doorNodeLayer.draw();
             }
-            
             player.draw();
         });
     }

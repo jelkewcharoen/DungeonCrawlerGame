@@ -5,16 +5,30 @@
 <?import javafx.scene.text.*?>
 
 <?import java.util.ArrayList?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.geometry.Insets?>
 <StackPane fx:id="initialGamePane" onKeyPressed="#handleOnKeyPressed" onKeyReleased="#handleOnKeyPressed" styleClass="hBoxMainContainer" stylesheets="@InitialGame.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.dungeoncrawler.views.InitialGame.InitialGameController">
     <Canvas fx:id="roomLayer" />
     <Canvas fx:id="doorsLayer" />
-    <Canvas fx:id="playerLayer" />
     <Canvas fx:id="monsterLayer" />
+
+    <Canvas fx:id="playerLayer" />
+
     <Text fx:id="money" fill="white" StackPane.alignment="TOP_LEFT">
         <font>
             <Font name="verdana" size="35" />
         </font>
     </Text>
+    <Rectangle fx:id="healthBar" fill="royalblue" StackPane.alignment="BOTTOM_LEFT">
+            <StackPane.margin>
+                <Insets bottom="8" left = "8" right="8"/>
+            </StackPane.margin>
+    </Rectangle>
+    <Rectangle fx:id="monsterBar" fill="darkred" StackPane.alignment="BOTTOM_RIGHT">
+        <StackPane.margin>
+            <Insets bottom="8" left = "8" right="8"/>
+        </StackPane.margin>
+    </Rectangle>
     <fx:define>
         <ArrayList fx:id="canvasList">
             <fx:reference source="roomLayer" />
