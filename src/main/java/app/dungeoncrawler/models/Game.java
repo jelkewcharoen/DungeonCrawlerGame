@@ -11,6 +11,7 @@ public class Game {
     private static Dungeon dungeon;
     private static Player player;
     private static GameMap currentGameMap;
+    private static Monster currentMonster;
 
     /**
      * gets current game map
@@ -43,6 +44,18 @@ public class Game {
      */
     public static void createPlayer(String name, DefaultWeapons weapons) {
         Game.setPlayer(new Player(name, weapons, Game.getDungeon().getDifficulty()));
+    }
+    public static Monster createMonster() {
+        System.out.println("create monster");
+        int rand = (int)(Math.random() * 3); // generates 0, 1 or 2
+        if (rand == 0) {
+            currentMonster = new Monster("/app/assets/monster1.png");
+        } else if (rand == 1) {
+            currentMonster = new Monster("/app/assets/monster2.png");
+        } else {
+            currentMonster = new Monster("/app/assets/monster3.png");
+        }
+        return currentMonster;
     }
 
     /**
@@ -79,17 +92,21 @@ public class Game {
         Game.setDungeon(new Dungeon(difficulties));
     }
 
-    public static Monster getMonster() {
-        Monster mon;
+    public static Monster getCurrentMonster() {
+        return currentMonster;
+    }
+
+    public static Monster getNewMonster() {
         int rand = (int)(Math.random() * 3); // generates 0, 1 or 2
         if (rand == 0) {
-            mon = new Monster("/app/assets/monster1.png");
+            currentMonster.setImage("/app/assets/monster1.png");
         } else if (rand == 1) {
-            mon = new Monster("/app/assets/monster2.png");
+            currentMonster.setImage("/app/assets/monster2.png");
         } else {
-            mon = new Monster("/app/assets/monster3.png");
+            currentMonster.setImage("/app/assets/monster3.png");
         }
         //mon = new Monster("/app/assets/monster1.png");
-        return mon;
+
+        return currentMonster;
     }
 }

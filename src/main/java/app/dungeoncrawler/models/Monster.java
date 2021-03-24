@@ -8,7 +8,9 @@ public class Monster extends SpriteElement {
 
         super(imageurl, 85, 100);
     }
-
+    public void setImage(String url) {
+        super.setImage(url);
+    }
     /**
      * gets position at x
      * @return position at x
@@ -36,4 +38,7 @@ public class Monster extends SpriteElement {
      * @return monster's health
      */
     public int getHealth() { return this.health; }
+    public void moveMonster() {
+        System.out.println("move monster");
+    }
 }

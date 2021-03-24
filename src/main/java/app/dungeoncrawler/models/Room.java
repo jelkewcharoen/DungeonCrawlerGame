@@ -4,6 +4,7 @@ import app.dungeoncrawler.utils.Dimension;
 import app.dungeoncrawler.utils.DoorDimension;
 import app.dungeoncrawler.utils.GameMap;
 import app.dungeoncrawler.utils.NodeLayer;
+import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +27,7 @@ public class Room {
     private HashMap<Integer, Boolean> activeDoors = new HashMap<>();
     private GameMap roomMap;
     private int randMonster = (int)(Math.random() * 3);
-    private Monster monster = Game.getMonster();
+    private Monster monster;
     
     private int doorIdWherePlayerEnterRoom = -1;
     private int doorIdWherePlayerLeftTheRoom = -1;
@@ -333,9 +334,9 @@ public class Room {
         int x = rand.nextInt(225) + 160;
         int y = rand.nextInt(240) + 60;
 
+        monster = Game.getNewMonster();
         monster.setPosition(x, y);
         monster.draw();
-
         System.out.println(isExit);
         this.roomsTree.put(doorId, randomRoom);
     }
