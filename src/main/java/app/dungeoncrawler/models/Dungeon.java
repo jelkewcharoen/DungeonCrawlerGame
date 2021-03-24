@@ -19,6 +19,7 @@ public class Dungeon {
         }
     };
     private Difficulties difficulty;
+    private String stringdifficulty;
 
     /**
      * constructs dungeon with easy version
@@ -44,6 +45,7 @@ public class Dungeon {
                 ? mapStringToEnum.get(stringDifficulty)
                 : Difficulties.EASY;
 
+        stringdifficulty = stringDifficulty;
         this.activeRoom = new Room(
                 null,
                 false,
@@ -61,6 +63,8 @@ public class Dungeon {
     public Difficulties getDifficulty() {
         return difficulty;
     }
+
+    public String getStringdifficulty() {return stringdifficulty;}
 
     /**
      * sets active room

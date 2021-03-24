@@ -4,9 +4,9 @@ import app.dungeoncrawler.utils.SpriteElement;
 
 public class Monster extends SpriteElement {
     int health;
-    public Monster() {
+    public Monster(String imageurl) {
 
-        super("/app/assets/monster.png", 85, 100);
+        super(imageurl, 85, 100);
     }
 
     /**

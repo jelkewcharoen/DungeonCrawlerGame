@@ -1,6 +1,7 @@
 package app.dungeoncrawler.models;
 
 import app.dungeoncrawler.utils.DefaultWeapons;
+import app.dungeoncrawler.utils.Difficulties;
 import app.dungeoncrawler.utils.GameMap;
 import app.dungeoncrawler.utils.MapName;
 
@@ -76,5 +77,19 @@ public class Game {
         GameMap.generateAllGameMaps(Game.WINDOW_HEIGHT, Game.WINDOW_WIDTH);
         Game.currentGameMap = GameMap.getAvailableMaps().get(MapName.MAP_1);
         Game.setDungeon(new Dungeon(difficulties));
+    }
+
+    public static Monster getMonster() {
+        Monster mon;
+        int rand = (int)(Math.random() * 3); // generates 0, 1 or 2
+        if (rand == 0) {
+            mon = new Monster("/app/assets/monster1.png");
+        } else if (rand == 1) {
+            mon = new Monster("/app/assets/monster2.png");
+        } else {
+            mon = new Monster("/app/assets/monster3.png");
+        }
+        //mon = new Monster("/app/assets/monster1.png");
+        return mon;
     }
 }

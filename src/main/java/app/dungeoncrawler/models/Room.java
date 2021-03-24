@@ -25,7 +25,8 @@ public class Room {
     private HashMap<Integer, NodeLayer> doorsNodes = new HashMap<>();
     private HashMap<Integer, Boolean> activeDoors = new HashMap<>();
     private GameMap roomMap;
-    private Monster monster = new Monster();
+    private int randMonster = (int)(Math.random() * 3);
+    private Monster monster = Game.getMonster();
     
     private int doorIdWherePlayerEnterRoom = -1;
     private int doorIdWherePlayerLeftTheRoom = -1;
