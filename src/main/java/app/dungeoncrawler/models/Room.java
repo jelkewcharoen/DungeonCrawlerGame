@@ -4,6 +4,7 @@ import app.dungeoncrawler.utils.Dimension;
 import app.dungeoncrawler.utils.DoorDimension;
 import app.dungeoncrawler.utils.GameMap;
 import app.dungeoncrawler.utils.NodeLayer;
+import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
@@ -27,10 +28,13 @@ public class Room {
     private HashMap<Integer, Boolean> activeDoors = new HashMap<>();
     private GameMap roomMap;
     private int randMonster = (int)(Math.random() * 3);
-    private Monster monster;
+    private Monster monster = Game.getCurrentMonster();
     
     private int doorIdWherePlayerEnterRoom = -1;
     private int doorIdWherePlayerLeftTheRoom = -1;
+
+    int xmon;
+    int ymon;
 
     /**
      * construcs room
@@ -331,12 +335,16 @@ public class Room {
 
         Random rand = new Random();
 
-        int x = rand.nextInt(225) + 160;
-        int y = rand.nextInt(240) + 60;
+         xmon = rand.nextInt(225) + 160;
+         ymon = rand.nextInt(240) + 60;
 
-        monster = Game.getNewMonster();
-        monster.setPosition(x, y);
+        monster = Game.getCurrentMonster();
+        monster.setPosition(xmon, ymon);
         monster.draw();
+
+        AnimationTimer animate = new AnimateMonster();
+        animate.start();
+
         System.out.println(isExit);
         this.roomsTree.put(doorId, randomRoom);
     }
@@ -357,4 +365,45 @@ public class Room {
     public Room getParent() {
         return parent;
     }
+
+    /**
+     * Class that allows the Monster to move automatically.
+     */
+    private class AnimateMonster extends AnimationTimer {
+        int framerate = 0;
+        int count = 0;
+        boolean now = true;
+        @Override
+        public void handle(long l) {
+            if (framerate % 10 == 0) {
+                if (count == 2) {
+                    stop();
+                }
+
+                if (now) {
+                    if (xmon > 350) {
+                        now = false;
+                        count++;
+                        System.out.println("COUNT-----: " + count);
+                    }
+                    xmon += 15;
+                    monster.setPosition(xmon, ymon);
+                    monster.draw();
+                } else {
+                    if (xmon <250) {
+                        now = true;
+                    }
+                    xmon -= 15;
+                    monster.setPosition(xmon, ymon);
+                    monster.draw();
+                }
+            }
+            framerate++;
+
+
+
+        }
+
+    }
+
 }
