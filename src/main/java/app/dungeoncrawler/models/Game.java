@@ -98,6 +98,7 @@ public class Game {
 
     public static Monster getNewMonster() {
         int rand = (int)(Math.random() * 3); // generates 0, 1 or 2
+        System.out.println("new image:"+rand);
         if (rand == 0) {
             currentMonster.setImage("/app/assets/monster1.png");
         } else if (rand == 1) {

@@ -338,7 +338,7 @@ public class Room {
          xmon = rand.nextInt(225) + 160;
          ymon = rand.nextInt(240) + 60;
 
-        monster = Game.getCurrentMonster();
+        monster = Game.getNewMonster();
         monster.setPosition(xmon, ymon);
         monster.draw();
 
