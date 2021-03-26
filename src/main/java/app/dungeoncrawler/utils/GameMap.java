@@ -24,24 +24,9 @@ public class GameMap {
     public static void generateAllGameMaps(int screenHeight, int screenWidth) {
         GameMap.generateMap1(screenHeight, screenWidth);
     }
-
-    /**
-     * sets room graphics
-     * @param c graphics context used to set room graphics
-     */
-    public void setRoomGraphics(GraphicsContext c) {
-        this.roomLayer.setGraphicsContext(c);
-    }
-
-    /**
-     * sets doors graphics
-     * @param c graphics context used to set doors graphics
-     */
-    public void setDoorsGraphics(GraphicsContext c) {
-        for (int i = 0; i < this.doorsLayers.size(); i++) {
-            NodeLayer door = this.doorsLayers.get(i);
-            door.setGraphicsContext(c);
-        }
+    
+    public void drawRoom(GraphicsContext c) {
+        this.roomLayer.draw(c);
     }
 
     /**

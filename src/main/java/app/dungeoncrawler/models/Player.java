@@ -5,15 +5,18 @@ import app.dungeoncrawler.utils.Difficulties;
 import app.dungeoncrawler.utils.SpriteElement;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.canvas.GraphicsContext;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 public class Player extends SpriteElement {
-    private static String positionX = "positionX";
-    private static String positionY = "positionY";
+    private SimpleObjectProperty<ArrayList<Integer>> cordinates = new SimpleObjectProperty();
     
     private static Map<Difficulties, Integer> playerLevelsMultiplier = new HashMap<>() {{
             put(Difficulties.EASY, 10);
@@ -54,6 +57,14 @@ public class Player extends SpriteElement {
         return this.getPositionAtX();
     }
 
+    public ArrayList<Integer> getCordinates() {
+        return cordinates.get();
+    }
+
+    public SimpleObjectProperty<ArrayList<Integer>> cordinatesProperty() {
+        return cordinates;
+    }
+    
     /**
      * gets position at y
      * @return position at y
@@ -74,32 +85,19 @@ public class Player extends SpriteElement {
      * @param health new health
      */
     public void setHealth(int health) { this.health.set(health); }
-
-    /**
-     * moves player
-     * @param x x where we want to move player to
-     * @param y y where we want to move player to
-     * @param c graphic content
-     */
-    public void movePlayer(int x, int y, GraphicsContext c) {
-        if (
-            Game.getDungeon()
-                .getActiveRoom()
-                .getRoomMap()
-                .isCoordinateInsideTheMap(x, y)
-        ) {
-            this.setPosition(x, y);
-            this.draw(c);
-        }
-    }
-
+    
     /**
      * moves player
      * @param x x where we want to move player to
      * @param y y where we want to move player to
      */
-    public void movePlayer(int x, int y) {
-        this.movePlayer(x, y, this.getGraphicsContext());
+    public void move(int x, int y) {
+        ArrayList<Integer> cord = new ArrayList<>();
+        cord.add(x);
+        cord.add(y);
+        cordinates.set(cord);
+        
+        this.setPosition(x, y);
     }
 
     /**
