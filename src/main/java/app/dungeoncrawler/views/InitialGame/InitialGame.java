@@ -40,7 +40,16 @@ public class InitialGame extends ViewBase {
 
     @Override
     public void mountingScene() {
-        this.controller.mounting();
+        if (this.controller != null) {
+            this.controller.mounting();
+        }
+    }
+    
+    @Override
+    public void unMountingScene() {
+        if (this.controller != null) {
+            this.controller.unmount();
+        }
     }
 
     /**

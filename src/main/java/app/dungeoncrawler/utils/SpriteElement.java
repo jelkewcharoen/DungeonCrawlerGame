@@ -11,7 +11,6 @@ public abstract class SpriteElement {
     private int prevPositionAtY;
     private int elementHeight;
     private int elementWidth;
-    private GraphicsContext graphicsContext;
     private boolean preserveRatio;
     private boolean smooth;
     private Image imageCached;
@@ -71,23 +70,7 @@ public abstract class SpriteElement {
     public int getPositionAtX() {
         return this.positionAtX;
     }
-
-    /**
-     * gets graphics context
-     * @return graphics context
-     */
-    public GraphicsContext getGraphicsContext() {
-        return graphicsContext;
-    }
-
-    /**
-     * sets graphics context
-     * @param graphicsContext graphics context which will be used to set graphics context
-     */
-    public void setGraphicsContext(GraphicsContext graphicsContext) {
-        this.graphicsContext = graphicsContext;
-    }
-
+    
     /**
      * gets y position of the character
      * @return y position of the character
@@ -98,14 +81,6 @@ public abstract class SpriteElement {
 
     /**
      * draws graphics context
-     */
-    public void draw() {
-        this.draw(this.graphicsContext);
-    }
-
-    /**
-     * draws graphics context
-     * @param graphicsContext graphics context which will be used to draw graphics context
      */
     public void draw(GraphicsContext graphicsContext) {
         this.clear(graphicsContext);
@@ -118,37 +93,25 @@ public abstract class SpriteElement {
                 this.elementHeight,
                 this.preserveRatio,
                 this.smooth
-            )
-            : this.imageCached;
-                
-        this.graphicsContext.drawImage(this.imageCached, this.positionAtX, this.positionAtY);
+            ) : this.imageCached;
+        
+        graphicsContext.drawImage(this.imageCached, this.positionAtX, this.positionAtY);
     }
-
-    /**
-     * clears graphic context
-     */
-    public void clear() {
-        this.clear(this.graphicsContext);
-    }
-
+    
     /**
      * clears graphics context
      * @param c graphics context which will be cleared
      */
-    public void clear(GraphicsContext c) {
-        if (graphicsContext != null) {
-            this.graphicsContext = graphicsContext;
-        }
-
+    public void clear(GraphicsContext graphicsContext) {
         double porcentage = (double) 20 / (double) 100;
         int widthWithExtraPadding = (int) ((double) this.elementWidth * porcentage)
                 + this.elementWidth;
         int heightWithExtraPadding = (int) ((double) this.elementHeight * porcentage)
                 + this.elementHeight;
 
-        //System.out.println(this.graphicsContext);
-        this.graphicsContext.restore();
-        this.graphicsContext.clearRect(
+        System.out.println(this.image);
+        graphicsContext.restore();
+        graphicsContext.clearRect(
                 this.prevPositionAtX,
                 this.prevPositionAtY,
                 widthWithExtraPadding,

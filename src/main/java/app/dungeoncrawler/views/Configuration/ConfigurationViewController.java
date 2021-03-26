@@ -95,8 +95,8 @@ public class ConfigurationViewController implements Initializable {
                 return;
             }
             
-            Game.createDungeon(this.selectedDifficulty);
-            Game.createPlayer(this.nameText, this.selectedWeapon);
+            Game.Game().createDungeon(this.selectedDifficulty);
+            Game.Game().createPlayer(this.nameText, this.selectedWeapon);
             
             AppScenes.navigateTo(thisStage, SceneNames.INITIAL_GAME);
         }); 
