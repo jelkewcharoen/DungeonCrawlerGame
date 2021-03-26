@@ -41,7 +41,7 @@ public class AppScenes {
      * @param stage - creates the game view
      */
     public AppScenes(Stage stage) {
-        this(stage, SceneNames.WELCOME);
+        this(stage, SceneNames.INITIAL_GAME);
     }
 
     /**
@@ -58,7 +58,7 @@ public class AppScenes {
      * @return the scene that corresponds to the main page
      */
     public Scene getMainPage() {
-        return this.getScreen(SceneNames.WELCOME).getScene();
+        return this.getScreen(SceneNames.INITIAL_GAME).getScene();
     }
 
     /**

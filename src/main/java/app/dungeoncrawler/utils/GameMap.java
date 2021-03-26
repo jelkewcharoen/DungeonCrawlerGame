@@ -67,19 +67,21 @@ public class GameMap {
         Dimension doorDimension4 = new DoorDimension(200, 240, 370, 325,
                 0, 325); // put in term of percentage
         
-        NodeLayer door1 = new NodeLayer(0, "/app/assets/construction.png",
-                80, 100, doorDimension1);
-        NodeLayer door2 = new NodeLayer(1, "/app/assets/construction.png",
-                80, 100, doorDimension2);
-        NodeLayer door3 = new NodeLayer(2, "/app/assets/construction.png",
-                80, 100, doorDimension3);
-        NodeLayer door4 = new NodeLayer(3, "/app/assets/construction.png",
-                80, 100, doorDimension4);
+        int doorHeight = 200;
+        int doorWidth = 392;
+        NodeLayer door1 = new NodeLayer(0, "/app/assets/door1.png",
+                doorWidth + 100, 430, doorDimension1);
+        NodeLayer door2 = new NodeLayer(1, "/app/assets/door2.png",
+                doorWidth, doorHeight, doorDimension2);
+        NodeLayer door3 = new NodeLayer(2, "/app/assets/door3.png",
+                doorWidth + 100, 255, doorDimension3);
+        NodeLayer door4 = new NodeLayer(3, "/app/assets/door4.png",
+                doorWidth+3, doorHeight, doorDimension4);
         
-        door1.setPosition(doorDimension1.averageX(), doorDimension1.averageY());
-        door2.setPosition(doorDimension2.averageX(), doorDimension2.averageY());
-        door3.setPosition(doorDimension3.averageX(), doorDimension3.averageY());
-        door4.setPosition(doorDimension4.averageX(), doorDimension4.averageY());
+        door1.setPosition(0, 3);
+        door2.setPosition(123, 0);
+        door3.setPosition(460, 27);
+        door4.setPosition(123, 400);
         
         doorsLayer.add(door1);
         doorsLayer.add(door2);

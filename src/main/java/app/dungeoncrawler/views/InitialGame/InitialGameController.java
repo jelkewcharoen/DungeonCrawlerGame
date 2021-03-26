@@ -5,6 +5,7 @@ import app.dungeoncrawler.models.Game;
 import app.dungeoncrawler.models.Player;
 import app.dungeoncrawler.models.Room;
 import app.dungeoncrawler.models.Monster;
+import app.dungeoncrawler.utils.DefaultWeapons;
 import app.dungeoncrawler.utils.NodeLayer;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.DoubleProperty;
@@ -105,6 +106,8 @@ public class InitialGameController implements Initializable {
      */
     public void loadRoom(Pane pane) {
 
+//        Game.createDungeon("EASY");
+//        Game.createPlayer("invas", DefaultWeapons.WEAPON1);
         Player player = Game.getPlayer();
         Dungeon dungeon = Game.getDungeon();
         dungeon.setActivePlayer(player);
@@ -123,6 +126,7 @@ public class InitialGameController implements Initializable {
         NodeLayer roomNodeLayer = initialRoom.getRoomMap().getRoomLayer();
         ArrayList<NodeLayer> inactiveDoors = initialRoom.getInactiveDoors();
 
+        
         pane.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
             for (int i = 0; i < this.canvasList.size(); i++) {
                 this.canvasList.get(i).setHeight(newValue.getHeight());
@@ -133,8 +137,8 @@ public class InitialGameController implements Initializable {
 
             for (int i = 0; i < inactiveDoors.size(); i++) {
                 NodeLayer doorNodeLayer = inactiveDoors.get(i);
-                doorNodeLayer.setPosition(doorNodeLayer.getDimension().averageX(),
-                        doorNodeLayer.getDimension().averageY());
+                doorNodeLayer.setPosition(doorNodeLayer.getPositionAtX(),
+                            doorNodeLayer.getPositionAtY());
                 doorNodeLayer.draw();
             }
             player.draw();
