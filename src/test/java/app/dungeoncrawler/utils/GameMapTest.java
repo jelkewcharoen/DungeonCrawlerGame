@@ -28,8 +28,8 @@ public class GameMapTest extends ApplicationTest {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Game.createDungeon("EASY");
-        Game.createPlayer("Test player", DefaultWeapons.WEAPON1);
+        Game.Game().createDungeon("EASY");
+        Game.Game().createPlayer("Test player", DefaultWeapons.WEAPON1);
         AppScenes scenes = new AppScenes(stage);
         AppScenes.buildScreen(SceneNames.INITIAL_GAME, stage);
         thisScene = scenes.getScreen(SceneNames.INITIAL_GAME);

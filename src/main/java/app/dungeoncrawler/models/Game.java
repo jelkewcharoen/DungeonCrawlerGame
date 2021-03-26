@@ -1,40 +1,61 @@
 package app.dungeoncrawler.models;
 
-import app.dungeoncrawler.utils.DefaultWeapons;
-import app.dungeoncrawler.utils.Difficulties;
-import app.dungeoncrawler.utils.GameMap;
-import app.dungeoncrawler.utils.MapName;
+import app.dungeoncrawler.utils.*;
+import javafx.scene.canvas.GraphicsContext;
+
+import java.util.ArrayList;
 
 public class Game {
     public static final int WINDOW_HEIGHT = 480;
     public static final int WINDOW_WIDTH = 640;
-    private static Dungeon dungeon;
-    private static Player player;
-    private static GameMap currentGameMap;
-    private static Monster currentMonster;
+    public static Game currentGame; 
+    private Dungeon dungeon;
+    private Player player;
+    private GameMap currentGameMap;
+    private Monster currentMonster;
 
+    public static Game Game() {
+        if (Game.currentGame != null) {
+            return Game.currentGame;
+        }
+
+        Game.currentGame = new Game();
+        return Game.currentGame;
+    }
     /**
      * gets current game map
      * @return returns current game map
      */
-    public static GameMap getCurrentGameMap() {
+    public GameMap getCurrentGameMap() {
         return currentGameMap;
+    }
+
+    public NodeLayer getCurrentGameMapRoomLayer() {
+        return currentGameMap.getRoomLayer();
+    }    
+    
+    public ArrayList<NodeLayer> getCurrentGameMapDoorsLayer() {
+        return currentGameMap.getDoorsLayer();
     }
 
     /**
      * returns a the player of the game.
      * @return @Player.
      */
-    public static Player getPlayer() {
+    public Player getPlayerI() {
         return player;
     }
+
+    public static Player getPlayer() {
+        return Game().player;
+    } 
 
     /**
      * set the player of the dungeon.
      * @param player the player being set.
      */
-    private static void setPlayer(Player player) {
-        Game.player = player;
+    private void setPlayer(Player player) {
+        this.player = player;
     }
 
     /**
@@ -42,10 +63,11 @@ public class Game {
      * @param name name of the player.
      * @param weapons the weapon to create the player with.
      */
-    public static void createPlayer(String name, DefaultWeapons weapons) {
-        Game.setPlayer(new Player(name, weapons, Game.getDungeon().getDifficulty()));
+    public void createPlayer(String name, DefaultWeapons weapons) {
+        this.setPlayer(new Player(name, weapons, Game.getDungeon().getDifficulty()));
     }
-    public static Monster createMonster() {
+    
+    public Monster createMonster() {
         System.out.println("create monster");
         int rand = (int)(Math.random() * 3); // generates 0, 1 or 2
         if (rand == 0) {
@@ -55,6 +77,7 @@ public class Game {
         } else {
             currentMonster = new Monster("/app/assets/monster3.png");
         }
+
         return currentMonster;
     }
 
@@ -62,52 +85,64 @@ public class Game {
      * creates player
      * @param player player frame will be needed to create a player
      */
-    public static void createPlayer(Player player) {
-        Game.setPlayer(player);
+    public void createPlayer(Player player) {
+        this.setPlayer(player);
     }
     
     /**
      * get the Dungeon of the game.
      * @return the Dungeon of the game.
      */
-    public static Dungeon getDungeon() {
-        return dungeon;
+    public Dungeon getDungeonI() {
+        return this.dungeon;
+    }    
+    
+    public Room getActiveRoom() {
+        return this.dungeon.getActiveRoomOb();
     }
-
+    
+    public static Dungeon getDungeon() {
+        return Game().getDungeonI();
+    }
+    
+    public void setActiveRoom(Room r) {
+        this.dungeon.setActiveRoom(r);
+    }
+    
     /**
      * setter for dungeon for the Game.
      * @param dungeon Dungeon of the game.
      */
-    private static void setDungeon(Dungeon dungeon) {
-        Game.dungeon = dungeon;
+    private void setDungeon(Dungeon dungeon) {
+        this.dungeon = dungeon;
     }
 
     /**
      * the create a dungeon in the game.
      * @param difficulties the level of difficulties (EASY, MEDIUM, HARD).
      */
-    public static void createDungeon(String difficulties) {
+    public void createDungeon(String difficulties) {
         GameMap.generateAllGameMaps(Game.WINDOW_HEIGHT, Game.WINDOW_WIDTH);
-        Game.currentGameMap = GameMap.getAvailableMaps().get(MapName.MAP_1);
-        Game.setDungeon(new Dungeon(difficulties));
+        this.currentGameMap = GameMap.getAvailableMaps().get(MapName.MAP_1);
+        this.setDungeon(new Dungeon(difficulties));
     }
 
-    public static Monster getCurrentMonster() {
-        return currentMonster;
+    public Monster getCurrentMonster() {
+        return this.currentMonster;
     }
 
-    public static Monster getNewMonster() {
+    public Monster getNewMonster() {
         int rand = (int)(Math.random() * 3); // generates 0, 1 or 2
         System.out.println("new image:"+rand);
         if (rand == 0) {
-            currentMonster.setImage("/app/assets/monster1.png");
+            this.currentMonster.setImage("/app/assets/monster1.png");
         } else if (rand == 1) {
-            currentMonster.setImage("/app/assets/monster2.png");
+            this.currentMonster.setImage("/app/assets/monster2.png");
         } else {
-            currentMonster.setImage("/app/assets/monster3.png");
+            this.currentMonster.setImage("/app/assets/monster3.png");
         }
         //mon = new Monster("/app/assets/monster1.png");
-        currentMonster.setHealth(10);
-        return currentMonster;
+        this.currentMonster.setHealth(10);
+        return this.currentMonster;
     }
 }

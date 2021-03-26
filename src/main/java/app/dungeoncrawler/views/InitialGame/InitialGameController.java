@@ -11,6 +11,8 @@ import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -18,7 +20,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import app.dungeoncrawler.views.AppScenes;
@@ -33,31 +34,55 @@ public class InitialGameController implements Initializable {
     @FXML private Text money;
     @FXML private Rectangle healthBar;
     @FXML private Rectangle monsterBar;
+
     @FXML private Canvas roomLayer;
     @FXML private Canvas playerLayer;
     @FXML private Canvas doorsLayer;
     @FXML private Canvas monsterLayer;
+    
     @FXML private List<Canvas> canvasList;
-    @FXML private Pane initialGamePane = new Pane();
+    @FXML private final Pane initialGamePane = new Pane();
+
     private int multiplier;
     private int multiplier1 = 200 / 10; //10 is monster's health
-    Player player = Game.getPlayer();
+    private Player player;
+    private Dungeon dungeon;
     Monster mon;
     /**
      * initialize the controller of the scene
      */
+    public InitialGameController() {
+        try {
+
+            this.player = Game.Game().getPlayerI();
+            this.dungeon = Game.Game().getDungeonI();
+            System.out.println("InitialGameController");
+
+            this.loadRoom();
+        } catch (Exception e) {
+            
+        }
+
+    }
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.loadRoom(this.initialGamePane);
-        this.initialGamePane.setOnKeyPressed(this::handleOnKeyPressed);
+        try {
+            System.out.println("initialize");
+            this.loadCanvas();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
     /**
      * trigger the scene to start
      */
     public void mounting() {
+        System.out.println("mounting");
+
         this.money.setText("$" + Game.getPlayer().getGold());
-        healthBar.setHeight(20);
-        monsterBar.setHeight(20);
+     
         IntegerProperty playerHealth = player.getHealth();
         multiplier = 200 / playerHealth.getValue();
         //DoubleBinding p = healthBar.widthProperty().multiply(1);
@@ -65,10 +90,39 @@ public class InitialGameController implements Initializable {
         healthBar.setHeight(20);
         monsterBar.setHeight(20);
 
-        mon = Game.getCurrentMonster();
+        mon = Game.Game().getCurrentMonster();
         IntegerProperty monsterHealth = mon.getHealth();
         System.out.println(monsterHealth.getValue());
         monsterBar.widthProperty().bind(monsterHealth.multiply(multiplier1));
+
+        this.initialGamePane.setOnKeyPressed(this::handleOnKeyPressed);
+        
+        SimpleObjectProperty<Room> roomSimpleObjectProperty = Game.Game().getDungeonI().activeRoomObProperty();
+        roomSimpleObjectProperty.addListener(this::onRoomUpdate);
+
+        SimpleObjectProperty<ArrayList<Integer>> cordinates = player.cordinatesProperty();
+        cordinates.addListener(this::onPlayerMove);
+    }
+    
+    public void onRoomUpdate(ObservableValue<? extends Room> observable, Room oldValue, Room newValue) {
+        System.out.println("onRoomUpdate");
+        if (oldValue != null) {
+            oldValue.clearRoom(doorsLayer.getGraphicsContext2D());
+        }
+        
+        newValue.drawRoom(roomLayer.getGraphicsContext2D(), doorsLayer.getGraphicsContext2D());
+//        player.move(
+//            newValue.getInitialPositionXForPlayer(), 
+//            newValue.getInitialPositionYForPlayer()
+//        );
+    }    
+    
+    public void onPlayerMove(ObservableValue<? extends ArrayList<Integer>> observable, ArrayList<Integer> oldValue, ArrayList<Integer> newValue) {
+        player.draw(playerLayer.getGraphicsContext2D());
+    }
+    
+    public void unmount() {
+        // TODO: remove lsitenr
     }
 
     /**
@@ -76,42 +130,28 @@ public class InitialGameController implements Initializable {
      * @param e key event
      */
     @FXML public void handleOnKeyPressed(KeyEvent e) {
-        Player player = Game.getPlayer();
-
-        int x = 0;
-        int y = 0;
+        int x = this.player.getX();
+        int y = this.player.getY();
         if (e.getCode().equals(KeyCode.DOWN)) {
-            x = player.getX();
-            y = player.getY() + Player.PLAYER_SPEED;
+            y += Player.PLAYER_SPEED;
             
         } else if (e.getCode().equals(KeyCode.UP)) {
-            x = player.getX();
-            y = player.getY() - Player.PLAYER_SPEED;
+            y -= Player.PLAYER_SPEED;
 
         } else if (e.getCode().equals(KeyCode.LEFT)) {
-            x = player.getX() - Player.PLAYER_SPEED;
-            y = player.getY();
+            x -= Player.PLAYER_SPEED;
 
         } else if (e.getCode().equals(KeyCode.RIGHT)) {
-            x = player.getX() + Player.PLAYER_SPEED;
-            y = player.getY();
+            x += Player.PLAYER_SPEED;
         } else if (e.getCode().equals(KeyCode.SPACE) && mon.collides(player.getX(), player.getY())) {
             mon.setHealth(mon.getHealth().getValue() - 1);
             if (mon.getHealth().getValue() == 0) {
-                mon.clear();
+                mon.clear(monsterLayer.getGraphicsContext2D());
             }
-            //monsterBar.setWidth(mon.getHealth() * multiplier1);
         }
-
-        Room room = Game.getDungeon().getActiveRoom();
-
-        player.movePlayer(x, y, playerLayer.getGraphicsContext2D());
-        room.trackPlayerMovement(player.getX(), player.getY());
-        if (room.getIsExit() && room.getPlayerExitsExitRoom()) {
-            Scene thisScene = (Scene) e.getSource();
-            Stage thisStage = (Stage) thisScene.getWindow();
-            AppScenes.navigateTo(thisStage, SceneNames.WIN);
-
+        
+        if (this.dungeon.isPositionValid(x, y)) {
+            this.player.move(x, y);
         }
         //healthBar.setWidth(player.getHealth() * multiplier);
 
@@ -122,48 +162,53 @@ public class InitialGameController implements Initializable {
 
     /**
      * loads room
-     * @param pane pane which can be a room set
      */
-    public void loadRoom(Pane pane) {
+    public void loadRoom() {
+        System.out.println("loadRoom");
 
-//        Game.createDungeon("EASY");
-//        Game.createPlayer("invas", DefaultWeapons.WEAPON1);
-        Player player = Game.getPlayer();
-        Dungeon dungeon = Game.getDungeon();
+        try {
+            dungeon.createRoom();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void loadCanvas() {
+        System.out.println("loadCanvas");
         dungeon.setActivePlayer(player);
-        Monster monster = Game.createMonster();
-
-        GraphicsContext roomLayerGc = roomLayer.getGraphicsContext2D();
-        GraphicsContext playerLayerGc = playerLayer.getGraphicsContext2D();
-        GraphicsContext doorsLayerGc = doorsLayer.getGraphicsContext2D();
-        GraphicsContext monsterLayerGc = monsterLayer.getGraphicsContext2D();
-        Game.getCurrentGameMap().setRoomGraphics(roomLayerGc);
-        Game.getCurrentGameMap().setDoorsGraphics(doorsLayerGc);
-        player.setGraphicsContext(playerLayerGc);
-        monster.setGraphicsContext(monsterLayerGc);
-
-        Room initialRoom = dungeon.getInitialRoom();
+        for (int i = 0; i < this.canvasList.size(); i++) {
+            this.canvasList.get(i).setHeight(Game.WINDOW_HEIGHT);
+            this.canvasList.get(i).setWidth(Game.WINDOW_WIDTH);
+        }
+        
+        this.initialGamePane.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                System.out.println(newValue.getHeight());
+                System.out.println(newValue.getWidth());
+    
+                for (int i = 0; i < this.canvasList.size(); i++) {
+                    this.canvasList.get(i).setHeight(newValue.getHeight());
+                    this.canvasList.get(i).setWidth(newValue.getWidth());
+                }
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+    
+    public void drawGame() {
+        Room initialRoom = dungeon.getActiveRoomOb();
         NodeLayer roomNodeLayer = initialRoom.getRoomMap().getRoomLayer();
         ArrayList<NodeLayer> inactiveDoors = initialRoom.getInactiveDoors();
 
-        
-        pane.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
-            for (int i = 0; i < this.canvasList.size(); i++) {
-                this.canvasList.get(i).setHeight(newValue.getHeight());
-                this.canvasList.get(i).setWidth(newValue.getWidth());
-            }
-            
-            roomNodeLayer.draw();
+        roomNodeLayer.draw(roomLayer.getGraphicsContext2D());
+        player.draw(playerLayer.getGraphicsContext2D());
 
-            for (int i = 0; i < inactiveDoors.size(); i++) {
-                NodeLayer doorNodeLayer = inactiveDoors.get(i);
-                doorNodeLayer.setPosition(doorNodeLayer.getPositionAtX(),
-                            doorNodeLayer.getPositionAtY());
-                doorNodeLayer.draw();
-            }
-            player.draw();
-
-        });
+        for (int i = 0; i < inactiveDoors.size(); i++) {
+            NodeLayer doorNodeLayer = inactiveDoors.get(i);
+            doorNodeLayer.setPosition(doorNodeLayer.getDimension().averageX(), doorNodeLayer.getDimension().averageY());
+            doorNodeLayer.draw(doorsLayer.getGraphicsContext2D());
+        }
     }
-
 }
