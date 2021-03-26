@@ -139,20 +139,14 @@ public abstract class SpriteElement {
         if (graphicsContext != null) {
             this.graphicsContext = graphicsContext;
         }
-
-        double porcentage = (double) 20 / (double) 100;
-        int widthWithExtraPadding = (int) ((double) this.elementWidth * porcentage)
-                + this.elementWidth;
-        int heightWithExtraPadding = (int) ((double) this.elementHeight * porcentage)
-                + this.elementHeight;
-
+        
         System.out.println(this.graphicsContext);
         this.graphicsContext.restore();
         this.graphicsContext.clearRect(
                 this.prevPositionAtX,
                 this.prevPositionAtY,
-                widthWithExtraPadding,
-                heightWithExtraPadding
+                this.elementWidth,
+                this.elementHeight
         );
     }
 
