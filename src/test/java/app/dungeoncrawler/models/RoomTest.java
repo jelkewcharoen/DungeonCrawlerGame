@@ -14,8 +14,8 @@ public class RoomTest {
     
     @Before
     public void setup() throws Exception {
-        Game.createDungeon("EASY");
-        Game.createPlayer("X", DefaultWeapons.WEAPON1);
+        Game.Game().createDungeon("EASY");
+        Game.Game().createPlayer("X", DefaultWeapons.WEAPON1);
         dungeon = Game.getDungeon();
     }
 
@@ -23,7 +23,7 @@ public class RoomTest {
     public void getRoomMap() {
         Room room = new Room(null, 4, 0);
         GameMap gameMap = room.getRoomMap();
-        assertEquals(gameMap, Game.getCurrentGameMap());
+        assertEquals(gameMap, Game.Game().getCurrentGameMap());
     }
 
     @Test

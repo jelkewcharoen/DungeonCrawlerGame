@@ -42,8 +42,8 @@ public class InitialGameTest extends ApplicationTest {
     @Override
     public void start(Stage stage) throws Exception {
         AppScenes.clearUiViews();
-        Game.createDungeon("EASY");
-        Game.createPlayer("Test player", DefaultWeapons.WEAPON1);
+        Game.Game().createDungeon("EASY");
+        Game.Game().createPlayer("Test player", DefaultWeapons.WEAPON1);
         
         AppScenes scenes = new AppScenes(stage, SceneNames.INITIAL_GAME);
         thisScene = scenes.getScreen(SceneNames.INITIAL_GAME);
@@ -146,7 +146,7 @@ public class InitialGameTest extends ApplicationTest {
     }
     @Test
     public void testPlayerEnterPreviousRoom() {
-        Room initialRoom = Game.getDungeon().getInitialRoom();
+        Room initialRoom = Game.getDungeon().getActiveRoomOb();
 
         for (int i = 0; i < 2; i++) {
             press(LEFT).release(LEFT);
