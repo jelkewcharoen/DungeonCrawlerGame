@@ -6,9 +6,10 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public class Monster extends SpriteElement {
     IntegerProperty health = new SimpleIntegerProperty(0);
+    
     public Monster(String imageurl) {
-
         super(imageurl, 85, 100);
+        System.out.println(imageurl);
     }
 
     public void setImage(String url) {
@@ -30,6 +31,10 @@ public class Monster extends SpriteElement {
         return this.getPositionAtY();
     }
 
+    public void move(int x, int y) {
+        this.setPosition(x, y);
+    }
+    
     /**
      * set the health of the monster
      * @param health new health

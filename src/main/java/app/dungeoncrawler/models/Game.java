@@ -66,20 +66,6 @@ public class Game {
     public void createPlayer(String name, DefaultWeapons weapons) {
         this.setPlayer(new Player(name, weapons, Game.getDungeon().getDifficulty()));
     }
-    
-    public Monster createMonster() {
-        System.out.println("create monster");
-        int rand = (int)(Math.random() * 3); // generates 0, 1 or 2
-        if (rand == 0) {
-            currentMonster = new Monster("/app/assets/monster1.png");
-        } else if (rand == 1) {
-            currentMonster = new Monster("/app/assets/monster2.png");
-        } else {
-            currentMonster = new Monster("/app/assets/monster3.png");
-        }
-
-        return currentMonster;
-    }
 
     /**
      * creates player
