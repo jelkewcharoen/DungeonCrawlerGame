@@ -168,5 +168,6 @@ public abstract class SpriteElement {
     }
     public void setImage(String image) {
         this.image = image;
+        this.imageCached = null;
     }
 }
