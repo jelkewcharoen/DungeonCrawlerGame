@@ -110,8 +110,8 @@ public class InitialGameController implements Initializable {
         }
 
         player.setHealth(player.getHealth() - 1);
-<<<<<<< HEAD
-        healthBar.setWidth(player.getHealth() * multipler);
+        healthBar.setWidth(player.getHealth() * multiplier);
+
 
         System.out.println("player - x: " + player.getX());
         System.out.println("player - y: " + player.getY());
@@ -120,10 +120,6 @@ public class InitialGameController implements Initializable {
         System.out.println("Does it collide: " + monster.collides(player.getX(), player.getY()));
 
 
-
-=======
-        healthBar.setWidth(player.getHealth() * multiplier);
->>>>>>> 714dac2658b3ec29e8fb7a0d4aa1ea8fd7c4fafb
     }
 
     /**
