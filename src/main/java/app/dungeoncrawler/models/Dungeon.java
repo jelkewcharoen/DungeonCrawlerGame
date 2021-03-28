@@ -1,8 +1,10 @@
 package app.dungeoncrawler.models;
 
 import app.dungeoncrawler.utils.Difficulties;
+import app.dungeoncrawler.utils.ObserverObject;
 import javafx.beans.property.SimpleObjectProperty;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,7 +12,8 @@ public class Dungeon {
     private static int currentID = 0; //current id of the room
     private static HashMap<Integer, Room> rooms = new HashMap<>();
     private Room activeRoom;
-    private SimpleObjectProperty<Room> activeRoomOb = new SimpleObjectProperty<>();
+    private SimpleObjectProperty<ObserverObject<Room>> activeRoomOb = new SimpleObjectProperty<>();
+    public ArrayList<Room> history = new ArrayList<>();
     private Player activePlayer;
     
     public static final Map<Difficulties, Integer> DIFFICULTIES = new HashMap<>() {
@@ -49,12 +52,14 @@ public class Dungeon {
     
     public void createRoom() {
         this.activeRoom = new Room(
-                null,
-                false,
-                4,
-                0);
+            null,
+            false,
+            4,
+            0
+        );
 
-        this.activeRoomOb.set(this.activeRoom);
+        this.activeRoomOb.set(new ObserverObject<>(this.activeRoom));
+        history.add(this.activeRoom);
     }
 
     /**
@@ -66,10 +71,10 @@ public class Dungeon {
     }
 
     public Room getActiveRoomOb() {
-        return activeRoomOb.get();
+        return activeRoomOb.get().getField();
     }
 
-    public SimpleObjectProperty<Room> activeRoomObProperty() {
+    public SimpleObjectProperty<ObserverObject<Room>> activeRoomObProperty() {
         return activeRoomOb;
     }
 
@@ -80,7 +85,10 @@ public class Dungeon {
      */
     public void setActiveRoom(Room r) {
         this.activeRoom = r;
-        this.activeRoomOb.set(r);
+        ObserverObject<Room> oldRoom = new ObserverObject<Room>(r);
+        oldRoom.setField(r);
+        this.activeRoomOb.set(oldRoom);
+        history.add(r);
     }
 
     /**
@@ -105,8 +113,6 @@ public class Dungeon {
                 this.getActiveRoomOb().getRoomMap().getRoomLayer().getDimension().averageY()
         );
 
-        System.out.println(activePlayer.getPositionAtX());
-        System.out.println(activePlayer.getPositionAtY());
         this.activePlayer = activePlayer;
     }
 }

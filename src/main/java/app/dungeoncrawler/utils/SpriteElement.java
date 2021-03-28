@@ -100,7 +100,7 @@ public abstract class SpriteElement {
     
     /**
      * clears graphics context
-     * @param c graphics context which will be cleared
+     * @param graphicsContext graphics context which will be cleared
      */
     public void clear(GraphicsContext graphicsContext) {
         double porcentage = (double) 20 / (double) 100;
