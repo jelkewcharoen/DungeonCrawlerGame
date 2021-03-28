@@ -112,7 +112,8 @@ public class InitialGameController implements Initializable {
 
         player.setHealth(player.getHealth() - 1);
         healthBar.setWidth(player.getHealth() * multiplier);
-    }
+    } 
+    
 
     /**
      * loads room
