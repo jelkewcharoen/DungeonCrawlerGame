@@ -70,8 +70,6 @@ public class Room {
         if (this.parent != null) {
             this.drawRoom(true);
         }
-
-        System.out.println(this.activeDoors);
     }
 
     /**
@@ -190,6 +188,7 @@ public class Room {
         ArrayList<NodeLayer> doors = new ArrayList<>(Game.getCurrentGameMap().getDoorsLayer());
         ArrayList<NodeLayer> activeDoorsNode = new ArrayList<>();
 
+        // 
         if (this.parent != null) {
             NodeLayer initDoor = doors.remove(this.doorIdWherePlayerEnterRoom);
             activeDoors.put(initDoor.getId(), true);
@@ -224,7 +223,7 @@ public class Room {
         for (int i = 0; i < inactiveDoors.size(); i++) {
             NodeLayer layer = inactiveDoors.get(i);
 
-            layer.setPosition(layer.getDimension().averageX(), layer.getDimension().averageY());
+            layer.setPosition(layer.getPositionAtX(), layer.getPositionAtY());
             layer.draw();
         }
 
@@ -269,7 +268,6 @@ public class Room {
                 if (isExit) {
                     playerExitsExitRoom = true;
                 } else {
-                    this.doorIdWherePlayerLeftTheRoom = doorNode.getId();
                     this.createRandomRoom(doorNode.getId());
                 }
             }
@@ -322,9 +320,7 @@ public class Room {
             Random nextExit = new Random();
             nextRoomExit = nextExit.nextBoolean();
         }
- 
-        this.removeDoorsOfCanvas();
-        System.out.println("REMOVE FROM CANVAS");
+        
         Room randomRoom = new Room(
                 this,
                 false,
