@@ -47,6 +47,8 @@ public class InitialGameController implements Initializable {
     private Player player;
     private Dungeon dungeon;
     Monster mon;
+    private Room activeRoom;
+    
     /**
      * initialize the controller of the scene
      */
@@ -55,11 +57,12 @@ public class InitialGameController implements Initializable {
 
             this.player = Game.Game().getPlayerI();
             this.dungeon = Game.Game().getDungeonI();
+
             System.out.println("InitialGameController");
 
             this.loadRoom();
         } catch (Exception e) {
-            
+            e.printStackTrace();
         }
 
     }
@@ -105,15 +108,16 @@ public class InitialGameController implements Initializable {
     
     public void onRoomUpdate(ObservableValue<? extends Room> observable, Room oldValue, Room newValue) {
         System.out.println("onRoomUpdate");
+        System.out.println(newValue.getDepth());
         if (oldValue != null) {
             oldValue.clearRoom(doorsLayer.getGraphicsContext2D());
         }
         
         newValue.drawRoom(roomLayer.getGraphicsContext2D(), doorsLayer.getGraphicsContext2D());
-//        player.move(
-//            newValue.getInitialPositionXForPlayer(), 
-//            newValue.getInitialPositionYForPlayer()
-//        );
+        player.move(
+            newValue.getInitialPositionXForPlayer(), 
+            newValue.getInitialPositionYForPlayer()
+        );
     }    
     
     public void onPlayerMove(ObservableValue<? extends ArrayList<Integer>> observable, ArrayList<Integer> oldValue, ArrayList<Integer> newValue) {
@@ -152,6 +156,16 @@ public class InitialGameController implements Initializable {
         if (this.dungeon.isPositionValid(x, y)) {
             this.player.move(x, y);
         }
+        
+//        player.movePlayer(x, y, playerLayer.getGraphicsContext2D());
+        this.activeRoom.trackPlayerMovement(player.getX(), player.getY());
+
+        System.out.println(this.activeRoom.isPlayerExitedRoom());
+        if (this.activeRoom.isPlayerExitedRoom()) {
+            Scene thisScene = (Scene) e.getSource();
+            Stage thisStage = (Stage) thisScene.getWindow();
+            AppScenes.navigateTo(thisStage, SceneNames.WIN);
+        }
     }
 
     /**
@@ -162,6 +176,7 @@ public class InitialGameController implements Initializable {
 
         try {
             dungeon.createRoom();
+            this.activeRoom = this.dungeon.getActiveRoomOb();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -169,29 +184,17 @@ public class InitialGameController implements Initializable {
     
     public void loadCanvas() {
         System.out.println("loadCanvas");
-        dungeon.setActivePlayer(player);
         for (int i = 0; i < this.canvasList.size(); i++) {
             this.canvasList.get(i).setHeight(Game.WINDOW_HEIGHT);
             this.canvasList.get(i).setWidth(Game.WINDOW_WIDTH);
         }
         
-        this.initialGamePane.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
-            try {
-                System.out.println(newValue.getHeight());
-                System.out.println(newValue.getWidth());
-    
-                for (int i = 0; i < this.canvasList.size(); i++) {
-                    this.canvasList.get(i).setHeight(newValue.getHeight());
-                    this.canvasList.get(i).setWidth(newValue.getWidth());
-                }
-                
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+        this.drawGame();
     }
     
     public void drawGame() {
+        System.out.println("draw game");
+        dungeon.setActivePlayer(player);
         Room initialRoom = dungeon.getActiveRoomOb();
         NodeLayer roomNodeLayer = initialRoom.getRoomMap().getRoomLayer();
         ArrayList<NodeLayer> inactiveDoors = initialRoom.getInactiveDoors();

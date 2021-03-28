@@ -73,6 +73,10 @@ public class Room {
         this.playerExitedRoom = playerExitedRoom;
     }
 
+    public int getDepth() {
+        return depth;
+    }
+
     /**
      * gets room map
      * @return room map
