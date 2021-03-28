@@ -382,7 +382,7 @@ public class Room {
                     stop();
                     // fight
 
-                    
+
 
 
 
