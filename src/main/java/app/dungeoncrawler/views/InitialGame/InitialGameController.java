@@ -38,8 +38,8 @@ public class InitialGameController implements Initializable {
     @FXML private Canvas monsterLayer;
     @FXML private List<Canvas> canvasList;
     @FXML private Pane initialGamePane = new Pane();
-
-    private int multipler;
+    private int multiplier;
+    private int multiplier1;
     /**
      * initialize the controller of the scene
      */
@@ -55,9 +55,19 @@ public class InitialGameController implements Initializable {
         this.money.setText("$" + Game.getPlayer().getGold());
         healthBar.setHeight(20);
         healthBar.setWidth(200);
-        multipler = 200 / Game.getPlayer().getHealth();
+        multiplier = 200 / Game.getPlayer().getHealth();
+        multiplier1 = 200 / Game.getCurrentMonster().getHealth();
         monsterBar.setWidth(200);
         monsterBar.setHeight(20);
+
+        /*DoubleProperty playerHealthPercentage = new SimpleDoubleProperty(1.0);
+        DoubleProperty monsterHealthPercentage = new SimpleDoubleProperty(1.0);
+        DoubleBinding p = healthBar.widthProperty().multiply(playerHealthPercentage);
+        DoubleBinding m = monsterBar.widthProperty().multiply(monsterHealthPercentage);
+        healthBar.widthProperty().bind(p);
+        monsterBar.widthProperty().bind(m);
+        healthBar.setHeight(20);
+        monsterBar.setHeight(20);*/
     }
 
     /**
@@ -83,6 +93,10 @@ public class InitialGameController implements Initializable {
         } else if (e.getCode().equals(KeyCode.RIGHT)) {
             x = player.getX() + Player.PLAYER_SPEED;
             y = player.getY();
+        } else if (e.getCode().equals(KeyCode.SPACE)) {
+            Monster mon = Game.getCurrentMonster();
+            mon.setHealth(mon.getHealth()-1);
+            monsterBar.setWidth(mon.getHealth() * multiplier1);
         }
 
         Room room = Game.getDungeon().getActiveRoom();
@@ -95,18 +109,9 @@ public class InitialGameController implements Initializable {
             AppScenes.navigateTo(thisStage, SceneNames.WIN);
 
         }
-        //System.out.println(player.getHealth());
+
         player.setHealth(player.getHealth() - 1);
-        healthBar.setWidth(player.getHealth() * multipler);
-
-        System.out.println("player - x: " + player.getX());
-        System.out.println("player - y: " + player.getY());
-        Monster monster = Game.getCurrentMonster();
-
-        System.out.println("Does it collide: " + monster.collides(player.getX(), player.getY()));
-
-
-
+        healthBar.setWidth(player.getHealth() * multiplier);
     }
 
     /**
