@@ -4,11 +4,13 @@ import app.dungeoncrawler.utils.SpriteElement;
 
 public class Monster extends SpriteElement {
     int health;
-    public Monster() {
+    public Monster(String imageurl) {
 
-        super("/app/assets/monster.png", 85, 100);
+        super(imageurl, 85, 100);
     }
-
+    public void setImage(String url) {
+        super.setImage(url);
+    }
     /**
      * gets position at x
      * @return position at x
@@ -36,4 +38,7 @@ public class Monster extends SpriteElement {
      * @return monster's health
      */
     public int getHealth() { return this.health; }
+    public void moveMonster() {
+        System.out.println("move monster");
+    }
 }

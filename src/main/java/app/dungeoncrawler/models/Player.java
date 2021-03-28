@@ -119,6 +119,6 @@ public class Player extends SpriteElement {
     public int getGold() {
         return gold;
     }
-    
+    //comment
     
 }

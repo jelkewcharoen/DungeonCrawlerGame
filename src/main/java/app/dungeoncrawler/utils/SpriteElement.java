@@ -139,8 +139,13 @@ public abstract class SpriteElement {
         if (graphicsContext != null) {
             this.graphicsContext = graphicsContext;
         }
-        
-        System.out.println(this.graphicsContext);
+        double porcentage = (double) 20 / (double) 100;
+        int widthWithExtraPadding = (int) ((double) this.elementWidth * porcentage)
+                + this.elementWidth;
+        int heightWithExtraPadding = (int) ((double) this.elementHeight * porcentage)
+                + this.elementHeight;
+
+        //System.out.println(this.graphicsContext);
         this.graphicsContext.restore();
         this.graphicsContext.clearRect(
                 this.prevPositionAtX,
@@ -159,5 +164,9 @@ public abstract class SpriteElement {
                 && this.elementHeight == spriteElement.elementHeight
                 && this.smooth == spriteElement.smooth
                 && this.preserveRatio == spriteElement.preserveRatio;
+    }
+    public void setImage(String image) {
+        this.image = image;
+        this.imageCached = null;
     }
 }

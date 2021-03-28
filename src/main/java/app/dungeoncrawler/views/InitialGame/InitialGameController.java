@@ -95,7 +95,7 @@ public class InitialGameController implements Initializable {
             AppScenes.navigateTo(thisStage, SceneNames.WIN);
 
         }
-        System.out.println(player.getHealth());
+        //System.out.println(player.getHealth());
         player.setHealth(player.getHealth() - 1);
         healthBar.setWidth(player.getHealth() * multipler);
     }
@@ -111,7 +111,7 @@ public class InitialGameController implements Initializable {
         Player player = Game.getPlayer();
         Dungeon dungeon = Game.getDungeon();
         dungeon.setActivePlayer(player);
-        Monster monster = Game.getDungeon().getActiveRoom().getMonster();
+        Monster monster = Game.createMonster();
 
         GraphicsContext roomLayerGc = roomLayer.getGraphicsContext2D();
         GraphicsContext playerLayerGc = playerLayer.getGraphicsContext2D();
