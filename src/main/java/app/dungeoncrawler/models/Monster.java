@@ -41,4 +41,9 @@ public class Monster extends SpriteElement {
     public void moveMonster() {
         System.out.println("move monster");
     }
+
+    public boolean collides(int x, int y) {
+
+        return ((x > (getX() - 90)) && (x < (getX() + 30)) && (y > (getY() - 90)) && (y < (getY() + 30)));
+    }
 }
