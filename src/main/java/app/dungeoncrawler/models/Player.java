@@ -92,12 +92,12 @@ public class Player extends SpriteElement {
      * @param y y where we want to move player to
      */
     public void move(int x, int y) {
+        this.setPosition(x, y);
+
         ArrayList<Integer> cord = new ArrayList<>();
         cord.add(x);
         cord.add(y);
         cordinates.set(cord);
-        
-        this.setPosition(x, y);
     }
 
     /**

@@ -105,6 +105,8 @@ public class Dungeon {
                 this.getActiveRoomOb().getRoomMap().getRoomLayer().getDimension().averageY()
         );
 
+        System.out.println(activePlayer.getPositionAtX());
+        System.out.println(activePlayer.getPositionAtY());
         this.activePlayer = activePlayer;
     }
 }
