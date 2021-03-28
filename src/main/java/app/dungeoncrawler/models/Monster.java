@@ -3,7 +3,7 @@ package app.dungeoncrawler.models;
 import app.dungeoncrawler.utils.SpriteElement;
 
 public class Monster extends SpriteElement {
-    int health;
+    int health = 10;
     public Monster(String imageurl) {
 
         super(imageurl, 85, 100);
