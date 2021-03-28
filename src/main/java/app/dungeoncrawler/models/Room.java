@@ -270,6 +270,7 @@ public class Room {
                 } else {
                     this.createRandomRoom(doorNode.getId());
                 }
+
             }
         }
     }
@@ -369,11 +370,18 @@ public class Room {
         int framerate = 0;
         int count = 0;
         boolean now = true;
+        Player player = Game.getPlayer();
         @Override
         public void handle(long l) {
             if (framerate % 10 == 0) {
-                if (count == 2) {
+                if (monster.collides(player.getX(), player.getY())) {
                     stop();
+                    // fight
+
+                    
+
+
+
                 }
 
                 if (now) {

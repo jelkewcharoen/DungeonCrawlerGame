@@ -98,6 +98,15 @@ public class InitialGameController implements Initializable {
         //System.out.println(player.getHealth());
         player.setHealth(player.getHealth() - 1);
         healthBar.setWidth(player.getHealth() * multipler);
+
+        System.out.println("player - x: " + player.getX());
+        System.out.println("player - y: " + player.getY());
+        Monster monster = Game.getCurrentMonster();
+
+        System.out.println("Does it collide: " + monster.collides(player.getX(), player.getY()));
+
+
+
     }
 
     /**
@@ -142,6 +151,7 @@ public class InitialGameController implements Initializable {
                 doorNodeLayer.draw();
             }
             player.draw();
+
         });
     }
 }
