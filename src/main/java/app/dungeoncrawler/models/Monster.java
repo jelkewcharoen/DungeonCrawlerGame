@@ -6,10 +6,11 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public class Monster extends SpriteElement {
     IntegerProperty health = new SimpleIntegerProperty(0);
+    public static final int MONSTER_SPEED = 5;
     
-    public Monster(String imageurl) {
+    public Monster(String imageurl, int health) {
         super(imageurl, 85, 100);
-        System.out.println(imageurl);
+        this.health.set(10 * health);
     }
 
     public void setImage(String url) {
@@ -50,8 +51,8 @@ public class Monster extends SpriteElement {
         System.out.println("move monster");
     }
 
-    public boolean collides(int x, int y) {
-
-        return ((x > (getX() - 90)) && (x < (getX() + 30)) && (y > (getY() - 90)) && (y < (getY() + 30)));
+    public static Monster getNewMonster() {
+        int rand = (int) (Math.random() * (3 - 1 + 1) + 1); // generates 0, 1 or 2
+        return new Monster(String.format("/app/assets/monster%s.png", rand), rand);
     }
 }

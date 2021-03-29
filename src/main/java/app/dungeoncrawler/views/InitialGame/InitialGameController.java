@@ -6,6 +6,7 @@ import app.dungeoncrawler.models.Player;
 import app.dungeoncrawler.models.Room;
 import app.dungeoncrawler.models.Monster;
 import app.dungeoncrawler.utils.NodeLayer;
+import app.dungeoncrawler.utils.SpriteElement;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -47,8 +48,6 @@ public class InitialGameController implements Initializable {
     private int multiplier1 = 200 / 10; //10 is monster's health
     private Player player;
     private Dungeon dungeon;
-    Monster mon;
-    private Room activeRoom;
     
     private Monster monster;
     private Timer timer = new Timer();
@@ -89,12 +88,7 @@ public class InitialGameController implements Initializable {
         healthBar.widthProperty().bind(playerHealth.multiply(multiplier));
         healthBar.setHeight(20);
         monsterBar.setHeight(20);
-
-        mon = Game.Game().getCurrentMonster();
-        IntegerProperty monsterHealth = mon.getHealth();
-        System.out.println(monsterHealth.getValue());
-        monsterBar.widthProperty().bind(monsterHealth.multiply(multiplier1));
-
+        
         this.initialGamePane.setOnKeyPressed(this::handleOnKeyPressed);
         
         SimpleObjectProperty<ObserverObject<Room>> roomSimpleObjectProperty = Game.Game().getDungeonI().activeRoomObProperty();
@@ -137,6 +131,8 @@ public class InitialGameController implements Initializable {
         
         monster = Monster.getNewMonster();
         monster.setPosition(225, 240);
+        IntegerProperty monsterHealth = monster.getHealth();
+        monsterBar.widthProperty().bind(monsterHealth.multiply(multiplier1));
         monster.draw(monsterLayer.getGraphicsContext2D());
     }    
 
@@ -165,6 +161,11 @@ public class InitialGameController implements Initializable {
                 } else if (player.getY() < y + Monster.MONSTER_SPEED) {
                     y -= Monster.MONSTER_SPEED;
                 }
+                
+                if (monster.getHealth().get() <= 0) {
+                    return;
+                } 
+
                 monster.move(x, y);
                 monster.draw(monsterLayer.getGraphicsContext2D());
             }
@@ -201,10 +202,10 @@ public class InitialGameController implements Initializable {
 
         } else if (e.getCode().equals(KeyCode.RIGHT)) {
             x += Player.PLAYER_SPEED;
-        } else if (e.getCode().equals(KeyCode.SPACE) && mon.collides(player.getX(), player.getY())) {
-            mon.setHealth(mon.getHealth().getValue() - 1);
-            if (mon.getHealth().getValue() == 0) {
-                mon.clear(monsterLayer.getGraphicsContext2D());
+        } else if (e.getCode().equals(KeyCode.SPACE)) {
+            this.monster.setHealth(this.monster.getHealth().getValue() - 1);
+            if (this.monster.getHealth().getValue() == 0) {
+                this.monster.clear(monsterLayer.getGraphicsContext2D());
             }
         }
         
@@ -219,6 +220,15 @@ public class InitialGameController implements Initializable {
             AppScenes.navigateTo(thisStage, SceneNames.WIN);
         }
     }
+    
+//    public reduceHealth(SpriteElement obj1, SpriteElement obj2) {
+//        if (obj1.collides(obj2)) {
+//            obj1.setHealth(obj1.getHealth().getValue() - 1);
+//            if (this.monster.getHealth().getValue() == 0) {
+//                this.monster.clear(monsterLayer.getGraphicsContext2D());
+//            }
+//        }
+//    }
 
     /**
      * loads room

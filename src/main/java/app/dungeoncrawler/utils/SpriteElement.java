@@ -128,8 +128,20 @@ public abstract class SpriteElement {
                 && this.smooth == spriteElement.smooth
                 && this.preserveRatio == spriteElement.preserveRatio;
     }
+    
     public void setImage(String image) {
         this.image = image;
         this.imageCached = null;
+    }
+
+
+    public boolean collides(SpriteElement element) {
+        int x = element.getPositionAtX();
+        int y = element.getPositionAtY();
+        
+        int myX = this.getPositionAtX();
+        int myY = this.getPositionAtY();
+        
+        return ((y > (myX - 90)) && (x < (myX + 30)) && (y > (myY - 90)) && (y < (myY + 30)));
     }
 }
