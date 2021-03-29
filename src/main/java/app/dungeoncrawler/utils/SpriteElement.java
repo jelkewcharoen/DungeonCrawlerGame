@@ -86,7 +86,6 @@ public abstract class SpriteElement {
      */
     public void draw(GraphicsContext graphicsContext) {
         this.clear(graphicsContext);
-        System.out.println(this.image);
         Image image = SpriteElement.imageCached.get(this.image);
         image = image == null 
             ? new Image(
