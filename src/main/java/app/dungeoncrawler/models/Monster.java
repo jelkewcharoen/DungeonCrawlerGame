@@ -47,9 +47,6 @@ public class Monster extends SpriteElement {
      * @return monster's health
      */
     public IntegerProperty getHealth() { return this.health; }
-    public void moveMonster() {
-        System.out.println("move monster");
-    }
 
     public static Monster getNewMonster() {
         int rand = (int) (Math.random() * (3 - 1 + 1) + 1); // generates 0, 1 or 2

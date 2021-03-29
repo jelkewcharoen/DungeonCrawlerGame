@@ -82,7 +82,6 @@ public class InitialGameController implements Initializable {
      */
     public void mounting() {
         this.money.setText("$" + Game.getPlayer().getGold());
-     
         IntegerProperty playerHealth = player.getHealth();
         multiplier = 200 / playerHealth.getValue();
         //DoubleBinding p = healthBar.widthProperty().multiply(1);
@@ -235,7 +234,6 @@ public class InitialGameController implements Initializable {
      * loads room
      */
     public void loadRoom() {
-
         try {
             dungeon.createRoom();
         } catch (Exception e) {
@@ -263,7 +261,6 @@ public class InitialGameController implements Initializable {
 
         for (int i = 0; i < inactiveDoors.size(); i++) {
             NodeLayer doorNodeLayer = inactiveDoors.get(i);
-            doorNodeLayer.setPosition(doorNodeLayer.getDimension().averageX(), doorNodeLayer.getDimension().averageY());
             doorNodeLayer.draw(doorsLayer.getGraphicsContext2D());
         }
     }
