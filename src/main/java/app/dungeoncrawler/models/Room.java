@@ -352,49 +352,49 @@ public class Room {
     public Room getParent() {
         return parent;
     }
-
-    /**
-     * Class that allows the Monster to move automatically.
-     */
-    private class AnimateMonster extends AnimationTimer {
-        int framerate = 0;
-        int count = 0;
-        boolean now = true;
-        Player player = Game.getPlayer();
-        @Override
-        public void handle(long l) {
-            if (framerate % 10 == 0) {
-                if (monster.collides(player.getX(), player.getY())) {
-                    if (monster.getHealth().getValue() == 0) {
-                        stop();
-                    }
-                    player.setHealth(player.getHealth().getValue() - 1);
-
-                }
-                else if (now) {
-                    if (xmon > 350) {
-                        now = false;
-                        count++;
-                        System.out.println("COUNT-----: " + count);
-                    }
-                    xmon += 15;
-                    monster.setPosition(xmon, ymon);
-//                    monster.draw();
-                } else {
-                    if (xmon <250) {
-                        now = true;
-                    }
-                    xmon -= 15;
-                    monster.setPosition(xmon, ymon);
-//                    monster.draw();
-                }
-            }
-            framerate++;
-
-
-
-        }
-
-    }
+//
+//    /**
+//     * Class that allows the Monster to move automatically.
+//     */
+//    private class AnimateMonster extends AnimationTimer {
+//        int framerate = 0;
+//        int count = 0;
+//        boolean now = true;
+//        Player player = Game.getPlayer();
+//        @Override
+//        public void handle(long l) {
+//            if (framerate % 10 == 0) {
+//                if (monster.collides(player.getX(), player.getY())) {
+//                    if (monster.getHealth().getValue() == 0) {
+//                        stop();
+//                    }
+//                    player.setHealth(player.getHealth().getValue() - 1);
+//
+//                }
+//                else if (now) {
+//                    if (xmon > 350) {
+//                        now = false;
+//                        count++;
+//                        System.out.println("COUNT-----: " + count);
+//                    }
+//                    xmon += 15;
+//                    monster.setPosition(xmon, ymon);
+////                    monster.draw();
+//                } else {
+//                    if (xmon <250) {
+//                        now = true;
+//                    }
+//                    xmon -= 15;
+//                    monster.setPosition(xmon, ymon);
+////                    monster.draw();
+//                }
+//            }
+//            framerate++;
+//
+//
+//
+//        }
+//
+//    }
 
 }
