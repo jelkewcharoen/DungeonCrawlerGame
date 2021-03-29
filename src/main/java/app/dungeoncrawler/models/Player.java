@@ -3,6 +3,8 @@ package app.dungeoncrawler.models;
 import app.dungeoncrawler.utils.DefaultWeapons;
 import app.dungeoncrawler.utils.Difficulties;
 import app.dungeoncrawler.utils.SpriteElement;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.HashMap;
@@ -22,7 +24,7 @@ public class Player extends SpriteElement {
     
     private final int defaultHealth = 10;
     private final int defaultGold = 10;
-    private int health;
+    private IntegerProperty health;
     private final Weapon weapon;
     private final int gold;
     private final String name;
@@ -41,7 +43,7 @@ public class Player extends SpriteElement {
         this.name = name;
         this.weapon = Weapon.getWeaponsWeaponMap().get(weapons);
         this.gold = defaultGold * multiplier;
-        this.health = defaultHealth * multiplier;
+        this.health = new SimpleIntegerProperty(defaultHealth * multiplier);
     }
 
     /**
@@ -64,14 +66,14 @@ public class Player extends SpriteElement {
      * gets the player's health
      * @return player's health
      */
-    public int getHealth() {
+    public IntegerProperty getHealth() {
         return this.health;
     }
     /**
      * set the health of the monster
      * @param health new health
      */
-    public void setHealth(int health) { this.health = health; }
+    public void setHealth(int health) { this.health.set(health); }
 
     /**
      * moves player
