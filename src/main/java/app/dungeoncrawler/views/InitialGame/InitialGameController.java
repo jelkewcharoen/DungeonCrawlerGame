@@ -5,14 +5,11 @@ import app.dungeoncrawler.models.Game;
 import app.dungeoncrawler.models.Player;
 import app.dungeoncrawler.models.Room;
 import app.dungeoncrawler.models.Monster;
-import app.dungeoncrawler.utils.DefaultWeapons;
-import app.dungeoncrawler.utils.NodeLayer;
-import app.dungeoncrawler.utils.SpriteElement;
+import app.dungeoncrawler.utils.*;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import app.dungeoncrawler.utils.ObserverObject;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -25,7 +22,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import app.dungeoncrawler.views.AppScenes;
-import app.dungeoncrawler.utils.SceneNames;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
@@ -97,7 +93,20 @@ public class InitialGameController implements Initializable {
         SimpleObjectProperty<ArrayList<Integer>> cordinates = player.cordinatesProperty();
         cordinates.addListener(this::onPlayerMove);
         timer.scheduleAtFixedRate(this.monsterSelfMovement(), 1000, 1000);
-
+        
+//        this.player.getHealth().addListener(this::onPlayerHealthUpdate);
+    }
+    
+    public void onPlayerHealthUpdate(ObservableValue<? extends Number> observable, Number obOldValue, Number obNewValue) {
+        if (this.player.getHealth().get() <= 0) {
+            System.out.println("Player lost");
+        }
+    }
+    
+    public void onMonsterHealthUpdate(ObservableValue<? extends Number> observable, Number obOldValue, Number obNewValue) {
+        if (this.monster.getHealth().get() <= 0) {
+            this.monster.clearCurrent(monsterLayer.getGraphicsContext2D());
+        }
     }
     
     public void onRoomUpdate(ObservableValue<? extends ObserverObject<Room>> observable, ObserverObject<Room> obOldValue, ObserverObject<Room> obNewValue) {
@@ -113,7 +122,6 @@ public class InitialGameController implements Initializable {
         int newRoomLeftFlag = newValue.getDoorIdWherePlayerLeftTheRoom();
         int newRoomEnterFlag = newValue.getDoorIdWherePlayerEnterTheRoom();
         
-        System.out.printf("left: %s, enter: %s", newRoomLeftFlag, newRoomEnterFlag);
         if (newRoomLeftFlag > -1) { // player has a left room flag
             x = newValue.getDoorDimension(newRoomLeftFlag).getPositionXForPlayer();
             y = newValue.getDoorDimension(newRoomLeftFlag).getPositionYForPlayer();
@@ -126,13 +134,15 @@ public class InitialGameController implements Initializable {
         player.move(x, y);
         
         if (monster != null) {
-            monster.clear(monsterLayer.getGraphicsContext2D());
+            monster.getHealth().removeListener(this::onMonsterHealthUpdate);
+            monster.clearCurrent(monsterLayer.getGraphicsContext2D());
         }
         
         monster = Monster.getNewMonster();
         monster.setPosition(225, 240);
         IntegerProperty monsterHealth = monster.getHealth();
         monsterBar.widthProperty().bind(monsterHealth.multiply(multiplier1));
+        monster.getHealth().addListener(this::onMonsterHealthUpdate);
         monster.draw(monsterLayer.getGraphicsContext2D());
     }    
 
@@ -164,16 +174,16 @@ public class InitialGameController implements Initializable {
                 
                 if (monster.getHealth().get() <= 0) {
                     return;
-                } 
+                }
 
                 monster.move(x, y);
+                player.reduceHealth(monster);
                 monster.draw(monsterLayer.getGraphicsContext2D());
             }
         };
     }
     
     public void onPlayerMove(ObservableValue<? extends ArrayList<Integer>> observable, ArrayList<Integer> oldValue, ArrayList<Integer> newValue) {
-        System.out.println(this.dungeon.history);
         player.draw(playerLayer.getGraphicsContext2D());
     }
     
@@ -203,10 +213,7 @@ public class InitialGameController implements Initializable {
         } else if (e.getCode().equals(KeyCode.RIGHT)) {
             x += Player.PLAYER_SPEED;
         } else if (e.getCode().equals(KeyCode.SPACE)) {
-            this.monster.setHealth(this.monster.getHealth().getValue() - 1);
-            if (this.monster.getHealth().getValue() == 0) {
-                this.monster.clear(monsterLayer.getGraphicsContext2D());
-            }
+            monster.reduceHealth(player);
         }
         
         if (this.dungeon.isPositionValid(x, y)) {
@@ -220,15 +227,6 @@ public class InitialGameController implements Initializable {
             AppScenes.navigateTo(thisStage, SceneNames.WIN);
         }
     }
-    
-//    public reduceHealth(SpriteElement obj1, SpriteElement obj2) {
-//        if (obj1.collides(obj2)) {
-//            obj1.setHealth(obj1.getHealth().getValue() - 1);
-//            if (this.monster.getHealth().getValue() == 0) {
-//                this.monster.clear(monsterLayer.getGraphicsContext2D());
-//            }
-//        }
-//    }
 
     /**
      * loads room
@@ -261,6 +259,8 @@ public class InitialGameController implements Initializable {
 
         for (int i = 0; i < inactiveDoors.size(); i++) {
             NodeLayer doorNodeLayer = inactiveDoors.get(i);
+            doorNodeLayer.setPosition(doorNodeLayer.getPositionAtX(),
+                    doorNodeLayer.getPositionAtY());
             doorNodeLayer.draw(doorsLayer.getGraphicsContext2D());
         }
     }

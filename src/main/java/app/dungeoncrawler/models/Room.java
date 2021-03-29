@@ -215,7 +215,8 @@ public class Room {
 
         ArrayList<NodeLayer> inactiveDoors = this.getInactiveDoors();
         for (NodeLayer layer : inactiveDoors) {
-            layer.setPosition(layer.getAverageX(), layer.getAverageY());
+            layer.setPosition(layer.getPositionAtX(),
+                    layer.getPositionAtY());
             layer.draw(door);
         }
     }
@@ -231,7 +232,6 @@ public class Room {
      * @param y where y represents y position of player
      */
     public void trackPlayerMovement(int x, int y) {
-        System.out.printf("model %s", this);
         for (int i = 0; i < this.doorsNodes.size(); i++) {
             NodeLayer doorNode = this.doorsNodes.get(i);
             

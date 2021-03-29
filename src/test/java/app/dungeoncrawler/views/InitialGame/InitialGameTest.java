@@ -52,8 +52,6 @@ public class InitialGameTest extends ApplicationTest {
         stage.setHeight(Game.WINDOW_HEIGHT);
         stage.setScene(thisScene.getScene());
         stage.show();
-
-        System.out.println("brand new");
     }
 
     @Test

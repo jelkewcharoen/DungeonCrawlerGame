@@ -3,6 +3,8 @@ package app.dungeoncrawler.utils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+import java.util.HashMap;
+
 public abstract class SpriteElement {
     private String image;
     private int positionAtX;
@@ -13,7 +15,7 @@ public abstract class SpriteElement {
     private int elementWidth;
     private boolean preserveRatio;
     private boolean smooth;
-    private Image imageCached;
+    private static HashMap<String, Image> imageCached = new HashMap<>();
 
     /**
      * constructs sprite element
@@ -84,7 +86,9 @@ public abstract class SpriteElement {
      */
     public void draw(GraphicsContext graphicsContext) {
         this.clear(graphicsContext);
-        this.imageCached = this.imageCached == null 
+        System.out.println(this.image);
+        Image image = SpriteElement.imageCached.get(this.image);
+        image = image == null 
             ? new Image(
                 getClass()
                         .getResource(this.image)
@@ -93,9 +97,10 @@ public abstract class SpriteElement {
                 this.elementHeight,
                 this.preserveRatio,
                 this.smooth
-            ) : this.imageCached;
-        
-        graphicsContext.drawImage(this.imageCached, this.positionAtX, this.positionAtY);
+            ) : image;
+
+        SpriteElement.imageCached.put(this.image, image);
+        graphicsContext.drawImage(image, this.positionAtX, this.positionAtY);
     }
     
     /**
@@ -111,10 +116,26 @@ public abstract class SpriteElement {
         
         graphicsContext.restore();
         graphicsContext.clearRect(
-                this.prevPositionAtX,
-                this.prevPositionAtY,
-                this.elementWidth,
-                this.elementHeight
+            this.prevPositionAtX,
+            this.prevPositionAtY,
+            widthWithExtraPadding,
+            heightWithExtraPadding
+        );
+    }    
+    
+    public void clearCurrent(GraphicsContext graphicsContext) {
+        double porcentage = (double) 20 / (double) 100;
+        int widthWithExtraPadding = (int) ((double) this.elementWidth * porcentage)
+                + this.elementWidth;
+        int heightWithExtraPadding = (int) ((double) this.elementHeight * porcentage)
+                + this.elementHeight;
+        
+        graphicsContext.restore();
+        graphicsContext.clearRect(
+            this.positionAtX,
+            this.positionAtY,
+            widthWithExtraPadding,
+            heightWithExtraPadding
         );
     }
 

@@ -2,6 +2,7 @@ package app.dungeoncrawler.models;
 
 import app.dungeoncrawler.utils.DefaultWeapons;
 import app.dungeoncrawler.utils.Difficulties;
+import app.dungeoncrawler.utils.Fighter;
 import app.dungeoncrawler.utils.SpriteElement;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -15,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-public class Player extends SpriteElement {
+public class Player extends Fighter {
     private SimpleObjectProperty<ArrayList<Integer>> cordinates = new SimpleObjectProperty();
     
     private static Map<Difficulties, Integer> playerLevelsMultiplier = new HashMap<>() {{
@@ -25,9 +26,8 @@ public class Player extends SpriteElement {
         }
     };
     
-    private final int defaultHealth = 10;
+    public static final int defaultHealth = 10;
     private final int defaultGold = 10;
-    private IntegerProperty health;
     private final Weapon weapon;
     private final int gold;
     private final String name;
@@ -40,13 +40,14 @@ public class Player extends SpriteElement {
      * @param difficulties the selected difficulty.
      */
     public Player(String name, DefaultWeapons weapons, Difficulties difficulties) {
-        super("/app/assets/player.png", 85, 100);
+        super("/app/assets/player.png", 0,85, 100);
         int multiplier = Player.playerLevelsMultiplier.get(difficulties);
 
         this.name = name;
         this.weapon = Weapon.getWeaponsWeaponMap().get(weapons);
         this.gold = defaultGold * multiplier;
-        this.health = new SimpleIntegerProperty(defaultHealth * multiplier);
+        this.setHealth((Player.defaultHealth * Player.playerLevelsMultiplier.get(difficulties)));
+        this.setPower(this.weapon.getPower());
     }
 
     /**
@@ -72,19 +73,6 @@ public class Player extends SpriteElement {
     public int getY() {
         return this.getPositionAtY();
     }
-
-    /**
-     * gets the player's health
-     * @return player's health
-     */
-    public IntegerProperty getHealth() {
-        return this.health;
-    }
-    /**
-     * set the health of the monster
-     * @param health new health
-     */
-    public void setHealth(int health) { this.health.set(health); }
     
     /**
      * moves player
@@ -119,6 +107,4 @@ public class Player extends SpriteElement {
     public int getGold() {
         return gold;
     }
-    //comment
-    
 }
