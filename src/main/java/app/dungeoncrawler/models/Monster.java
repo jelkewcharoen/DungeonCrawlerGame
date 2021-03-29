@@ -1,13 +1,16 @@
 package app.dungeoncrawler.models;
 
 import app.dungeoncrawler.utils.SpriteElement;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 public class Monster extends SpriteElement {
-    int health = 10;
+    IntegerProperty health = new SimpleIntegerProperty(0);
     public Monster(String imageurl) {
 
         super(imageurl, 85, 100);
     }
+
     public void setImage(String url) {
         super.setImage(url);
     }
@@ -31,13 +34,13 @@ public class Monster extends SpriteElement {
      * set the health of the monster
      * @param health new health
      */
-    public void setHealth(int health) { this.health = health; }
+    public void setHealth(int health) { this.health.set(health); }
 
     /**
      * get monster's health
      * @return monster's health
      */
-    public int getHealth() { return this.health; }
+    public IntegerProperty getHealth() { return this.health; }
     public void moveMonster() {
         System.out.println("move monster");
     }

@@ -375,16 +375,13 @@ public class Room {
         public void handle(long l) {
             if (framerate % 10 == 0) {
                 if (monster.collides(player.getX(), player.getY())) {
-                    stop();
-                    // fight
-
-
-
-
+                    if (monster.getHealth().getValue() == 0) {
+                        stop();
+                    }
+                    player.setHealth(player.getHealth().getValue() - 1);
 
                 }
-
-                if (now) {
+                else if (now) {
                     if (xmon > 350) {
                         now = false;
                         count++;

@@ -107,7 +107,7 @@ public class Game {
             currentMonster.setImage("/app/assets/monster3.png");
         }
         //mon = new Monster("/app/assets/monster1.png");
-
+        currentMonster.setHealth(10);
         return currentMonster;
     }
 }
