@@ -1,4 +1,5 @@
-package app.dungeoncrawler.views.Win;
+package app.dungeoncrawler.views.Lose;
+
 
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.AppScenes;
@@ -13,7 +14,7 @@ import java.util.ResourceBundle;
 
 import static javafx.application.Platform.exit;
 
-public class WinViewController implements Initializable {
+public class LoseViewController implements Initializable {
     @FXML
     private Button exit;
 

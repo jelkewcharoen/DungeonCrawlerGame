@@ -3,6 +3,7 @@ package app.dungeoncrawler.views;
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.Configuration.ConfigurationView;
 import app.dungeoncrawler.views.InitialGame.InitialGame;
+import app.dungeoncrawler.views.Lose.LoseView;
 import app.dungeoncrawler.views.Welcome.WelcomeView;
 import app.dungeoncrawler.views.Win.WinView;
 import javafx.scene.Scene;
@@ -79,6 +80,9 @@ public class AppScenes {
             
         } else if (SceneNames.WIN == scene) {
             AppScenes.uiViews.put(SceneNames.WIN, new WinView(stage));
+
+        } else if (SceneNames.LOSE == scene) {
+            AppScenes.uiViews.put(SceneNames.LOSE, new LoseView(stage));
 
         } else {
             AppScenes.uiViews.put(SceneNames.WELCOME, new WelcomeView(stage));
