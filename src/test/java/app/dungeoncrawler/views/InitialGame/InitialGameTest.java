@@ -2,6 +2,7 @@ package app.dungeoncrawler.views.InitialGame;
 
 
 import app.dungeoncrawler.models.Game;
+import app.dungeoncrawler.models.Monster;
 import app.dungeoncrawler.models.Player;
 import app.dungeoncrawler.models.Room;
 import app.dungeoncrawler.utils.DefaultWeapons;
@@ -23,8 +24,7 @@ import org.testfx.matcher.base.NodeMatchers;
 import org.testfx.util.WaitForAsyncUtils;
 
 import static javafx.scene.input.KeyCode.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class InitialGameTest extends ApplicationTest {
 
@@ -107,6 +107,52 @@ public class InitialGameTest extends ApplicationTest {
 
         int testrightcalc = original + (15 * 2);
         assertEquals(testrightcalc, Game.getPlayer().getY());
+    }
+
+    @Test
+    public void hasMonster() {
+        for (int i = 0; i < 2; i++) {
+            press(LEFT).release(LEFT);
+        }
+        for (int i = 0; i < 10; i++) {
+            press(DOWN).release(DOWN);
+        }
+        Monster monster = Game.Game().getCurrentMonster();
+        assertNotNull(monster);
+
+    }
+  @Test
+    public void testMonsterMoves() {
+      // to go to the next room that has a monster
+      for (int i = 0; i < 2; i++) {
+          press(LEFT).release(LEFT);
+      }
+      for (int i = 0; i < 10; i++) {
+          press(DOWN).release(DOWN);
+      }
+      //gets the current monster's x coordinate
+        Monster monster = Game.Game().getCurrentMonster();
+        int original = monster.getX();
+        //let's the monster move towards the player
+      for (int i = 0; i < 2; i++) {
+          press(DOWN).release(DOWN);
+          System.out.println("monster is at: " + monster.getPositionAtX());
+      }
+      for (int i = 0; i < 2; i++) {
+          press(RIGHT).release(RIGHT);
+          System.out.println("monster is at: " + monster.getPositionAtX());
+      }
+
+      //gets the new coordinate of the monster after it moved
+
+        int now = monster.getX();
+        boolean result = false;
+        if (original != now) {
+            result = true;
+
+        }
+        // if they are different then the result is true -> monster moved
+        assertTrue(result);
     }
     @Test
     public void testPlayerEnterNewRoomPositionX() {
