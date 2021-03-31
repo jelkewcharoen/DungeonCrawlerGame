@@ -11,7 +11,6 @@
     <Canvas fx:id="roomLayer" />
     <Canvas fx:id="doorsLayer" />
     <Canvas fx:id="monsterLayer" />
-
     <Canvas fx:id="playerLayer" />
 
     <Text fx:id="money" fill="white" StackPane.alignment="TOP_LEFT">

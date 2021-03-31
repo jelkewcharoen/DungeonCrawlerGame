@@ -1,0 +1,6 @@
+.borderPaneMainContainer {
+    -fx-background-image: url("../../../assets/winbackground.png");
+    -fx-cursor: hand;
+    -fx-alignment: center;
+    -fx-background-position: center center;
+}

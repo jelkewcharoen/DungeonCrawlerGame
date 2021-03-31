@@ -38,7 +38,6 @@ public class ConfigurationViewTest extends ApplicationTest {
 
     @Override
     public void start(Stage stage) throws Exception {
-        System.out.println("ivans");
         this.stage = stage;
         this.scene = new AppScenes(stage);
         AppScenes.buildScreen(SceneNames.CONFIGURATION, stage);

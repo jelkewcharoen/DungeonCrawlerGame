@@ -3,6 +3,8 @@ package app.dungeoncrawler.utils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+import java.util.HashMap;
+
 public abstract class SpriteElement {
     private String image;
     private int positionAtX;
@@ -11,10 +13,9 @@ public abstract class SpriteElement {
     private int prevPositionAtY;
     private int elementHeight;
     private int elementWidth;
-    private GraphicsContext graphicsContext;
     private boolean preserveRatio;
     private boolean smooth;
-    private Image imageCached;
+    private static HashMap<String, Image> imageCached = new HashMap<>();
 
     /**
      * constructs sprite element
@@ -71,23 +72,7 @@ public abstract class SpriteElement {
     public int getPositionAtX() {
         return this.positionAtX;
     }
-
-    /**
-     * gets graphics context
-     * @return graphics context
-     */
-    public GraphicsContext getGraphicsContext() {
-        return graphicsContext;
-    }
-
-    /**
-     * sets graphics context
-     * @param graphicsContext graphics context which will be used to set graphics context
-     */
-    public void setGraphicsContext(GraphicsContext graphicsContext) {
-        this.graphicsContext = graphicsContext;
-    }
-
+    
     /**
      * gets y position of the character
      * @return y position of the character
@@ -99,17 +84,10 @@ public abstract class SpriteElement {
     /**
      * draws graphics context
      */
-    public void draw() {
-        this.draw(this.graphicsContext);
-    }
-
-    /**
-     * draws graphics context
-     * @param graphicsContext graphics context which will be used to draw graphics context
-     */
     public void draw(GraphicsContext graphicsContext) {
         this.clear(graphicsContext);
-        this.imageCached = this.imageCached == null 
+        Image image = SpriteElement.imageCached.get(this.image);
+        image = image == null 
             ? new Image(
                 getClass()
                         .getResource(this.image)
@@ -118,35 +96,45 @@ public abstract class SpriteElement {
                 this.elementHeight,
                 this.preserveRatio,
                 this.smooth
-            )
-            : this.imageCached;
-                
-        this.graphicsContext.drawImage(this.imageCached, this.positionAtX, this.positionAtY);
-    }
+            ) : image;
 
-    /**
-     * clears graphic context
-     */
-    public void clear() {
-        this.clear(this.graphicsContext);
+        SpriteElement.imageCached.put(this.image, image);
+        graphicsContext.drawImage(image, this.positionAtX, this.positionAtY);
     }
-
+    
     /**
      * clears graphics context
-     * @param c graphics context which will be cleared
+     * @param graphicsContext graphics context which will be cleared
      */
-    public void clear(GraphicsContext c) {
-        if (graphicsContext != null) {
-            this.graphicsContext = graphicsContext;
-        }
+    public void clear(GraphicsContext graphicsContext) {
+        double porcentage = (double) 20 / (double) 100;
+        int widthWithExtraPadding = (int) ((double) this.elementWidth * porcentage)
+                + this.elementWidth;
+        int heightWithExtraPadding = (int) ((double) this.elementHeight * porcentage)
+                + this.elementHeight;
         
-        System.out.println(this.graphicsContext);
-        this.graphicsContext.restore();
-        this.graphicsContext.clearRect(
-                this.prevPositionAtX,
-                this.prevPositionAtY,
-                this.elementWidth,
-                this.elementHeight
+        graphicsContext.restore();
+        graphicsContext.clearRect(
+            this.prevPositionAtX,
+            this.prevPositionAtY,
+            widthWithExtraPadding,
+            heightWithExtraPadding
+        );
+    }    
+    
+    public void clearCurrent(GraphicsContext graphicsContext) {
+        double porcentage = (double) 20 / (double) 100;
+        int widthWithExtraPadding = (int) ((double) this.elementWidth * porcentage)
+                + this.elementWidth;
+        int heightWithExtraPadding = (int) ((double) this.elementHeight * porcentage)
+                + this.elementHeight;
+        
+        graphicsContext.restore();
+        graphicsContext.clearRect(
+            this.positionAtX,
+            this.positionAtY,
+            widthWithExtraPadding,
+            heightWithExtraPadding
         );
     }
 
@@ -159,5 +147,21 @@ public abstract class SpriteElement {
                 && this.elementHeight == spriteElement.elementHeight
                 && this.smooth == spriteElement.smooth
                 && this.preserveRatio == spriteElement.preserveRatio;
+    }
+    
+    public void setImage(String image) {
+        this.image = image;
+        this.imageCached = null;
+    }
+
+
+    public boolean collides(SpriteElement element) {
+        int x = element.getPositionAtX();
+        int y = element.getPositionAtY();
+        
+        int myX = this.getPositionAtX();
+        int myY = this.getPositionAtY();
+        
+        return ((y > (myX - 90)) && (x < (myX + 30)) && (y > (myY - 90)) && (y < (myY + 30)));
     }
 }

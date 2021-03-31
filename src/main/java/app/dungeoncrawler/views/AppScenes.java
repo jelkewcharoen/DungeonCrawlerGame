@@ -41,7 +41,7 @@ public class AppScenes {
      * @param stage - creates the game view
      */
     public AppScenes(Stage stage) {
-        this(stage, SceneNames.INITIAL_GAME);
+        this(stage, SceneNames.WELCOME);
     }
 
     /**
@@ -58,7 +58,7 @@ public class AppScenes {
      * @return the scene that corresponds to the main page
      */
     public Scene getMainPage() {
-        return this.getScreen(SceneNames.INITIAL_GAME).getScene();
+        return this.getScreen(SceneNames.WELCOME).getScene();
     }
 
     /**
@@ -68,7 +68,7 @@ public class AppScenes {
      * @return uiViews of appScenes
      */
     public static ViewBase buildScreen(SceneNames scene, Stage stage) {
-        System.out.println(AppScenes.uiViews.get(scene));
+//        System.out.println(AppScenes.uiViews.get(scene));
         if (AppScenes.uiViews.get(scene) != null) {
             return AppScenes.uiViews.get(scene);
         } else if (SceneNames.CONFIGURATION == scene) {
@@ -99,7 +99,7 @@ public class AppScenes {
         }
         
         AppScenes.currentView = AppScenes.buildScreen(name, stage);
-        System.out.println(uiViews);
+//        System.out.println(uiViews);
         AppScenes.currentView.mountingScene();
         stage.setScene(AppScenes.currentView.getScene());
         stage.toFront();

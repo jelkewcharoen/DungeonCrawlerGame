@@ -1,7 +1,10 @@
 package app.dungeoncrawler.models;
 
 import app.dungeoncrawler.utils.Difficulties;
+import app.dungeoncrawler.utils.ObserverObject;
+import javafx.beans.property.SimpleObjectProperty;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +12,8 @@ public class Dungeon {
     private static int currentID = 0; //current id of the room
     private static HashMap<Integer, Room> rooms = new HashMap<>();
     private Room activeRoom;
+    private SimpleObjectProperty<ObserverObject<Room>> activeRoomOb = new SimpleObjectProperty<>();
+    public ArrayList<Room> history = new ArrayList<>();
     private Player activePlayer;
     
     public static final Map<Difficulties, Integer> DIFFICULTIES = new HashMap<>() {
@@ -41,17 +46,20 @@ public class Dungeon {
         };
 
         this.difficulty = mapStringToEnum.get(stringDifficulty) != null
-                ? mapStringToEnum.get(stringDifficulty)
-                : Difficulties.EASY;
-
+            ? mapStringToEnum.get(stringDifficulty)
+            : Difficulties.EASY;
+    }
+    
+    public void createRoom() {
         this.activeRoom = new Room(
-                null,
-                false,
-                false,
-                4,
-                0);
-        rooms.put(0, this.activeRoom);
+            null,
+            false,
+            4,
+            0
+        );
 
+        this.activeRoomOb.set(new ObserverObject<>(this.activeRoom));
+        history.add(this.activeRoom);
     }
 
     /**
@@ -62,12 +70,25 @@ public class Dungeon {
         return difficulty;
     }
 
+    public Room getActiveRoomOb() {
+        return activeRoomOb.get().getField();
+    }
+
+    public SimpleObjectProperty<ObserverObject<Room>> activeRoomObProperty() {
+        return activeRoomOb;
+    }
+
+
     /**
      * sets active room
      * @param r room which we want to activate
      */
     public void setActiveRoom(Room r) {
         this.activeRoom = r;
+        ObserverObject<Room> oldRoom = new ObserverObject<Room>(r);
+        oldRoom.setField(r);
+        this.activeRoomOb.set(oldRoom);
+        history.add(r);
     }
 
     /**
@@ -77,24 +98,19 @@ public class Dungeon {
     public Room getActiveRoom() {
         return activeRoom;
     }
-
-    /**
-     * gets initial room
-     * @return returns initial room
-     */
-    public Room getInitialRoom() {
-        return rooms.get(0);
+    
+    public boolean isPositionValid(int x, int y) {
+        return this.getActiveRoomOb().isCordinateInRoom(x, y);
     }
-
+    
     /**
      * sets active player
      * @param activePlayer who we want to make active
      */
     public void setActivePlayer(Player activePlayer) {
-        Room initialRoom = this.getInitialRoom();
         activePlayer.setPosition(
-                initialRoom.getRoomMap().getRoomLayer().getDimension().averageX(),
-                initialRoom.getRoomMap().getRoomLayer().getDimension().averageY()
+                this.getActiveRoomOb().getRoomMap().getRoomLayer().getDimension().averageX(),
+                this.getActiveRoomOb().getRoomMap().getRoomLayer().getDimension().averageY()
         );
 
         this.activePlayer = activePlayer;

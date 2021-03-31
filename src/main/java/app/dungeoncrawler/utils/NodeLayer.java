@@ -35,7 +35,14 @@ public class NodeLayer extends SpriteElement {
     public Dimension getDimension() {
         return dimension;
     }
-
+    
+    public int getAverageX() {
+        return this.dimension.averageX();
+    }   
+    
+    public int getAverageY() {
+        return this.dimension.averageY();
+    }
     /**
      * sets id
      * @param id id of the node layer

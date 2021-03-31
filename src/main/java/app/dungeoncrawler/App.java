@@ -15,6 +15,7 @@ public class App extends Application {
         AppScenes scenes = new AppScenes(stage);
         stage.setScene(scenes.getMainPage());
         stage.show();
+        //applyAnimation(rootGroup);
     }
 
     @Override
