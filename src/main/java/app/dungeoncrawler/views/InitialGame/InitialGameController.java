@@ -45,7 +45,8 @@ public class InitialGameController implements Initializable {
     private int multiplier1 = 200 / 10; //10 is monster's health
     private Player player;
     private Dungeon dungeon;
-    
+
+
     private Monster monster;
     private Timer timer = new Timer();
 
@@ -138,13 +139,14 @@ public class InitialGameController implements Initializable {
             monster.clearCurrent(monsterLayer.getGraphicsContext2D());
         }
         
-        monster = Monster.getNewMonster();
+        monster = Game.Game().getNewMonster();
         monster.setPosition(225, 240);
         IntegerProperty monsterHealth = monster.getHealth();
         monsterBar.widthProperty().bind(monsterHealth.multiply(multiplier1));
         monster.getHealth().addListener(this::onMonsterHealthUpdate);
         monster.draw(monsterLayer.getGraphicsContext2D());
-    }    
+    }
+
 
     public TimerTask monsterSelfMovement() {
         return new TimerTask() {

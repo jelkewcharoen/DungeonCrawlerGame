@@ -113,22 +113,15 @@ public class Game {
         this.setDungeon(new Dungeon(difficulties));
     }
 
-    public Monster getCurrentMonster() {
-        return this.currentMonster;
+    public Monster getNewMonster() {
+        currentMonster = Monster.getNewMonster();
+        return currentMonster;
     }
 
-    public Monster getNewMonster() {
-        int rand = (int)(Math.random() * 3); // generates 0, 1 or 2
-        System.out.println("new image:"+rand);
-        if (rand == 0) {
-            this.currentMonster.setImage("/app/assets/monster1.png");
-        } else if (rand == 1) {
-            this.currentMonster.setImage("/app/assets/monster2.png");
-        } else {
-            this.currentMonster.setImage("/app/assets/monster3.png");
-        }
-        //mon = new Monster("/app/assets/monster1.png");
-        this.currentMonster.setHealth(10);
-        return this.currentMonster;
+    public Monster getCurrentMonster() {
+        return currentMonster;
     }
+
+
+
 }
