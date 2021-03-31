@@ -226,6 +226,12 @@ public class InitialGameController implements Initializable {
             Stage thisStage = (Stage) thisScene.getWindow();
             AppScenes.navigateTo(thisStage, SceneNames.WIN);
         }
+
+        if (player.getHealth().get() <= 0) {
+            Scene thisScene = (Scene) e.getSource();
+            Stage thisStage = (Stage) thisScene.getWindow();
+            AppScenes.navigateTo(thisStage, SceneNames.LOSE);
+        }
     }
 
     /**
