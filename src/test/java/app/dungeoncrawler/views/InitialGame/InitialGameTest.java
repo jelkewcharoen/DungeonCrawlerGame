@@ -23,6 +23,8 @@ import org.testfx.matcher.base.NodeMatchers;
 
 import org.testfx.util.WaitForAsyncUtils;
 
+import java.awt.*;
+
 import static javafx.scene.input.KeyCode.*;
 import static org.junit.Assert.*;
 
@@ -132,7 +134,8 @@ public class InitialGameTest extends ApplicationTest {
       }
       //gets the current monster's x coordinate
         Monster monster = Game.Game().getCurrentMonster();
-        int original = monster.getX();
+        int originalX = monster.getX();
+        int originalY = monster.getY();
         //let's the monster move towards the player
       for (int i = 0; i < 2; i++) {
           press(DOWN).release(DOWN);
@@ -145,16 +148,17 @@ public class InitialGameTest extends ApplicationTest {
 
       //gets the new coordinate of the monster after it moved
 
-        int now = monster.getX();
-        boolean result = false;
-        if (original != now) {
-            result = true;
+      int nowX = monster.getX();
+      int nowY = monster.getY();
+      boolean result = false;
+      if (originalX != nowX || originalY != nowY) {
+           result = true;
 
-        }
-        // if they are different then the result is true -> monster moved
-        assertTrue(result);
+      }
+      // if they are different then the result is true -> monster moved
+      assertTrue(result);
     }
-    @Test
+    /*@Test
     public void testPlayerEnterNewRoomPositionX() {
 
         Player player = Game.getPlayer();
@@ -187,6 +191,18 @@ public class InitialGameTest extends ApplicationTest {
         NodeLayer initialDoor = currentRoom.getDoorsNodes().get(playerLocationDoorId);
         DoorDimension initialDoorDimension = (DoorDimension) initialDoor.getDimension();
         assertEquals(player.getY(), initialDoorDimension.getPositionYForPlayer());
+    }*/
+    @Test
+    public void testPlayerEnterNewRoom() {
+        Room initialRoom = Game.getDungeon().getActiveRoomOb();
+        for (int i = 0; i < 2; i++) {
+            press(LEFT).release(LEFT);
+        }
+        for (int i = 0; i < 10; i++) {
+            press(DOWN).release(DOWN);
+        }
+        Room room1 = Game.getDungeon().getActiveRoom();
+        assertNotEquals(room1, initialRoom);
     }
     @Test
     public void testPlayerEnterPreviousRoom() {
@@ -201,5 +217,13 @@ public class InitialGameTest extends ApplicationTest {
         press(UP).release(UP);
         Room room1 = Game.getDungeon().getActiveRoom();
         assertEquals(room1, initialRoom);
+    }
+    @Test
+    public void testPlayerHealthBar() {
+        FxAssert.verifyThat("#healthBar", NodeMatchers.isNotNull());
+    }
+    @Test
+    public void testMonsterHealthBar() {
+        FxAssert.verifyThat("#monsterBar", NodeMatchers.isNotNull());
     }
 }
