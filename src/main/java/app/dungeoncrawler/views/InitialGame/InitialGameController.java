@@ -138,7 +138,7 @@ public class InitialGameController implements Initializable {
             monster.getHealth().removeListener(this::onMonsterHealthUpdate);
             monster.clearCurrent(monsterLayer.getGraphicsContext2D());
         }
-        
+
         monster = Game.Game().getNewMonster();
         monster.setPosition(225, 240);
         IntegerProperty monsterHealth = monster.getHealth();
@@ -175,6 +175,12 @@ public class InitialGameController implements Initializable {
                 }
                 
                 if (monster.getHealth().get() <= 0) {
+                    Game.Game().clearCurrentMonster();
+                    return;
+                }
+
+                if (player.getHealth().get() <= 0) {
+                    player.clear(playerLayer.getGraphicsContext2D());
                     return;
                 }
 

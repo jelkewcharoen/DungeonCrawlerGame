@@ -249,7 +249,7 @@ public class Room {
                 Game.Game().setActiveRoom(this.parent);
                 
             }  
-            else if (isPlayerInsideDoorDimension && !isPlayerInDoorWhereHeEntered) {
+            else if (isPlayerInsideDoorDimension && !isPlayerInDoorWhereHeEntered && Game.Game().getCurrentMonster() == null) {
                 // player going to a new door
                 this.doorIdWherePlayerLeftTheRoom = doorNode.getId();
 
