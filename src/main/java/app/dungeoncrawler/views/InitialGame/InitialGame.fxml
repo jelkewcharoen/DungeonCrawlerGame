@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.canvas.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
 <?import java.util.ArrayList?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.geometry.Insets?>
 <StackPane fx:id="initialGamePane" onKeyPressed="#handleOnKeyPressed" onKeyReleased="#handleOnKeyPressed" styleClass="hBoxMainContainer" stylesheets="@InitialGame.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.dungeoncrawler.views.InitialGame.InitialGameController">
     <Canvas fx:id="roomLayer" />
     <Canvas fx:id="doorsLayer" />
@@ -20,12 +20,12 @@
     </Text>
     <Rectangle fx:id="healthBar" fill="royalblue" StackPane.alignment="BOTTOM_LEFT">
             <StackPane.margin>
-                <Insets bottom="8" left = "8" right="8"/>
+                <Insets bottom="38.0" left="8.0" right="8.0" />
             </StackPane.margin>
     </Rectangle>
     <Rectangle fx:id="monsterBar" fill="darkred" StackPane.alignment="BOTTOM_RIGHT">
         <StackPane.margin>
-            <Insets bottom="8" left = "8" right="8"/>
+            <Insets bottom="8" left="8" right="8" />
         </StackPane.margin>
     </Rectangle>
     <fx:define>

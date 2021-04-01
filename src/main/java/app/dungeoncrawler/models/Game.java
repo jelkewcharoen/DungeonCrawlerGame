@@ -122,6 +122,9 @@ public class Game {
         return currentMonster;
     }
 
+    public void clearCurrentMonster() {
+        currentMonster = null;
+    }
 
 
 }

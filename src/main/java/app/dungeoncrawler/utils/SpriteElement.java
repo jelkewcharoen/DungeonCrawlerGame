@@ -162,6 +162,6 @@ public abstract class SpriteElement {
         int myX = this.getPositionAtX();
         int myY = this.getPositionAtY();
         
-        return ((y > (myX - 90)) && (x < (myX + 30)) && (y > (myY - 90)) && (y < (myY + 30)));
+        return ((x > (myX - 90)) && (x < (myX + 30)) && (y > (myY - 90)) && (y < (myY + 30)));
     }
 }
