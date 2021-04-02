@@ -6,8 +6,6 @@ import app.dungeoncrawler.models.Monster;
 import app.dungeoncrawler.models.Player;
 import app.dungeoncrawler.models.Room;
 import app.dungeoncrawler.utils.DefaultWeapons;
-import app.dungeoncrawler.utils.DoorDimension;
-import app.dungeoncrawler.utils.NodeLayer;
 import app.dungeoncrawler.views.AppScenes;
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.ViewBase;
@@ -23,8 +21,6 @@ import org.testfx.matcher.base.NodeMatchers;
 
 import org.testfx.util.WaitForAsyncUtils;
 
-import java.awt.*;
-import java.util.concurrent.TimeUnit;
 
 import static javafx.scene.input.KeyCode.*;
 import static org.junit.Assert.*;
@@ -32,6 +28,7 @@ import static org.junit.Assert.*;
 public class InitialGameTest extends ApplicationTest {
 
     private ViewBase thisScene;
+    private Monster monster;
     @BeforeClass
     public static void config() throws Exception {
         System.getProperties().put("testfx.robot", "glass");
@@ -82,12 +79,11 @@ public class InitialGameTest extends ApplicationTest {
     public void testPlayerMoveLeft() {
         int original = Game.getPlayer().getX();
         for (int i = 0; i < 2; i++) {
-            press(RIGHT).release(RIGHT);
+            press(LEFT).release(LEFT);
         }
-        press(LEFT).release(LEFT);
         WaitForAsyncUtils.waitForFxEvents();
 
-        int testrightcalc = original + (15 * 1);
+        int testrightcalc = original - (15 * 2);
         assertEquals(testrightcalc, Game.getPlayer().getX());
     }
 
@@ -111,21 +107,7 @@ public class InitialGameTest extends ApplicationTest {
         int testrightcalc = original + (15 * 2);
         assertEquals(testrightcalc, Game.getPlayer().getY());
     }
-    @Test
-    public void testPlayerEnterNewRoom() {
-        Room initialRoom = Game.getDungeon().getActiveRoomOb();
-        Player player = Game.getPlayer();
-        player.setPosition(initialRoom.getRoomMap().getRoomLayer().getDimension().averageX(),
-                initialRoom.getRoomMap().getRoomLayer().getDimension().averageY());
-        for (int i = 0; i < 2; i++) {
-            press(LEFT).release(LEFT);
-        }
-        for (int i = 0; i < 11; i++) {
-            press(DOWN).release(DOWN);
-        }
-        Room room1 = Game.getDungeon().getActiveRoomOb();
-        assertNotEquals(room1, initialRoom);
-    }
+
 
     @Test
     public void hasMonster() {
@@ -141,15 +123,9 @@ public class InitialGameTest extends ApplicationTest {
     }
     @Test
     public void testMonsterMoves() {
-        // to go to the next room that has a monster
-        for (int i = 0; i < 2; i++) {
-            press(LEFT).release(LEFT);
-        }
-        for (int i = 0; i < 10; i++) {
-            press(DOWN).release(DOWN);
-        }
+
         //gets the current monster's x coordinate
-        Monster monster = Game.Game().getCurrentMonster();
+        monster = Game.Game().getCurrentMonster();
         int originalX = monster.getX();
         int originalY = monster.getY();
         //let's the monster move towards the player
@@ -157,9 +133,15 @@ public class InitialGameTest extends ApplicationTest {
             press(DOWN).release(DOWN);
             System.out.println("monster is at: " + monster.getPositionAtX());
         }
+<<<<<<< HEAD
         for (int i = 0; i < 5; i++) {
           press(RIGHT).release(RIGHT);
           System.out.println("monster is at: " + monster.getPositionAtX());
+=======
+        //WaitForAsyncUtils.waitFor(1, TimeUnit.SECONDS );
+        sleep(1000);
+        //gets the new coordinate of the monster after it moved
+>>>>>>> edf9ddc (fixed monster moves test)
 
       }
       //WaitForAsyncUtils.waitFor(1, TimeUnit.SECONDS, Fu);
@@ -227,6 +209,24 @@ public class InitialGameTest extends ApplicationTest {
         press(UP).release(UP);
         Room room1 = Game.getDungeon().getActiveRoomOb();
         assertEquals(room1, initialRoom);
+    }
+
+    @Test
+    public void testPlayerEnterNewRoom() {
+        Room initialRoom = Game.getDungeon().getActiveRoomOb();
+        Player player = Game.getPlayer();
+        player.setPosition(initialRoom.getRoomMap().getRoomLayer().getDimension().averageX(),
+                initialRoom.getRoomMap().getRoomLayer().getDimension().averageY());
+
+        for (int i = 0; i < 3; i++) {
+            press(LEFT).release(LEFT);
+        }
+
+        for (int i = 0; i < 15; i++) {
+            press(DOWN).release(DOWN);
+        }
+        Room room1 = Game.getDungeon().getActiveRoomOb();
+        assertNotEquals(room1, initialRoom);
     }
     @Test
     public void testPlayerHealthBar() {
