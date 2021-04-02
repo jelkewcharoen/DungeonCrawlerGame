@@ -25,6 +25,14 @@ public class Game {
         Game.currentGame = new Game();
         return Game.currentGame;
     }
+
+    public static Game Game(boolean startNewGame) {
+        if (startNewGame) {
+            Game.currentGame = new Game();
+            return Game.currentGame;
+        }
+        return Game.Game();
+    }
     /**
      * gets current game map
      * @return returns current game map
