@@ -40,7 +40,7 @@ public class Player extends Fighter {
      * @param difficulties the selected difficulty.
      */
     public Player(String name, DefaultWeapons weapons, Difficulties difficulties) {
-        super("/app/assets/player.png", 10,85, 100);
+        super("/app/assets/player.png", 10, 85, 100);
         int multiplier = Player.playerLevelsMultiplier.get(difficulties);
 
         this.name = name;

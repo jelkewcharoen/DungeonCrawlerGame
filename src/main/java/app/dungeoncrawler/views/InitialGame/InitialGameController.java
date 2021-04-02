@@ -45,7 +45,6 @@ public class InitialGameController implements Initializable {
     private int multiplier1; //10 is monster's health
     private Player player;
     private Dungeon dungeon;
-    private Monster backupMonster;
 
     private Monster monster;
     private Timer timer = new Timer();
