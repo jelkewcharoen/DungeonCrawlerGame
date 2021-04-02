@@ -59,4 +59,7 @@ public class InitialGame extends ViewBase {
     public Scene getScene() {
         return this.scene;
     }
+    public InitialGameController getController() {
+        return controller;
+    }
 }
