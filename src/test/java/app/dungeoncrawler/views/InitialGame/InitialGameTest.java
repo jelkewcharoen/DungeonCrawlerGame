@@ -6,8 +6,6 @@ import app.dungeoncrawler.models.Monster;
 import app.dungeoncrawler.models.Player;
 import app.dungeoncrawler.models.Room;
 import app.dungeoncrawler.utils.DefaultWeapons;
-import app.dungeoncrawler.utils.DoorDimension;
-import app.dungeoncrawler.utils.NodeLayer;
 import app.dungeoncrawler.views.AppScenes;
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.ViewBase;
@@ -23,8 +21,6 @@ import org.testfx.matcher.base.NodeMatchers;
 
 import org.testfx.util.WaitForAsyncUtils;
 
-import java.awt.*;
-import java.util.concurrent.TimeUnit;
 
 import static javafx.scene.input.KeyCode.*;
 import static org.junit.Assert.*;

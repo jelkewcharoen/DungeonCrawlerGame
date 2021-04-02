@@ -4,7 +4,6 @@ import app.dungeoncrawler.utils.Dimension;
 import app.dungeoncrawler.utils.DoorDimension;
 import app.dungeoncrawler.utils.GameMap;
 import app.dungeoncrawler.utils.NodeLayer;
-import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
@@ -18,10 +17,18 @@ public class Room {
 
     private Room parent;
 
+    /**
+     * getter for hasMonster
+     * @return hasMonster
+     */
     public boolean isHasMonster() {
         return hasMonster;
     }
 
+    /**
+     * setter for hasMonster
+     * @param hasMonster hasMonster to set
+     */
     public void setHasMonster(boolean hasMonster) {
         this.hasMonster = hasMonster;
     }
@@ -71,15 +78,27 @@ public class Room {
         this.setDoorWherePlayerEnterRoom();
         this.createRoomMap(this.doors);
     }
-    
+
+    /**
+     * getter for playerExitedRoom
+     * @return playerExitedRoom
+     */
     public boolean isPlayerExitedRoom() {
         return playerExitedRoom;
     }
 
+    /**
+     * setter for playerExitedRoom
+     * @param playerExitedRoom new value for playerExitedRoom
+     */
     public void setPlayerExitedRoom(boolean playerExitedRoom) {
         this.playerExitedRoom = playerExitedRoom;
     }
 
+    /**
+     * getter for room depth
+     * @return the room's depth
+     */
     public int getDepth() {
         return depth;
     }
@@ -146,7 +165,13 @@ public class Room {
 
         return doorsInactive;
     }
-    
+
+    /**
+     * check if the input coordinates are within the room boundary
+     * @param x x value
+     * @param y y value
+     * @return whether coordinates inside the room
+     */
     public boolean isCordinateInRoom(int x,  int y) {
         return this.roomMap.isCoordinateInsideTheMap(x,  y);
     }
@@ -231,7 +256,12 @@ public class Room {
             layer.draw(door);
         }
     }
-    
+
+    /**
+     * get dimensions for the door
+     * @param playerLocationDoorId the id of the door
+     * @return dimensions of the door
+     */
     public DoorDimension getDoorDimension(int playerLocationDoorId) {
         NodeLayer initialDoor = this.doorsNodes.get(playerLocationDoorId);
         return (DoorDimension) initialDoor.getDimension();
@@ -283,6 +313,7 @@ public class Room {
 
     /**
      * removes doors of canvas
+     * @param doors graphic context to remove
      */
     public void removeDoorsOfCanvas(GraphicsContext doors) {
         for (int i = 0; i < this.doorsNodes.size(); i++) {
@@ -313,6 +344,10 @@ public class Room {
         return doorsPossibilities.get(0);
     }
 
+    /**
+     * getter for playerExitedRoom
+     * @return playerExitedRoom
+     */
     public boolean isPlayerExitsExitRoom() {
         boolean nextRoomExit = false;
         if (this.depth > 5) {

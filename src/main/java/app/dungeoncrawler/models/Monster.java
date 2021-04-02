@@ -5,7 +5,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 public class Monster extends Fighter {
-    IntegerProperty health = new SimpleIntegerProperty(0);
+    private IntegerProperty health = new SimpleIntegerProperty(0);
     public static final int MONSTER_SPEED = 5;
     
     public Monster(String imageurl, int health) {
