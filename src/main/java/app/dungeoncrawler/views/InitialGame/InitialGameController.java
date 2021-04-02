@@ -37,8 +37,6 @@ public class InitialGameController implements Initializable {
     @FXML private List<Canvas> canvasList;
     @FXML private final Pane initialGamePane = new Pane();
 
-    private int multiplier;
-    private int multiplier1; //10 is monster's health
     private Player player;
     private Dungeon dungeon;
 
@@ -75,14 +73,15 @@ public class InitialGameController implements Initializable {
     public void mounting() {
         this.money.setText("$" + Game.getPlayer().getGold());
         IntegerProperty playerHealth = player.getHealth();
-        multiplier = 200 / playerHealth.getValue();
+        int multiplier = 200 / playerHealth.getValue();
         healthBar.widthProperty().bind(playerHealth.multiply(multiplier));
         healthBar.setHeight(20);
         monsterBar.setHeight(20);
         
         this.initialGamePane.setOnKeyPressed(this::handleOnKeyPressed);
         
-        SimpleObjectProperty<ObserverObject<Room>> roomSimpleObjectProperty = Game.Game().getDungeonI().activeRoomObProperty();
+        SimpleObjectProperty<ObserverObject<Room>> roomSimpleObjectProperty =
+                Game.Game().getDungeonI().activeRoomObProperty();
         roomSimpleObjectProperty.addListener(this::onRoomUpdate);
 
         SimpleObjectProperty<ArrayList<Integer>> cordinates = player.cordinatesProperty();
@@ -91,14 +90,26 @@ public class InitialGameController implements Initializable {
         System.out.println("set timer");
         //this.player.getHealth().addListener(this::onPlayerHealthUpdate);
     }
-    
+
+    /**
+     * handler for the player's health update
+     * @param observable health object
+     * @param obOldValue old health
+     * @param obNewValue new health
+     */
     public void onPlayerHealthUpdate(ObservableValue<? extends Number> observable,
                                      Number obOldValue, Number obNewValue) {
         if (this.player.getHealth().get() <= 0) {
             System.out.println("Player lost");
         }
     }
-    
+
+    /**
+     handler for the monster's health update
+     * @param observable health object
+     * @param obOldValue old health
+     * @param obNewValue new health
+     */
     public void onMonsterHealthUpdate(ObservableValue<? extends Number> observable,
                                       Number obOldValue, Number obNewValue) {
         if (this.monster.getHealth().get() <= 0) {
@@ -106,7 +117,13 @@ public class InitialGameController implements Initializable {
             Game.Game().getActiveRoom().setHasMonster(false);
         }
     }
-    
+
+    /**
+     * handler for the room update
+     *     @param observable room object
+     *     @param obOldValue old room
+     *     @param obNewValue new room
+     */
     public void onRoomUpdate(ObservableValue<? extends ObserverObject<Room>> observable,
                              ObserverObject<Room> obOldValue, ObserverObject<Room> obNewValue) {
         Room newValue = obNewValue.getField();
@@ -151,13 +168,18 @@ public class InitialGameController implements Initializable {
         monster = Game.Game().getNewMonster();
         monster.setPosition(225, 240);
         IntegerProperty monsterHealth = monster.getHealth();
-        multiplier1 = 200 / monster.getHealth().getValue();
+        //10 is monster's health
+        int multiplier1 = 200 / monster.getHealth().getValue();
         monsterBar.widthProperty().bind(monsterHealth.multiply(multiplier1));
         monster.getHealth().addListener(this::onMonsterHealthUpdate);
         System.out.println();
         monster.draw(monsterLayer.getGraphicsContext2D());
     }
 
+    /**
+     * method for the monster to move by itself
+     * @return Timer
+     */
     public TimerTask monsterSelfMovement() {
         return new TimerTask() {
             @Override
@@ -204,12 +226,22 @@ public class InitialGameController implements Initializable {
             }
         };
     }
-    
+
+    /**
+     *
+     * handler for the player's movement
+     *      @param observable position of the player
+     *      @param oldValue old position
+     *      @param newValue new position
+     */
     public void onPlayerMove(ObservableValue<? extends ArrayList<Integer>> observable,
                              ArrayList<Integer> oldValue, ArrayList<Integer> newValue) {
         player.draw(playerLayer.getGraphicsContext2D());
     }
-    
+
+    /**
+     * unmount the scene
+     */
     public void unmount() {
         if (timer != null) {
             timer.cancel();
@@ -268,16 +300,22 @@ public class InitialGameController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
+    /**
+     * load canvas
+     */
     public void loadCanvas() {
-        for (int i = 0; i < this.canvasList.size(); i++) {
-            this.canvasList.get(i).setHeight(Game.WINDOW_HEIGHT);
-            this.canvasList.get(i).setWidth(Game.WINDOW_WIDTH);
+        for (Canvas canvas : this.canvasList) {
+            canvas.setHeight(Game.WINDOW_HEIGHT);
+            canvas.setWidth(Game.WINDOW_WIDTH);
         }
         
         this.drawGame();
     }
-    
+
+    /**
+     * draw game layer on screen
+     */
     public void drawGame() {
         dungeon.setActivePlayer(player);
         Room initialRoom = dungeon.getActiveRoomOb();
@@ -287,8 +325,7 @@ public class InitialGameController implements Initializable {
         roomNodeLayer.draw(roomLayer.getGraphicsContext2D());
         player.draw(playerLayer.getGraphicsContext2D());
 
-        for (int i = 0; i < inactiveDoors.size(); i++) {
-            NodeLayer doorNodeLayer = inactiveDoors.get(i);
+        for (NodeLayer doorNodeLayer : inactiveDoors) {
             doorNodeLayer.setPosition(doorNodeLayer.getPositionAtX(),
                     doorNodeLayer.getPositionAtY());
             doorNodeLayer.draw(doorsLayer.getGraphicsContext2D());
