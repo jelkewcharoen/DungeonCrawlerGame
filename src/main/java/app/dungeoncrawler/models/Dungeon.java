@@ -13,7 +13,7 @@ public class Dungeon {
     private static HashMap<Integer, Room> rooms = new HashMap<>();
     private Room activeRoom;
     private SimpleObjectProperty<ObserverObject<Room>> activeRoomOb = new SimpleObjectProperty<>();
-    public ArrayList<Room> history = new ArrayList<>();
+    private ArrayList<Room> history = new ArrayList<>();
     private Player activePlayer;
     
     public static final Map<Difficulties, Integer> DIFFICULTIES = new HashMap<>() {

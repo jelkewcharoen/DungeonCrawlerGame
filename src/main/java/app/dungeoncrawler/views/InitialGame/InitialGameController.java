@@ -42,7 +42,6 @@ public class InitialGameController implements Initializable {
     private Player player;
     private Dungeon dungeon;
 
-
     private Monster monster;
     private Timer timer = new Timer();
 
@@ -139,16 +138,24 @@ public class InitialGameController implements Initializable {
             monster.clearCurrent(monsterLayer.getGraphicsContext2D());
         }
 
-        if (newValue.isHasMonster() && newValue.getParent() != null) {
-            monster = Game.Game().getNewMonster();
-            monster.setPosition(225, 240);
-            IntegerProperty monsterHealth = monster.getHealth();
-            multiplier1 = 200 / monster.getHealth().getValue();
-            monsterBar.widthProperty().bind(monsterHealth.multiply(multiplier1));
-            monster.getHealth().addListener(this::onMonsterHealthUpdate);
-            System.out.println();
-            monster.draw(monsterLayer.getGraphicsContext2D());
+
+        if (!newValue.isHasMonster()) {
+            //backupMonster = monster;
+            monster.getHealth().removeListener(this::onMonsterHealthUpdate);
+            monster.clearCurrent(monsterLayer.getGraphicsContext2D());
+            //monster = null;
+            Game.Game().clearCurrentMonster();
+            return;
+
         }
+        monster = Game.Game().getNewMonster();
+        monster.setPosition(225, 240);
+        IntegerProperty monsterHealth = monster.getHealth();
+        multiplier1 = 200 / monster.getHealth().getValue();
+        monsterBar.widthProperty().bind(monsterHealth.multiply(multiplier1));
+        monster.getHealth().addListener(this::onMonsterHealthUpdate);
+        System.out.println();
+        monster.draw(monsterLayer.getGraphicsContext2D());
     }
 
     public TimerTask monsterSelfMovement() {
@@ -182,7 +189,9 @@ public class InitialGameController implements Initializable {
                     Game.Game().clearCurrentMonster();
                     return;
                 }
-
+                if (!Game.Game().getActiveRoom().isHasMonster()) {
+                    return;
+                }
                 if (player.getHealth().get() <= 0) {
                     player.clear(playerLayer.getGraphicsContext2D());
                     return;

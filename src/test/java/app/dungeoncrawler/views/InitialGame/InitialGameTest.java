@@ -160,15 +160,17 @@ public class InitialGameTest extends ApplicationTest {
         for (int i = 0; i < 5; i++) {
           press(RIGHT).release(RIGHT);
           System.out.println("monster is at: " + monster.getPositionAtX());
-        }
-        //WaitForAsyncUtils.waitFor(1, TimeUnit.SECONDS );
-        sleep(1000);
-        //gets the new coordinate of the monster after it moved
 
-        int nowX = monster.getX();
-        int nowY = monster.getY();
-        boolean result = false;
-        if (originalX != nowX || originalY != nowY) {
+      }
+      //WaitForAsyncUtils.waitFor(1, TimeUnit.SECONDS, Fu);
+      //sleep(1000);
+      //gets the new coordinate of the monster after it moved
+
+      int nowX = monster.getX();
+      int nowY = monster.getY();
+      boolean result = false;
+      if (originalX != nowX || originalY != nowY) {
+
            result = true;
 
         }
