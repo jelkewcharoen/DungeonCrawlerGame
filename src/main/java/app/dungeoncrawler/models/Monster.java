@@ -40,6 +40,6 @@ public class Monster extends Fighter {
 
     public static Monster getNewMonster() {
         int rand = (int) (Math.random() * (3 - 1 + 1) + 1); // generates 0, 1 or 2
-        return new Monster(String.format("/app/assets/monster%s.png", rand), 10 * rand);
+        return new Monster(String.format("/app/assets/monster%s.png", rand), 30 * rand);
     }
 }

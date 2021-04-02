@@ -20,7 +20,7 @@
     </Text>
     <Rectangle fx:id="healthBar" fill="royalblue" StackPane.alignment="BOTTOM_LEFT">
             <StackPane.margin>
-                <Insets bottom="38.0" left="8.0" right="8.0" />
+                <Insets bottom="8.0" left="8.0" right="8.0" />
             </StackPane.margin>
     </Rectangle>
     <Rectangle fx:id="monsterBar" fill="darkred" StackPane.alignment="BOTTOM_RIGHT">

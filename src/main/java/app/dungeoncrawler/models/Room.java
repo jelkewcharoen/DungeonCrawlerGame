@@ -15,9 +15,18 @@ import java.util.Random;
 public class Room {
     private static final int ROOM_HEIGHT = 480;
     private static final int ROOM_WIDTH = 640;
-    
+
     private Room parent;
-    private boolean hasMonster; //has a monster
+
+    public boolean isHasMonster() {
+        return hasMonster;
+    }
+
+    public void setHasMonster(boolean hasMonster) {
+        this.hasMonster = hasMonster;
+    }
+
+    private boolean hasMonster = true; //has a monster
     private int doors; //number of doors
     private int depth;
     
@@ -54,7 +63,7 @@ public class Room {
         }
 
         this.parent = parent;
-        this.hasMonster = hasMonster;
+
         this.doors = doors;
         this.depth = depth;
         this.setDoorWherePlayerEnterRoom();

@@ -42,7 +42,7 @@ public class InitialGameController implements Initializable {
     @FXML private final Pane initialGamePane = new Pane();
 
     private int multiplier;
-    private int multiplier1 = 200 / 10; //10 is monster's health
+    private int multiplier1; //10 is monster's health
     private Player player;
     private Dungeon dungeon;
 
@@ -81,7 +81,6 @@ public class InitialGameController implements Initializable {
         this.money.setText("$" + Game.getPlayer().getGold());
         IntegerProperty playerHealth = player.getHealth();
         multiplier = 200 / playerHealth.getValue();
-        //DoubleBinding p = healthBar.widthProperty().multiply(1);
         healthBar.widthProperty().bind(playerHealth.multiply(multiplier));
         healthBar.setHeight(20);
         monsterBar.setHeight(20);
@@ -94,8 +93,8 @@ public class InitialGameController implements Initializable {
         SimpleObjectProperty<ArrayList<Integer>> cordinates = player.cordinatesProperty();
         cordinates.addListener(this::onPlayerMove);
         timer.scheduleAtFixedRate(this.monsterSelfMovement(), 1000, 1000);
-        
-//        this.player.getHealth().addListener(this::onPlayerHealthUpdate);
+        System.out.println("set timer");
+        //this.player.getHealth().addListener(this::onPlayerHealthUpdate);
     }
     
     public void onPlayerHealthUpdate(ObservableValue<? extends Number> observable, Number obOldValue, Number obNewValue) {
@@ -107,6 +106,9 @@ public class InitialGameController implements Initializable {
     public void onMonsterHealthUpdate(ObservableValue<? extends Number> observable, Number obOldValue, Number obNewValue) {
         if (this.monster.getHealth().get() <= 0) {
             this.monster.clearCurrent(monsterLayer.getGraphicsContext2D());
+            Game.Game().getActiveRoom().setHasMonster(false);
+           /* System.out.println(Game.Game().getActiveRoom().isHasMonster());
+            System.out.println(Game.Game().getActiveRoom());*/
         }
     }
     
@@ -118,7 +120,8 @@ public class InitialGameController implements Initializable {
             oldValue.clearRoom(doorsLayer.getGraphicsContext2D());
         }
         
-        int x = 0, y = 0;
+        int x = 0;
+        int y = 0;
         
         int newRoomLeftFlag = newValue.getDoorIdWherePlayerLeftTheRoom();
         int newRoomEnterFlag = newValue.getDoorIdWherePlayerEnterTheRoom();
@@ -138,15 +141,19 @@ public class InitialGameController implements Initializable {
             monster.getHealth().removeListener(this::onMonsterHealthUpdate);
             monster.clearCurrent(monsterLayer.getGraphicsContext2D());
         }
-
-        monster = Game.Game().getNewMonster();
-        monster.setPosition(225, 240);
-        IntegerProperty monsterHealth = monster.getHealth();
-        monsterBar.widthProperty().bind(monsterHealth.multiply(multiplier1));
-        monster.getHealth().addListener(this::onMonsterHealthUpdate);
-        monster.draw(monsterLayer.getGraphicsContext2D());
+       /* System.out.println(Game.Game().getActiveRoom().isHasMonster());
+        System.out.println(Game.Game().getActiveRoom());*/
+        if (newValue.isHasMonster() && newValue.getParent() != null) {
+            monster = Game.Game().getNewMonster();
+            monster.setPosition(225, 240);
+            IntegerProperty monsterHealth = monster.getHealth();
+            multiplier1 = 200 / monster.getHealth().getValue();
+            monsterBar.widthProperty().bind(monsterHealth.multiply(multiplier1));
+            monster.getHealth().addListener(this::onMonsterHealthUpdate);
+            System.out.println();
+            monster.draw(monsterLayer.getGraphicsContext2D());
+        }
     }
-
 
     public TimerTask monsterSelfMovement() {
         return new TimerTask() {
@@ -186,6 +193,7 @@ public class InitialGameController implements Initializable {
 
                 monster.move(x, y);
                 player.reduceHealth(monster);
+                System.out.print("/");
                 monster.draw(monsterLayer.getGraphicsContext2D());
             }
         };
@@ -198,6 +206,7 @@ public class InitialGameController implements Initializable {
     public void unmount() {
         if (timer != null) {
             timer.cancel();
+            System.out.println("stop timer");
         }
         // TODO: remove lsitenr
     }
