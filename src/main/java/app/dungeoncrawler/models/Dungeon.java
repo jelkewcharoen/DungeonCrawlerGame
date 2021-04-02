@@ -13,6 +13,7 @@ public class Dungeon {
     private static HashMap<Integer, Room> rooms = new HashMap<>();
     private Room activeRoom;
     private SimpleObjectProperty<ObserverObject<Room>> activeRoomOb = new SimpleObjectProperty<>();
+
     private ArrayList<Room> history = new ArrayList<>();
     private Player activePlayer;
     
@@ -77,8 +78,11 @@ public class Dungeon {
     public SimpleObjectProperty<ObserverObject<Room>> activeRoomObProperty() {
         return activeRoomOb;
     }
-
-
+    
+    public ArrayList<Room> getHistory() {
+        return history;
+    }
+    
     /**
      * sets active room
      * @param r room which we want to activate

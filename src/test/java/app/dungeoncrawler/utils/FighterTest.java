@@ -11,13 +11,13 @@ public class FighterTest extends TestCase {
     @Test
     public void testPAttacksM() {
 
-        Game.Game().createDungeon("EASY");
+        Game.gameSingleInstance().createDungeon("EASY");
 
-        Game.Game().createPlayer("test player", DefaultWeapons.WEAPON1);
+        Game.gameSingleInstance().createPlayer("test player", DefaultWeapons.WEAPON1);
 
         Player  p = Game.getPlayer();
 
-        Monster m = Game.Game().getNewMonster();
+        Monster m = Game.gameSingleInstance().getNewMonster();
 
         p.setPosition(225, 240);
 
@@ -35,13 +35,13 @@ public class FighterTest extends TestCase {
     @Test
     public void testMAttacksP() {
 
-        Game.Game().createDungeon("EASY");
+        Game.gameSingleInstance().createDungeon("EASY");
 
-        Game.Game().createPlayer("test player", DefaultWeapons.WEAPON1);
+        Game.gameSingleInstance().createPlayer("test player", DefaultWeapons.WEAPON1);
 
         Player  p = Game.getPlayer();
 
-        Monster m = Game.Game().getNewMonster();
+        Monster m = Game.gameSingleInstance().getNewMonster();
 
         p.setPosition(225, 240);
 

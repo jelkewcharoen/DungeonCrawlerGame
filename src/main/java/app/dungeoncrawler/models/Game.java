@@ -14,10 +14,10 @@ public class Game {
     private Monster currentMonster;
 
     /**
-     * get the current instance of the game
+     * creates and get the current instance of the game
      * @return the game
      */
-    public static Game Game() {
+    public static Game gameSingleInstance() {
         if (Game.currentGame != null) {
             return Game.currentGame;
         }
@@ -26,13 +26,19 @@ public class Game {
         return Game.currentGame;
     }
 
-    public static Game Game(boolean startNewGame) {
+    /**
+     * creates a new single instances of game.
+     * @param startNewGame to start a new game.
+     * @return the game
+     */
+    public static Game newGame(boolean startNewGame) {
         if (startNewGame) {
             Game.currentGame = new Game();
             return Game.currentGame;
         }
-        return Game.Game();
+        return Game.gameSingleInstance();
     }
+    
     /**
      * gets current game map
      * @return returns current game map
@@ -70,7 +76,7 @@ public class Game {
      * @return player
      */
     public static Player getPlayer() {
-        return Game().player;
+        return gameSingleInstance().player;
     } 
 
     /**
@@ -119,7 +125,7 @@ public class Game {
      * @return dungeon
      */
     public static Dungeon getDungeon() {
-        return Game().getDungeonI();
+        return gameSingleInstance().getDungeonI();
     }
 
     /**

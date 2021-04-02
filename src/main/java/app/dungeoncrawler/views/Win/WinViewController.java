@@ -29,7 +29,10 @@ public class WinViewController implements Initializable {
         });
 
         exit.setOnAction((event) -> {
-            exit();
+            Node node = (Node) event.getSource();
+            Stage thisStage = (Stage) node.getScene().getWindow();
+
+            thisStage.close();
         });
     }
 }

@@ -41,7 +41,7 @@ public class InitialGameController implements Initializable {
     private Dungeon dungeon;
 
     private Monster monster;
-    private Timer timer = new Timer();
+    private Timer timer;
 
 
     /**
@@ -50,8 +50,8 @@ public class InitialGameController implements Initializable {
     public InitialGameController() {
         try {
 
-            this.player = Game.Game().getPlayerI();
-            this.dungeon = Game.Game().getDungeonI();
+            this.player = Game.gameSingleInstance().getPlayerI();
+            this.dungeon = Game.gameSingleInstance().getDungeonI();
             this.loadRoom();
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,11 +81,12 @@ public class InitialGameController implements Initializable {
         this.initialGamePane.setOnKeyPressed(this::handleOnKeyPressed);
         
         SimpleObjectProperty<ObserverObject<Room>> roomSimpleObjectProperty =
-                Game.Game().getDungeonI().activeRoomObProperty();
+                Game.gameSingleInstance().getDungeonI().activeRoomObProperty();
         roomSimpleObjectProperty.addListener(this::onRoomUpdate);
 
         SimpleObjectProperty<ArrayList<Integer>> cordinates = player.cordinatesProperty();
         cordinates.addListener(this::onPlayerMove);
+        timer = new Timer();
         timer.scheduleAtFixedRate(this.monsterSelfMovement(), 1000, 1000);
         System.out.println("set timer");
         //this.player.getHealth().addListener(this::onPlayerHealthUpdate);
@@ -114,7 +115,7 @@ public class InitialGameController implements Initializable {
                                       Number obOldValue, Number obNewValue) {
         if (this.monster.getHealth().get() <= 0) {
             this.monster.clearCurrent(monsterLayer.getGraphicsContext2D());
-            Game.Game().getActiveRoom().setHasMonster(false);
+            Game.gameSingleInstance().getActiveRoom().setHasMonster(false);
         }
     }
 
@@ -161,11 +162,13 @@ public class InitialGameController implements Initializable {
             monster.getHealth().removeListener(this::onMonsterHealthUpdate);
             monster.clearCurrent(monsterLayer.getGraphicsContext2D());
             //monster = null;
-            Game.Game().clearCurrentMonster();
+            Game.gameSingleInstance().clearCurrentMonster();
             return;
-
         }
-        monster = Game.Game().getNewMonster();
+
+        System.out.println("monester creatong");
+        monster = Game.gameSingleInstance().getNewMonster();
+        System.out.println(Game.gameSingleInstance().getCurrentMonster());
         monster.setPosition(225, 240);
         IntegerProperty monsterHealth = monster.getHealth();
         //10 is monster's health
@@ -208,10 +211,10 @@ public class InitialGameController implements Initializable {
                 }
                 
                 if (monster.getHealth().get() <= 0) {
-                    Game.Game().clearCurrentMonster();
+                    Game.gameSingleInstance().clearCurrentMonster();
                     return;
                 }
-                if (!Game.Game().getActiveRoom().isHasMonster()) {
+                if (!Game.gameSingleInstance().getActiveRoom().isHasMonster()) {
                     return;
                 }
                 if (player.getHealth().get() <= 0) {

@@ -66,7 +66,6 @@ public class ConfigurationViewTest extends ApplicationTest {
         // then:
         int p = controller.getPower();
         assertEquals(Weapon.getWeaponsWeaponMap().get(DefaultWeapons.WEAPON1).getPower(), p);
-
     }
 
     @Test

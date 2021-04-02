@@ -87,8 +87,9 @@ public abstract class SpriteElement {
      */
     public void draw(GraphicsContext graphicsContext) {
         this.clear(graphicsContext);
-        Image image = SpriteElement.imageCached.get(this.image);
-        image = image == null 
+        Image cachedImage = SpriteElement.imageCached.get(this.image);
+        System.out.println(this.image);
+        Image usedImage = cachedImage == null 
             ? new Image(
                 getClass()
                         .getResource(this.image)
@@ -97,10 +98,10 @@ public abstract class SpriteElement {
                 this.elementHeight,
                 this.preserveRatio,
                 this.smooth
-            ) : image;
+            ) : cachedImage;
 
-        SpriteElement.imageCached.put(this.image, image);
-        graphicsContext.drawImage(image, this.positionAtX, this.positionAtY);
+        SpriteElement.imageCached.put(this.image, usedImage);
+        graphicsContext.drawImage(usedImage, this.positionAtX, this.positionAtY);
     }
     
     /**
@@ -159,10 +160,10 @@ public abstract class SpriteElement {
     public boolean collides(SpriteElement element) {
         int x = element.getPositionAtX();
         int y = element.getPositionAtY();
-        
+
         int myX = this.getPositionAtX();
         int myY = this.getPositionAtY();
-        
+
         return ((x > (myX - 90)) && (x < (myX + 30)) && (y > (myY - 90)) && (y < (myY + 30)));
     }
 }

@@ -24,6 +24,8 @@ import org.testfx.matcher.base.NodeMatchers;
 import org.testfx.util.WaitForAsyncUtils;
 
 
+import java.util.ArrayList;
+
 import static javafx.scene.input.KeyCode.*;
 import static org.junit.Assert.*;
 
@@ -45,9 +47,9 @@ public class InitialGameTest extends ApplicationTest {
     @Override
     public void start(Stage stage) throws Exception {
         AppScenes.clearUiViews();
-        Game.Game(true);
-        Game.Game().createDungeon("EASY");
-        Game.Game().createPlayer("Test player", DefaultWeapons.WEAPON1);
+        Game.newGame(true);
+        Game.gameSingleInstance().createDungeon("EASY");
+        Game.gameSingleInstance().createPlayer("Test player", DefaultWeapons.WEAPON1);
         
         AppScenes scenes = new AppScenes(stage, SceneNames.INITIAL_GAME);
         thisScene = scenes.getScreen(SceneNames.INITIAL_GAME);
@@ -140,7 +142,7 @@ public class InitialGameTest extends ApplicationTest {
         for (int i = 0; i < 20; i++) {
             press(DOWN).release(DOWN);
         }
-        Monster monster = Game.Game().getCurrentMonster();
+        Monster monster = Game.gameSingleInstance().getCurrentMonster();
         System.out.println(monster);
 
 
@@ -167,45 +169,10 @@ public class InitialGameTest extends ApplicationTest {
         for (int i = 0; i < 20; i++) {
             press(DOWN).release(DOWN);
         }
-        Monster monster = Game.Game().getCurrentMonster();
+        Monster monster = Game.gameSingleInstance().getCurrentMonster();
         assertNotNull(monster);
 
     }
-
-    /*@Test
-    public void testPlayerEnterNewRoomPositionX() {
-
-        Player player = Game.getPlayer();
-
-        for (int i = 0; i < 2; i++) {
-            press(LEFT).release(LEFT);
-        }
-        for (int i = 0; i < 10; i++) {
-            press(DOWN).release(DOWN);
-        }
-        Room currentRoom = Game.getDungeon().getActiveRoom();
-        int playerLocationDoorId = currentRoom.getDoorIdWherePlayerEnterTheRoom();
-        NodeLayer initialDoor = currentRoom.getDoorsNodes().get(playerLocationDoorId);
-        DoorDimension initialDoorDimension = (DoorDimension) initialDoor.getDimension();
-        assertEquals(player.getX(), initialDoorDimension.getPositionXForPlayer());
-    }
-    @Test
-    public void testPlayerEnterNewRoomPositionY() {
-
-        Player player = Game.getPlayer();
-
-        for (int i = 0; i < 2; i++) {
-            press(LEFT).release(LEFT);
-        }
-        for (int i = 0; i < 10; i++) {
-            press(DOWN).release(DOWN);
-        }
-        Room currentRoom = Game.getDungeon().getActiveRoom();
-        int playerLocationDoorId = currentRoom.getDoorIdWherePlayerEnterTheRoom();
-        NodeLayer initialDoor = currentRoom.getDoorsNodes().get(playerLocationDoorId);
-        DoorDimension initialDoorDimension = (DoorDimension) initialDoor.getDimension();
-        assertEquals(player.getY(), initialDoorDimension.getPositionYForPlayer());
-    }*/
 
     @Test
     public void t91testPlayerEnterPreviousRoom() {
@@ -253,10 +220,31 @@ public class InitialGameTest extends ApplicationTest {
         for (int i = 0; i < 10; i++) {
             press(DOWN).release(DOWN);
         }
-        Monster m = Game.Game().getCurrentMonster();
+        Monster m = Game.gameSingleInstance().getCurrentMonster();
         System.out.println(m);
         m.setHealth(0);
         sleep(5);
-        assertFalse(Game.Game().getActiveRoom().isHasMonster());
+        assertFalse(Game.gameSingleInstance().getActiveRoom().isHasMonster());
+    }
+
+    @Test
+    public void t96testPlayerAllowToGoBackWhenMonsterInTheRoom() {
+        sleep(1000);
+        for (int i = 0; i < 3; i++) {
+            press(LEFT).release(LEFT);
+        }
+
+        for (int i = 0; i < 15; i++) {
+            press(DOWN).release(DOWN);
+        }
+        
+        Monster m = Game.gameSingleInstance().getCurrentMonster();
+        assertNotNull(m);
+
+        for (int i = 0; i < 15; i++) {
+            press(UP).release(UP);
+        }
+        ArrayList<Room> history = Game.gameSingleInstance().getDungeonI().getHistory();
+        assertEquals(history.size(), 3);
     }
 }

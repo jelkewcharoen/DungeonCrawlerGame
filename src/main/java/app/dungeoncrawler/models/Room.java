@@ -209,7 +209,7 @@ public class Room {
     public void setDoorWherePlayerEnterRoom() {
         if (this.parent != null) {
             int parentDoor = this.parent.getDoorIdWherePlayerLeftTheRoom();
-            System.out.printf("parentDoor %s", parentDoor);
+
             if (parentDoor > 1) {
                 this.doorIdWherePlayerEnterRoom = parentDoor - 2;
                 return;
@@ -226,7 +226,7 @@ public class Room {
      */
     public void createRoomMap(int numberOfDoors) {
         ArrayList<NodeLayer> doors = new ArrayList<>(
-                Game.Game().getCurrentGameMap().getDoorsLayer());
+                Game.gameSingleInstance().getCurrentGameMap().getDoorsLayer());
         ArrayList<NodeLayer> activeDoorsNode = new ArrayList<>();
 
         if (this.parent != null) {
@@ -248,7 +248,11 @@ public class Room {
             activeDoors.put(door.getId(), false);
         }
 
-        this.roomMap = new GameMap(Game.Game().getCurrentGameMapRoomLayer(), activeDoorsNode);
+        this.roomMap = new GameMap(
+            Game.gameSingleInstance().
+                getCurrentGameMapRoomLayer(), 
+            activeDoorsNode
+        );
     }
 
     /**
@@ -307,17 +311,17 @@ public class Room {
                     && this.parent != null
             ) {
                 // go back to previous room
-                Game.Game().setActiveRoom(this.parent);
+                Game.gameSingleInstance().setActiveRoom(this.parent);
 
             } else if (isPlayerInsideDoorDimension && !isPlayerInDoorWhereHeEntered
-                    && Game.Game().getCurrentMonster() == null) {
+                    && Game.gameSingleInstance().getCurrentMonster() == null) {
                 // player going to a new door
                 this.doorIdWherePlayerLeftTheRoom = doorNode.getId();
 
                 if (roomsTree.get(doorNode.getId()) != null) {
                     // if he already visited that door
                     Room alreadyCreatedRoom = roomsTree.get(doorNode.getId());
-                    Game.Game().setActiveRoom(alreadyCreatedRoom);
+                    Game.gameSingleInstance().setActiveRoom(alreadyCreatedRoom);
                     return;
                 }
 
@@ -327,7 +331,7 @@ public class Room {
                 }
 
                 Room randomRoom = this.createRandomRoom(doorNode.getId());
-                Game.Game().setActiveRoom(randomRoom);
+                Game.gameSingleInstance().setActiveRoom(randomRoom);
             }
         }
     }
@@ -389,7 +393,7 @@ public class Room {
      * @return Room that is created
      */
     public Room createRandomRoom(int doorId) {
-        ArrayList<NodeLayer> doors = Game.Game().getCurrentGameMapDoorsLayer();
+        ArrayList<NodeLayer> doors = Game.gameSingleInstance().getCurrentGameMapDoorsLayer();
 
         int randomNumberOfDoors = (int) (Math.random() * (3 - 1 + 1) + 1);
 
