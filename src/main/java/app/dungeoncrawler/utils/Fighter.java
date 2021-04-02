@@ -31,7 +31,9 @@ public class Fighter extends SpriteElement {
      * get monster's health
      * @return monster's health
      */
-    public IntegerProperty getHealth() { return this.health; }
+    public IntegerProperty getHealth() {
+        return this.health;
+    }
 
     /**
      * getter for power

@@ -15,54 +15,34 @@ public class Room {
     private static final int ROOM_HEIGHT = 480;
     private static final int ROOM_WIDTH = 640;
 
-    private Room parent;
-
-    /**
-     * getter for hasMonster
-     * @return hasMonster
-     */
-    public boolean isHasMonster() {
-        return hasMonster;
-    }
-
-    /**
-     * setter for hasMonster
-     * @param hasMonster hasMonster to set
-     */
-    public void setHasMonster(boolean hasMonster) {
-        this.hasMonster = hasMonster;
-    }
-
+    private final Room parent;
     private boolean hasMonster = false; //has a monster
-    private int doors; //number of doors
-    private int depth;
-    
-    public HashMap<Integer, Room> roomsTree = new HashMap<>();
-    private HashMap<Integer, NodeLayer> doorsNodes = new HashMap<>();
-    private HashMap<Integer, Boolean> activeDoors = new HashMap<>();
+    private final int doors; //number of doors
+    private final int depth;
+    private final HashMap<Integer, Room> roomsTree = new HashMap<>();
+    private final HashMap<Integer, NodeLayer> doorsNodes = new HashMap<>();
+    private final HashMap<Integer, Boolean> activeDoors = new HashMap<>();
     private GameMap roomMap;
     private boolean playerExitedRoom = false;
     private int doorIdWherePlayerEnterRoom = -1;
     private int doorIdWherePlayerLeftTheRoom = -1;
-    int xmon;
-    int ymon;
-
     /**
      * construcs room
+     *
      * @param parent needed to create the room
-     * @param doors number of doors will be created in the room
-     * @param depth depth of the room
+     * @param doors  number of doors will be created in the room
+     * @param depth  depth of the room
      */
     public Room(Room parent, int doors, int depth) {
         this(parent, false, doors, depth);
     }
-
     /**
      * instructor for the class Room
-     * @param parent the id of the previous room
+     *
+     * @param parent     the id of the previous room
      * @param hasMonster if the room has a monster
-     * @param doors the number of doors the room has
-     * @param depth how far away from the starting room this room is
+     * @param doors      the number of doors the room has
+     * @param depth      how far away from the starting room this room is
      */
     public Room(Room parent, boolean hasMonster, int doors, int depth) {
         if (doors > 4 || doors < 1) {
@@ -80,7 +60,26 @@ public class Room {
     }
 
     /**
+     * getter for hasMonster
+     *
+     * @return hasMonster
+     */
+    public boolean isHasMonster() {
+        return hasMonster;
+    }
+
+    /**
+     * setter for hasMonster
+     *
+     * @param hasMonster hasMonster to set
+     */
+    public void setHasMonster(boolean hasMonster) {
+        this.hasMonster = hasMonster;
+    }
+
+    /**
      * getter for playerExitedRoom
+     *
      * @return playerExitedRoom
      */
     public boolean isPlayerExitedRoom() {
@@ -89,6 +88,7 @@ public class Room {
 
     /**
      * setter for playerExitedRoom
+     *
      * @param playerExitedRoom new value for playerExitedRoom
      */
     public void setPlayerExitedRoom(boolean playerExitedRoom) {
@@ -97,6 +97,7 @@ public class Room {
 
     /**
      * getter for room depth
+     *
      * @return the room's depth
      */
     public int getDepth() {
@@ -105,6 +106,7 @@ public class Room {
 
     /**
      * gets room map
+     *
      * @return room map
      */
     public GameMap getRoomMap() {
@@ -113,38 +115,43 @@ public class Room {
 
     /**
      * gets door id where player left the room
+     *
      * @return gets door id where player left the room
      */
     public int getDoorIdWherePlayerLeftTheRoom() {
         return doorIdWherePlayerLeftTheRoom;
     }
-    
+
     /**
      * gets door id where player entered the room
+     *
      * @return gets door id where player entered the room
      */
     public int getDoorIdWherePlayerEnterTheRoom() {
         return doorIdWherePlayerEnterRoom;
     }
-    
+
     /**
      * gets door nodes of the active room
+     *
      * @return gets door nodes of the active room
      */
     public HashMap<Integer, NodeLayer> getDoorsNodes() {
         return doorsNodes;
     }
-    
+
     /**
      * gets the list of active door nodes of the active room
+     *
      * @return gets active door nodes of the active room
      */
     public HashMap<Integer, Boolean> getActiveDoorsNodes() {
         return activeDoors;
     }
-    
+
     /**
      * gets starting door
+     *
      * @return starting door
      */
     public NodeLayer getStartingDoor() {
@@ -153,6 +160,7 @@ public class Room {
 
     /**
      * gets inactive doors
+     *
      * @return inactive doors
      */
     public ArrayList<NodeLayer> getInactiveDoors() {
@@ -168,30 +176,33 @@ public class Room {
 
     /**
      * check if the input coordinates are within the room boundary
+     *
      * @param x x value
      * @param y y value
      * @return whether coordinates inside the room
      */
-    public boolean isCordinateInRoom(int x,  int y) {
-        return this.roomMap.isCoordinateInsideTheMap(x,  y);
+    public boolean isCordinateInRoom(int x, int y) {
+        return this.roomMap.isCoordinateInsideTheMap(x, y);
     }
 
     /**
      * returns room dimensions
+     *
      * @return room dimensions
      */
     public Dimension getRoomDimensions() {
         return this.roomMap.getRoomLayer().getDimension();
     }
-    
+
     /**
      * gets starting door index
+     *
      * @return starting door index
      */
     public int getStartingDoorIndex() {
         return doorIdWherePlayerEnterRoom;
     }
-    
+
     /**
      * sets door where player enters room
      */
@@ -203,27 +214,28 @@ public class Room {
                 this.doorIdWherePlayerEnterRoom = parentDoor - 2;
                 return;
             }
-            
+
             this.doorIdWherePlayerEnterRoom = parentDoor + 2;
         }
     }
 
     /**
      * creates room map
+     *
      * @param numberOfDoors number of doors needed to create the room map
      */
     public void createRoomMap(int numberOfDoors) {
-        ArrayList<NodeLayer> doors = new ArrayList<>(Game.Game().getCurrentGameMap().getDoorsLayer());
+        ArrayList<NodeLayer> doors = new ArrayList<>(
+                Game.Game().getCurrentGameMap().getDoorsLayer());
         ArrayList<NodeLayer> activeDoorsNode = new ArrayList<>();
 
-        // 
         if (this.parent != null) {
             NodeLayer initDoor = doors.remove(this.doorIdWherePlayerEnterRoom);
             activeDoors.put(initDoor.getId(), true);
             doorsNodes.put(initDoor.getId(), initDoor);
             activeDoorsNode.add(initDoor);
         }
-        
+
         Collections.shuffle(doors);
         for (int i = 0; i < doors.size(); i++) {
             NodeLayer door = doors.get(i);
@@ -235,17 +247,23 @@ public class Room {
             }
             activeDoors.put(door.getId(), false);
         }
-        
+
         this.roomMap = new GameMap(Game.Game().getCurrentGameMapRoomLayer(), activeDoorsNode);
     }
 
     /**
      * draws room
+     * @param door graphic context
      */
     public void clearRoom(GraphicsContext door) {
         this.removeDoorsOfCanvas(door);
     }
-    
+
+    /**
+     * draw the room
+     * @param room graphic context for room
+     * @param door graphic context for door
+     */
     public void drawRoom(GraphicsContext room, GraphicsContext door) {
         this.roomMap.drawRoom(room);
 
@@ -259,6 +277,7 @@ public class Room {
 
     /**
      * get dimensions for the door
+     *
      * @param playerLocationDoorId the id of the door
      * @return dimensions of the door
      */
@@ -269,27 +288,29 @@ public class Room {
 
     /**
      * tracks player movement
+     *
      * @param x where x represents x position of player
      * @param y where y represents y position of player
      */
     public void trackPlayerMovement(int x, int y) {
         for (int i = 0; i < this.doorsNodes.size(); i++) {
             NodeLayer doorNode = this.doorsNodes.get(i);
-            
+
             boolean isPlayerInDoorWhereHeEntered = doorNode.getId()
                     == this.doorIdWherePlayerEnterRoom;
-            
+
             boolean isPlayerInsideDoorDimension = this.activeDoors.get(doorNode.getId())
                     && doorNode.getDimension().isInsideCoordinates(x, y);
 
-            if (isPlayerInsideDoorDimension 
+            if (isPlayerInsideDoorDimension
                     && isPlayerInDoorWhereHeEntered
                     && this.parent != null
             ) {
                 // go back to previous room
                 Game.Game().setActiveRoom(this.parent);
-                
-            } else if (isPlayerInsideDoorDimension && !isPlayerInDoorWhereHeEntered && Game.Game().getCurrentMonster() == null) {
+
+            } else if (isPlayerInsideDoorDimension && !isPlayerInDoorWhereHeEntered
+                    && Game.Game().getCurrentMonster() == null) {
                 // player going to a new door
                 this.doorIdWherePlayerLeftTheRoom = doorNode.getId();
 
@@ -299,12 +320,12 @@ public class Room {
                     Game.Game().setActiveRoom(alreadyCreatedRoom);
                     return;
                 }
-        
+
                 if (this.isPlayerExitsExitRoom()) {
                     this.setPlayerExitedRoom(true);
                     return;
                 }
-             
+
                 Room randomRoom = this.createRandomRoom(doorNode.getId());
                 Game.Game().setActiveRoom(randomRoom);
             }
@@ -313,6 +334,7 @@ public class Room {
 
     /**
      * removes doors of canvas
+     *
      * @param doors graphic context to remove
      */
     public void removeDoorsOfCanvas(GraphicsContext doors) {
@@ -323,6 +345,7 @@ public class Room {
 
     /**
      * gets random number of doors
+     *
      * @return random number of doors
      */
     public int getRandomNumberOfDoors() {
@@ -346,6 +369,7 @@ public class Room {
 
     /**
      * getter for playerExitedRoom
+     *
      * @return playerExitedRoom
      */
     public boolean isPlayerExitsExitRoom() {
@@ -354,13 +378,15 @@ public class Room {
             Random nextExit = new Random();
             nextRoomExit = nextExit.nextBoolean();
         }
-        
+
         return nextRoomExit;
     }
 
     /**
      * creates random room
+     *
      * @param doorId door id that will be needed to create a random room
+     * @return Room that is created
      */
     public Room createRandomRoom(int doorId) {
         ArrayList<NodeLayer> doors = Game.Game().getCurrentGameMapDoorsLayer();
@@ -368,12 +394,12 @@ public class Room {
         int randomNumberOfDoors = (int) (Math.random() * (3 - 1 + 1) + 1);
 
         Room randomRoom = new Room(
-            this,
-            false,
-            randomNumberOfDoors,
-            this.depth + 1
+                this,
+                false,
+                randomNumberOfDoors,
+                this.depth + 1
         );
-        
+
         this.roomsTree.put(doorId, randomRoom);
         return randomRoom;
     }
@@ -383,7 +409,7 @@ public class Room {
         if (obj == null) {
             return false;
         }
-        
+
         Room room = (Room) obj;
         return this.doorIdWherePlayerEnterRoom == room.doorIdWherePlayerEnterRoom
                 && this.doorIdWherePlayerLeftTheRoom == room.doorIdWherePlayerLeftTheRoom
@@ -392,54 +418,11 @@ public class Room {
 
     /**
      * returns parent
+     *
      * @return parent
      */
     public Room getParent() {
         return parent;
     }
-//
-//    /**
-//     * Class that allows the Monster to move automatically.
-//     */
-//    private class AnimateMonster extends AnimationTimer {
-//        int framerate = 0;
-//        int count = 0;
-//        boolean now = true;
-//        Player player = Game.getPlayer();
-//        @Override
-//        public void handle(long l) {
-//            if (framerate % 10 == 0) {
-//                if (monster.collides(player.getX(), player.getY())) {
-//                    if (monster.getHealth().getValue() == 0) {
-//                        stop();
-//                    }
-//                    player.setHealth(player.getHealth().getValue() - 1);
-//
-//                }
-//                else if (now) {
-//                    if (xmon > 350) {
-//                        now = false;
-//                        count++;
-//                        System.out.println("COUNT-----: " + count);
-//                    }
-//                    xmon += 15;
-//                    monster.setPosition(xmon, ymon);
-////                    monster.draw();
-//                } else {
-//                    if (xmon <250) {
-//                        now = true;
-//                    }
-//                    xmon -= 15;
-//                    monster.setPosition(xmon, ymon);
-////                    monster.draw();
-//                }
-//            }
-//            framerate++;
-//
-//
-//
-//        }
-//
-    //        }
 
 }

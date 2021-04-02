@@ -51,7 +51,7 @@ public class Game {
 
     /**
      * getter for the game map door layer
-     * @return
+     * @return list of doors
      */
     public ArrayList<NodeLayer> getCurrentGameMapDoorsLayer() {
         return currentGameMap.getDoorsLayer();
@@ -65,6 +65,10 @@ public class Game {
         return player;
     }
 
+    /**
+     * getter for the player
+     * @return player
+     */
     public static Player getPlayer() {
         return Game().player;
     } 
@@ -100,16 +104,28 @@ public class Game {
      */
     public Dungeon getDungeonI() {
         return this.dungeon;
-    }    
-    
+    }
+
+    /**
+     * getter for the active room
+     * @return active room object
+     */
     public Room getActiveRoom() {
         return this.dungeon.getActiveRoomOb();
     }
-    
+
+    /**
+     * getter for the dungeon
+     * @return dungeon
+     */
     public static Dungeon getDungeon() {
         return Game().getDungeonI();
     }
-    
+
+    /**
+     * setter for the active room
+     * @param r new room object
+     */
     public void setActiveRoom(Room r) {
         this.dungeon.setActiveRoom(r);
     }
@@ -132,15 +148,26 @@ public class Game {
         this.setDungeon(new Dungeon(difficulties));
     }
 
+    /**
+     * create a new monster
+     * @return new monster
+     */
     public Monster getNewMonster() {
         currentMonster = Monster.getNewMonster();
         return currentMonster;
     }
 
+    /**
+     * getter for the current monster
+     * @return current monster
+     */
     public Monster getCurrentMonster() {
         return currentMonster;
     }
 
+    /**
+     * clear current monster
+     */
     public void clearCurrentMonster() {
         currentMonster = null;
     }
