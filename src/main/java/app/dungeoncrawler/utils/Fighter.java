@@ -4,7 +4,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 public class Fighter extends SpriteElement {
-    IntegerProperty health = new SimpleIntegerProperty(0);
+    IntegerProperty health = new SimpleIntegerProperty(10);
     private int power;
 
     public Fighter(String imageurl, int health, int width, int height) {

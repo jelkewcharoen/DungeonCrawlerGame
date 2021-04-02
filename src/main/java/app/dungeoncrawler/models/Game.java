@@ -1,19 +1,22 @@
 package app.dungeoncrawler.models;
 
 import app.dungeoncrawler.utils.*;
-import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 
 public class Game {
     public static final int WINDOW_HEIGHT = 480;
     public static final int WINDOW_WIDTH = 640;
-    public static Game currentGame; 
+    private static Game currentGame;
     private Dungeon dungeon;
     private Player player;
     private GameMap currentGameMap;
     private Monster currentMonster;
 
+    /**
+     * get the current instance of the game
+     * @return the game
+     */
     public static Game Game() {
         if (Game.currentGame != null) {
             return Game.currentGame;
@@ -30,10 +33,18 @@ public class Game {
         return currentGameMap;
     }
 
+    /**
+     * getter for current game map room layer
+     * @return game map room layer
+     */
     public NodeLayer getCurrentGameMapRoomLayer() {
         return currentGameMap.getRoomLayer();
-    }    
-    
+    }
+
+    /**
+     * getter for the game map door layer
+     * @return
+     */
     public ArrayList<NodeLayer> getCurrentGameMapDoorsLayer() {
         return currentGameMap.getDoorsLayer();
     }

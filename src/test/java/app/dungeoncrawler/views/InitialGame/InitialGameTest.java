@@ -162,7 +162,7 @@ public class InitialGameTest extends ApplicationTest {
           System.out.println("monster is at: " + monster.getPositionAtX());
       }
       //WaitForAsyncUtils.waitFor(1, TimeUnit.SECONDS, Fu);
-      sleep(1000);
+      //sleep(1000);
       //gets the new coordinate of the monster after it moved
 
       int nowX = monster.getX();

@@ -26,7 +26,7 @@ public class Room {
         this.hasMonster = hasMonster;
     }
 
-    private boolean hasMonster = true; //has a monster
+    private boolean hasMonster = false; //has a monster
     private int doors; //number of doors
     private int depth;
     
@@ -61,7 +61,9 @@ public class Room {
         if (doors > 4 || doors < 1) {
             throw new IllegalArgumentException("doors have to be between 1-4 inclusive");
         }
-
+        if (parent != null) {
+            this.hasMonster = true;
+        }
         this.parent = parent;
 
         this.doors = doors;
