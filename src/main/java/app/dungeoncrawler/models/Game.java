@@ -1,7 +1,6 @@
 package app.dungeoncrawler.models;
 
 import app.dungeoncrawler.utils.*;
-import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 

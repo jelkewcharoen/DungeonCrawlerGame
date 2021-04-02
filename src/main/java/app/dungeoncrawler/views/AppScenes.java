@@ -69,7 +69,6 @@ public class AppScenes {
      * @return uiViews of appScenes
      */
     public static ViewBase buildScreen(SceneNames scene, Stage stage) {
-//        System.out.println(AppScenes.uiViews.get(scene));
         if (AppScenes.uiViews.get(scene) != null) {
             return AppScenes.uiViews.get(scene);
         } else if (SceneNames.CONFIGURATION == scene) {
@@ -103,7 +102,6 @@ public class AppScenes {
         }
         
         AppScenes.currentView = AppScenes.buildScreen(name, stage);
-//        System.out.println(uiViews);
         AppScenes.currentView.mountingScene();
         stage.setScene(AppScenes.currentView.getScene());
         stage.toFront();

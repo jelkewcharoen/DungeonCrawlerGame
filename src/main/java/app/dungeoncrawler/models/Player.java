@@ -3,13 +3,7 @@ package app.dungeoncrawler.models;
 import app.dungeoncrawler.utils.DefaultWeapons;
 import app.dungeoncrawler.utils.Difficulties;
 import app.dungeoncrawler.utils.Fighter;
-import app.dungeoncrawler.utils.SpriteElement;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,8 +19,8 @@ public class Player extends Fighter {
             put(Difficulties.HARD, 30);
         }
     };
-    
-    public static final int defaultHealth = 10;
+
+    public static final int DEFAULTHEALTH = 10;
     private final int defaultGold = 10;
     private final Weapon weapon;
     private final int gold;
@@ -40,13 +34,13 @@ public class Player extends Fighter {
      * @param difficulties the selected difficulty.
      */
     public Player(String name, DefaultWeapons weapons, Difficulties difficulties) {
-        super("/app/assets/player.png", 0,85, 100);
+        super("/app/assets/player.png", 0, 85, 100);
         int multiplier = Player.playerLevelsMultiplier.get(difficulties);
 
         this.name = name;
         this.weapon = Weapon.getWeaponsWeaponMap().get(weapons);
         this.gold = defaultGold * multiplier;
-        this.setHealth((Player.defaultHealth * Player.playerLevelsMultiplier.get(difficulties)));
+        this.setHealth((Player.DEFAULTHEALTH * Player.playerLevelsMultiplier.get(difficulties)));
         this.setPower(this.weapon.getPower());
     }
 

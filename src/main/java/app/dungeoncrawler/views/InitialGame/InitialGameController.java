@@ -6,16 +6,12 @@ import app.dungeoncrawler.models.Player;
 import app.dungeoncrawler.models.Room;
 import app.dungeoncrawler.models.Monster;
 import app.dungeoncrawler.utils.*;
-import javafx.beans.binding.DoubleBinding;
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
@@ -97,22 +93,23 @@ public class InitialGameController implements Initializable {
         //this.player.getHealth().addListener(this::onPlayerHealthUpdate);
     }
     
-    public void onPlayerHealthUpdate(ObservableValue<? extends Number> observable, Number obOldValue, Number obNewValue) {
+    public void onPlayerHealthUpdate(ObservableValue<? extends Number> observable,
+                                     Number obOldValue, Number obNewValue) {
         if (this.player.getHealth().get() <= 0) {
             System.out.println("Player lost");
         }
     }
     
-    public void onMonsterHealthUpdate(ObservableValue<? extends Number> observable, Number obOldValue, Number obNewValue) {
+    public void onMonsterHealthUpdate(ObservableValue<? extends Number> observable,
+                                      Number obOldValue, Number obNewValue) {
         if (this.monster.getHealth().get() <= 0) {
             this.monster.clearCurrent(monsterLayer.getGraphicsContext2D());
             Game.Game().getActiveRoom().setHasMonster(false);
-           /* System.out.println(Game.Game().getActiveRoom().isHasMonster());
-            System.out.println(Game.Game().getActiveRoom());*/
         }
     }
     
-    public void onRoomUpdate(ObservableValue<? extends ObserverObject<Room>> observable, ObserverObject<Room> obOldValue, ObserverObject<Room> obNewValue) {
+    public void onRoomUpdate(ObservableValue<? extends ObserverObject<Room>> observable,
+                             ObserverObject<Room> obOldValue, ObserverObject<Room> obNewValue) {
         Room newValue = obNewValue.getField();
         Room oldValue = obOldValue.getField();
         
@@ -141,8 +138,7 @@ public class InitialGameController implements Initializable {
             monster.getHealth().removeListener(this::onMonsterHealthUpdate);
             monster.clearCurrent(monsterLayer.getGraphicsContext2D());
         }
-       /* System.out.println(Game.Game().getActiveRoom().isHasMonster());
-        System.out.println(Game.Game().getActiveRoom());*/
+
         if (newValue.isHasMonster() && newValue.getParent() != null) {
             monster = Game.Game().getNewMonster();
             monster.setPosition(225, 240);
@@ -167,7 +163,8 @@ public class InitialGameController implements Initializable {
                     return;
                 }
                 
-                int x = monster.getX(), y = monster.getY();
+                int x = monster.getX();
+                int y = monster.getY();
 
                 if (player.getX() > x + Monster.MONSTER_SPEED) {
                     x += Monster.MONSTER_SPEED;
@@ -199,7 +196,8 @@ public class InitialGameController implements Initializable {
         };
     }
     
-    public void onPlayerMove(ObservableValue<? extends ArrayList<Integer>> observable, ArrayList<Integer> oldValue, ArrayList<Integer> newValue) {
+    public void onPlayerMove(ObservableValue<? extends ArrayList<Integer>> observable,
+                             ArrayList<Integer> oldValue, ArrayList<Integer> newValue) {
         player.draw(playerLayer.getGraphicsContext2D());
     }
     
@@ -208,7 +206,7 @@ public class InitialGameController implements Initializable {
             timer.cancel();
             System.out.println("stop timer");
         }
-        // TODO: remove lsitenr
+
     }
 
     /**
