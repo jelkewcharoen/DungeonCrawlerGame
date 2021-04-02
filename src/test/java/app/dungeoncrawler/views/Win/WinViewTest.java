@@ -43,7 +43,7 @@ public class WinViewTest extends ApplicationTest {
 
     @Test
     public void buildSceneTestNavigationToWelcome() {
-        clickOn("#exit");
+        clickOn("#yes");
         WaitForAsyncUtils.waitForFxEvents();
         FxAssert.verifyThat("#buttonNavigate", NodeMatchers.isNotNull());
     }

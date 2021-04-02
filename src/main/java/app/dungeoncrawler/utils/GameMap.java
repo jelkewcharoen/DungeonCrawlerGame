@@ -61,7 +61,7 @@ public class GameMap {
         NodeLayer door3 = new NodeLayer(2, "/app/assets/door3.png",
                 doorWidth + 100, 255, doorDimension3);
         NodeLayer door4 = new NodeLayer(3, "/app/assets/door4.png",
-                doorWidth+3, doorHeight, doorDimension4);
+                doorWidth + 3, doorHeight, doorDimension4);
         
         door1.setPosition(0, 3);
         door2.setPosition(123, 0);

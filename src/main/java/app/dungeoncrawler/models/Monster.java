@@ -1,7 +1,6 @@
 package app.dungeoncrawler.models;
 
 import app.dungeoncrawler.utils.Fighter;
-import app.dungeoncrawler.utils.SpriteElement;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
