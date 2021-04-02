@@ -15,7 +15,10 @@ public class Fighter extends SpriteElement {
      * set the health of the monster
      * @param health new health
      */
-    public void setHealth(int health) { this.health.set(health); }
+    public void setHealth(int health) {
+
+        this.health.set(health);
+    }
 
     /**
      * get monster's health

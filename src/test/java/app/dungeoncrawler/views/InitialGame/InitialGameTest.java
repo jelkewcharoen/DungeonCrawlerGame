@@ -139,27 +139,28 @@ public class InitialGameTest extends ApplicationTest {
         assertNotNull(monster);
 
     }
-  @Test
+    @Test
     public void testMonsterMoves() {
-      // to go to the next room that has a monster
-      for (int i = 0; i < 2; i++) {
-          press(LEFT).release(LEFT);
-      }
-      for (int i = 0; i < 10; i++) {
-          press(DOWN).release(DOWN);
-      }
-      //gets the current monster's x coordinate
+        // to go to the next room that has a monster
+        for (int i = 0; i < 2; i++) {
+            press(LEFT).release(LEFT);
+        }
+        for (int i = 0; i < 10; i++) {
+            press(DOWN).release(DOWN);
+        }
+        //gets the current monster's x coordinate
         Monster monster = Game.Game().getCurrentMonster();
         int originalX = monster.getX();
         int originalY = monster.getY();
         //let's the monster move towards the player
-      for (int i = 0; i < 2; i++) {
-          press(DOWN).release(DOWN);
-          System.out.println("monster is at: " + monster.getPositionAtX());
-      }
-      for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 2; i++) {
+            press(DOWN).release(DOWN);
+            System.out.println("monster is at: " + monster.getPositionAtX());
+        }
+        for (int i = 0; i < 5; i++) {
           press(RIGHT).release(RIGHT);
           System.out.println("monster is at: " + monster.getPositionAtX());
+
       }
       //WaitForAsyncUtils.waitFor(1, TimeUnit.SECONDS, Fu);
       //sleep(1000);
@@ -169,12 +170,13 @@ public class InitialGameTest extends ApplicationTest {
       int nowY = monster.getY();
       boolean result = false;
       if (originalX != nowX || originalY != nowY) {
+
            result = true;
 
+        }
+        // if they are different then the result is true -> monster moved
+        assertTrue(result);
       }
-      // if they are different then the result is true -> monster moved
-      assertTrue(result);
-    }
     /*@Test
     public void testPlayerEnterNewRoomPositionX() {
 

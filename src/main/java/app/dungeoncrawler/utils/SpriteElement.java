@@ -83,6 +83,7 @@ public abstract class SpriteElement {
 
     /**
      * draws graphics context
+     * @param graphicsContext - graphics that need to be set
      */
     public void draw(GraphicsContext graphicsContext) {
         this.clear(graphicsContext);
