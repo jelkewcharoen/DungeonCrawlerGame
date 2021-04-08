@@ -17,7 +17,7 @@ public class FighterTest extends TestCase {
 
         Player  p = Game.getPlayer();
 
-        Monster m = Game.gameSingleInstance().getNewMonster();
+        Monster m = Monster.getNewMonster();
 
         p.setPosition(225, 240);
 
@@ -41,7 +41,7 @@ public class FighterTest extends TestCase {
 
         Player  p = Game.getPlayer();
 
-        Monster m = Game.gameSingleInstance().getNewMonster();
+        Monster m = Monster.getNewMonster();
 
         p.setPosition(225, 240);
 

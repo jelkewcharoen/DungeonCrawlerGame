@@ -26,6 +26,9 @@ public class Room {
     private boolean playerExitedRoom = false;
     private int doorIdWherePlayerEnterRoom = -1;
     private int doorIdWherePlayerLeftTheRoom = -1;
+    private Monster currentMonster;
+    private boolean isMoneyUpdated = false;
+    private int goldFoundInTheRoom = 50;
     /**
      * construcs room
      *
@@ -314,7 +317,7 @@ public class Room {
                 Game.gameSingleInstance().setActiveRoom(this.parent);
 
             } else if (isPlayerInsideDoorDimension && !isPlayerInDoorWhereHeEntered
-                    && Game.gameSingleInstance().getCurrentMonster() == null) {
+                    && Game.gameSingleInstance().getActiveRoom().getCurrentMonster() == null) {
                 // player going to a new door
                 this.doorIdWherePlayerLeftTheRoom = doorNode.getId();
 
@@ -429,4 +432,39 @@ public class Room {
         return parent;
     }
 
+    /**
+     * create a new monster
+     * @return new monster
+     */
+    public Monster getNewMonster() {
+        currentMonster = Monster.getNewMonster();
+        return currentMonster;
+    }
+
+    /**
+     * getter for the current monster
+     * @return current monster
+     */
+    public Monster getCurrentMonster() {
+        return currentMonster;
+    }
+
+    /**
+     * clear current monster
+     */
+    public void clearCurrentMonster() {
+        currentMonster = null;
+    }
+
+    public boolean getIsMoneyUpdated() {
+        return isMoneyUpdated;
+    }
+
+    public void setIsMoneyUpdated(boolean update) {
+        this.isMoneyUpdated = update;
+    }
+    
+    public int getGoldFoundInTheRoom() {
+        return this.goldFoundInTheRoom;
+    }
 }
