@@ -23,7 +23,7 @@ public class Player extends Fighter {
     public static final int DEFAULTHEALTH = 10;
     private final int defaultGold = 10;
     private final Weapon weapon;
-    private final int gold;
+    private int gold;
     private final String name;
     public static final int PLAYER_SPEED = 15;
 
@@ -102,5 +102,10 @@ public class Player extends Fighter {
      */
     public int getGold() {
         return gold;
+    }
+
+    public void setGold(int gold) {
+
+        this.gold = gold;
     }
 }

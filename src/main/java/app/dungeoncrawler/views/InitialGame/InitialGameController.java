@@ -162,13 +162,13 @@ public class InitialGameController implements Initializable {
             monster.getHealth().removeListener(this::onMonsterHealthUpdate);
             monster.clearCurrent(monsterLayer.getGraphicsContext2D());
             //monster = null;
-            Game.gameSingleInstance().clearCurrentMonster();
+            Game.gameSingleInstance().getActiveRoom().clearCurrentMonster();
             return;
         }
 
         System.out.println("monester creatong");
-        monster = Game.gameSingleInstance().getNewMonster();
-        System.out.println(Game.gameSingleInstance().getCurrentMonster());
+        monster = Game.gameSingleInstance().getActiveRoom().getNewMonster();
+        System.out.println(Game.gameSingleInstance().getActiveRoom().getCurrentMonster());
         monster.setPosition(225, 240);
         IntegerProperty monsterHealth = monster.getHealth();
         //10 is monster's health
@@ -194,7 +194,7 @@ public class InitialGameController implements Initializable {
                 if (player == null) {
                     return;
                 }
-                
+
                 int x = monster.getX();
                 int y = monster.getY();
 
@@ -211,7 +211,7 @@ public class InitialGameController implements Initializable {
                 }
                 
                 if (monster.getHealth().get() <= 0) {
-                    Game.gameSingleInstance().clearCurrentMonster();
+                    Game.gameSingleInstance().getActiveRoom().clearCurrentMonster();
                     return;
                 }
                 if (!Game.gameSingleInstance().getActiveRoom().isHasMonster()) {
@@ -247,7 +247,7 @@ public class InitialGameController implements Initializable {
      */
     public void unmount() {
         if (timer != null) {
-            timer.cancel();
+            timer.purge();
             System.out.println("stop timer");
         }
 
@@ -272,7 +272,21 @@ public class InitialGameController implements Initializable {
         } else if (e.getCode().equals(KeyCode.RIGHT)) {
             x += Player.PLAYER_SPEED;
         } else if (e.getCode().equals(KeyCode.SPACE)) {
-            monster.reduceHealth(player);
+
+            if (Game.gameSingleInstance().getActiveRoom().getCurrentMonster() != null) {
+                monster.reduceHealth(player);
+            }
+
+            if (Game.gameSingleInstance().getActiveRoom().getCurrentMonster() != null &&
+                    !Game.gameSingleInstance().getActiveRoom().getIsMoneyUpdated() &&
+                    monster.getHealth().get() <= 0) {
+
+                Game.getPlayer().setGold(Game.getPlayer().getGold() + 50);
+
+                this.money.setText("$" + Game.getPlayer().getGold());
+
+                Game.gameSingleInstance().getActiveRoom().setIsMoneyUpdated(true);
+            }
         }
         
         if (this.dungeon.isPositionValid(x, y)) {

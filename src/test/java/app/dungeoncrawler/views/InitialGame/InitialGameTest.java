@@ -142,7 +142,7 @@ public class InitialGameTest extends ApplicationTest {
         for (int i = 0; i < 20; i++) {
             press(DOWN).release(DOWN);
         }
-        Monster monster = Game.gameSingleInstance().getCurrentMonster();
+        Monster monster = Game.gameSingleInstance().getActiveRoom().getCurrentMonster();
         System.out.println(monster);
 
 
@@ -169,7 +169,7 @@ public class InitialGameTest extends ApplicationTest {
         for (int i = 0; i < 20; i++) {
             press(DOWN).release(DOWN);
         }
-        Monster monster = Game.gameSingleInstance().getCurrentMonster();
+        Monster monster = Game.gameSingleInstance().getActiveRoom().getCurrentMonster();
         assertNotNull(monster);
 
     }
@@ -220,7 +220,7 @@ public class InitialGameTest extends ApplicationTest {
         for (int i = 0; i < 10; i++) {
             press(DOWN).release(DOWN);
         }
-        Monster m = Game.gameSingleInstance().getCurrentMonster();
+        Monster m = Game.gameSingleInstance().getActiveRoom().getCurrentMonster();
         System.out.println(m);
         m.setHealth(0);
         sleep(5);
@@ -238,7 +238,7 @@ public class InitialGameTest extends ApplicationTest {
             press(DOWN).release(DOWN);
         }
         
-        Monster m = Game.gameSingleInstance().getCurrentMonster();
+        Monster m = Game.gameSingleInstance().getActiveRoom().getCurrentMonster();
         assertNotNull(m);
 
         for (int i = 0; i < 15; i++) {

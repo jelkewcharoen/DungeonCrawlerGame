@@ -11,7 +11,6 @@ public class Game {
     private Dungeon dungeon;
     private Player player;
     private GameMap currentGameMap;
-    private Monster currentMonster;
 
     /**
      * creates and get the current instance of the game
@@ -153,30 +152,4 @@ public class Game {
         this.currentGameMap = GameMap.getAvailableMaps().get(MapName.MAP_1);
         this.setDungeon(new Dungeon(difficulties));
     }
-
-    /**
-     * create a new monster
-     * @return new monster
-     */
-    public Monster getNewMonster() {
-        currentMonster = Monster.getNewMonster();
-        return currentMonster;
-    }
-
-    /**
-     * getter for the current monster
-     * @return current monster
-     */
-    public Monster getCurrentMonster() {
-        return currentMonster;
-    }
-
-    /**
-     * clear current monster
-     */
-    public void clearCurrentMonster() {
-        currentMonster = null;
-    }
-
-
 }
