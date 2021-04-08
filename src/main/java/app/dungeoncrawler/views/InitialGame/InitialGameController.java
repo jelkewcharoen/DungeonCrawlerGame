@@ -277,9 +277,8 @@ public class InitialGameController implements Initializable {
                 monster.reduceHealth(player);
             }
 
-            if (Game.gameSingleInstance().getActiveRoom().getCurrentMonster() != null &&
-                    !Game.gameSingleInstance().getActiveRoom().getIsMoneyUpdated() &&
-                    monster.getHealth().get() <= 0) {
+            if (monster != null && !Game.gameSingleInstance().getActiveRoom().getIsMoneyUpdated() &&
+                monster.getHealth().get() <= 0) {
 
                 Game.getPlayer().addGold(Game.gameSingleInstance().getActiveRoom().getGoldFoundInTheRoom());
 
