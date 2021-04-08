@@ -28,6 +28,7 @@ public class Room {
     private int doorIdWherePlayerLeftTheRoom = -1;
     private Monster currentMonster;
     private boolean isMoneyUpdated = false;
+    private int goldFoundInTheRoom = 50;
     /**
      * construcs room
      *
@@ -461,5 +462,9 @@ public class Room {
 
     public void setIsMoneyUpdated(boolean update) {
         this.isMoneyUpdated = update;
+    }
+    
+    public int getGoldFoundInTheRoom() {
+        return this.goldFoundInTheRoom;
     }
 }
