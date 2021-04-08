@@ -104,8 +104,8 @@ public class Player extends Fighter {
         return gold;
     }
 
-    public void setGold(int gold) {
+    public void addGold(int income) {
 
-        this.gold = gold;
+        this.gold = this.gold + income;
     }
 }
