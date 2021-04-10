@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.dungeoncrawler.views.Inventory.InventoryView">
+   <children>
+      <ImageView fitHeight="421.0" fitWidth="593.0" layoutX="4.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../assets/inventory%20background.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="104.0" fitWidth="114.0" layoutX="47.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../assets/attackpotion.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="112.0" fitWidth="120.0" layoutX="180.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../assets/healthpotion.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="89.0" fitWidth="83.0" layoutX="336.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../assets/shield.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
