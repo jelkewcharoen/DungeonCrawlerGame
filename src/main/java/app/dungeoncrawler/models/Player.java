@@ -3,6 +3,7 @@ package app.dungeoncrawler.models;
 import app.dungeoncrawler.utils.DefaultWeapons;
 import app.dungeoncrawler.utils.Difficulties;
 import app.dungeoncrawler.utils.Fighter;
+import app.dungeoncrawler.utils.InventoryItem;
 import javafx.beans.property.SimpleObjectProperty;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class Player extends Fighter {
     private int gold;
     private final String name;
     public static final int PLAYER_SPEED = 15;
+    private Inventory playerInventory = new Inventory();
 
     /**
      * Creates a new player.
@@ -38,12 +40,20 @@ public class Player extends Fighter {
         super("/app/assets/player.png", 10, 85, 100);
 
         int multiplier = Player.playerLevelsMultiplier.get(difficulties);
-
         this.name = name;
-        this.weapon = Weapon.getWeaponsWeaponMap().get(weapons);
+        
+        Weapon selectedWeapon = Weapon.getWeaponsWeaponMap().get(weapons);
+        InventoryItem inventoryItem = new InventoryItem(selectedWeapon, 0, 1);
+        playerInventory.addItem(inventoryItem, selectedWeapon.getImage());
+        this.weapon = selectedWeapon;
+
         this.gold = defaultGold * multiplier;
         this.setHealth((Player.DEFAULTHEALTH * Player.playerLevelsMultiplier.get(difficulties)));
         this.setPower(this.weapon.getPower());
+    }
+
+    public Inventory getPlayerInventory() {
+        return playerInventory;
     }
 
     /**

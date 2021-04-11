@@ -12,6 +12,8 @@ public class Game {
     private Player player;
     private GameMap currentGameMap;
 
+    private Shop shop;
+
     /**
      * creates and get the current instance of the game
      * @return the game
@@ -23,6 +25,10 @@ public class Game {
 
         Game.currentGame = new Game();
         return Game.currentGame;
+    }
+    
+    public Shop getShop() {
+        return shop;
     }
 
     /**
@@ -151,5 +157,6 @@ public class Game {
         GameMap.generateAllGameMaps(Game.WINDOW_HEIGHT, Game.WINDOW_WIDTH);
         this.currentGameMap = GameMap.getAvailableMaps().get(MapName.MAP_1);
         this.setDungeon(new Dungeon(difficulties));
+        this.shop = new Shop();
     }
 }

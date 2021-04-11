@@ -1,29 +1,162 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.dungeoncrawler.views.Inventory.InventoryView">
-   <children>
-      <ImageView fitHeight="421.0" fitWidth="593.0" layoutX="4.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../assets/inventory%20background.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="104.0" fitWidth="114.0" layoutX="47.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../assets/attackpotion.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="112.0" fitWidth="120.0" layoutX="180.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../assets/healthpotion.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="89.0" fitWidth="83.0" layoutX="336.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../assets/shield.png" />
-         </image>
-      </ImageView>
-   </children>
-</AnchorPane>
+<StackPane 
+        prefHeight="400.0" 
+        prefWidth="600.0" 
+        stylesheets="@InventoryView.css" 
+        xmlns="http://javafx.com/javafx/15.0.1" 
+        xmlns:fx="http://javafx.com/fxml/1" 
+        fx:controller="app.dungeoncrawler.views.Inventory.InventoryViewController"
+>
+   <SplitPane dividerPositions="0.10804020100502512" orientation="VERTICAL">
+      <items>
+         <ToolBar prefHeight="26.0" prefWidth="598.0">
+           <items>
+             <Button fx:id="backButton" mnemonicParsing="false" text="Back" />
+           </items>
+         </ToolBar>
+         <TabPane prefHeight="394.0" prefWidth="809.0" tabClosingPolicy="UNAVAILABLE">
+           <tabs>
+             <Tab text="Potion">
+                  <content>
+                     <StackPane prefHeight="150.0" prefWidth="200.0" stylesheets="@InventoryView.css">
+                        <children>
+                           <GridPane fx:id="potions">
+                             <columnConstraints>
+                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                             </columnConstraints>
+                             <rowConstraints>
+                               <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                             </rowConstraints>
+                              <children>
+<!--                                       <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">-->
+<!--                                         <items>-->
+<!--                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="68.0" prefWidth="148.0" style="-fx-background-repeat: no-repeat; -fx-background-position: center;" styleClass="attackPotion" stylesheets="@InventoryView.css" />-->
+<!--                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">-->
+<!--                                                <children>-->
+<!--                                                   <Label layoutX="-1.0" layoutY="6.0" text="Health Potion" />-->
+<!--                                                   <Button layoutX="108.0" layoutY="15.0" mnemonicParsing="false" text="Use" />-->
+<!--                                                   <Label layoutY="28.0" text="Count: 4" />-->
+<!--                                                </children>-->
+<!--                                             </AnchorPane>-->
+<!--                                         </items>-->
+<!--                                       </SplitPane>-->
+                                    </children>
+                           </GridPane>
+                        </children>
+                     </StackPane>
+                  </content>
+               </Tab>
+             <Tab text="Weapon">
+                  <content>
+                     <StackPane prefHeight="150.0" prefWidth="200.0">
+                        <children>
+                           <GridPane fx:id="weapon">
+                              <columnConstraints>
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                 <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                              <children>
+<!--                                       <SplitPane dividerPositions="0.7107438016528925" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">-->
+<!--                                          <items>-->
+<!--                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="57.0" prefWidth="64.0" style="-fx-background-repeat: no-repeat; -fx-background-position: center;" styleClass="weapon1" stylesheets="@InventoryView.css" />-->
+<!--                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">-->
+<!--                                                <children>-->
+<!--                                                   <Label layoutX="-1.0" layoutY="6.0" text="Shield Potion" />-->
+<!--                                                   <Button layoutX="95.0" layoutY="1.0" mnemonicParsing="false" text="attach" />-->
+<!--                                                </children>-->
+<!--                                             </AnchorPane>-->
+<!--                                          </items>-->
+<!--                                       </SplitPane>-->
+                                    </children>
+                           </GridPane>
+                        </children>
+                     </StackPane>
+                  </content>
+               </Tab>
+               <Tab text="Shop">
+                  <content>
+                     <StackPane prefHeight="150.0" prefWidth="200.0">
+                        <children>
+                           <GridPane fx:id="shop" vgap="10" hgap="10">
+                              <columnConstraints>
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                 <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                              <children>
+<!--                                       <SplitPane dividerPositions="0.5619834710743802" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">-->
+<!--                                          <items>-->
+<!--                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="57.0" prefWidth="64.0" style="-fx-background-repeat: no-repeat; -fx-background-position: center;" styleClass="healthpotion" stylesheets="@InventoryView.css" />-->
+<!--                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">-->
+<!--                                                <children>-->
+<!--                                                   <Label layoutX="-1.0" layoutY="6.0" text="Health Potion" />-->
+<!--                                                   <Button layoutX="109.0" layoutY="10.0" mnemonicParsing="false" text="buy" />-->
+<!--                                                   <Label layoutX="-1.0" layoutY="28.0" text="Price: 100" />-->
+<!--                                                </children>-->
+<!--                                             </AnchorPane>-->
+<!--                                          </items>-->
+<!--                                       </SplitPane>-->
+<!--                                       <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.columnIndex="1">-->
+<!--                                          <items>-->
+<!--                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="57.0" prefWidth="64.0" style="-fx-background-repeat: no-repeat; -fx-background-position: center;" styleClass="healthpotion" stylesheets="@InventoryView.css" />-->
+<!--                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">-->
+<!--                                                <children>-->
+<!--                                                   <Label layoutX="-1.0" layoutY="6.0" text="Health Potion" />-->
+<!--                                                   <Button layoutX="109.0" layoutY="10.0" mnemonicParsing="false" text="buy" />-->
+<!--                                                   <Label layoutX="-1.0" layoutY="28.0" text="Price: 100" />-->
+<!--                                                </children>-->
+<!--                                             </AnchorPane>-->
+<!--                                          </items>-->
+<!--                                       </SplitPane>-->
+                                    </children>
+                           </GridPane>
+                        </children>
+                     </StackPane>
+                  </content>
+               </Tab>
+           </tabs>
+         </TabPane>
+      </items>
+   </SplitPane>
+<!--    <Button styleClass="attackPotion" GridPane.columnIndex="1" GridPane.rowIndex="1">-->
+<!--      </Button>-->
+<!--    <Button styleClass="healthpotion" GridPane.columnIndex="2" GridPane.rowIndex="1">-->
+<!--      </Button>-->
+<!--    <Button styleClass="shield" GridPane.columnIndex="3" GridPane.rowIndex="1">-->
+<!--      </Button>    -->
+<!--    <Button styleClass="weapon1" GridPane.columnIndex="3" GridPane.rowIndex="2">-->
+<!--      </Button>    -->
+<!--    <Button styleClass="weapon2" GridPane.columnIndex="3" GridPane.rowIndex="2">-->
+<!--      </Button>    -->
+<!--    <Button styleClass="weapon3" GridPane.columnIndex="3" GridPane.rowIndex="2">-->
+<!--      </Button>-->
+</StackPane>

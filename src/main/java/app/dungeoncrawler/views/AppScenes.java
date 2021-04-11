@@ -1,8 +1,10 @@
 package app.dungeoncrawler.views;
 
+import app.dungeoncrawler.models.Inventory;
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.Configuration.ConfigurationView;
 import app.dungeoncrawler.views.InitialGame.InitialGame;
+import app.dungeoncrawler.views.Inventory.InventoryView;
 import app.dungeoncrawler.views.Lose.LoseView;
 import app.dungeoncrawler.views.Welcome.WelcomeView;
 import app.dungeoncrawler.views.Win.WinView;
@@ -83,9 +85,11 @@ public class AppScenes {
         } else if (SceneNames.LOSE == scene) {
             AppScenes.uiViews.put(SceneNames.LOSE, new LoseView(stage));
 
+        } else if (SceneNames.SHOP == scene) {
+            AppScenes.uiViews.put(SceneNames.SHOP, new InventoryView(stage));
+
         } else {
             AppScenes.uiViews.put(SceneNames.WELCOME, new WelcomeView(stage));
-
         }
         
         return AppScenes.uiViews.get(scene);

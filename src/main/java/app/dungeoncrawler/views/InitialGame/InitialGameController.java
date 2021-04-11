@@ -9,11 +9,15 @@ import app.dungeoncrawler.utils.*;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -28,6 +32,7 @@ public class InitialGameController implements Initializable {
     @FXML private Text money;
     @FXML private Rectangle healthBar;
     @FXML private Rectangle monsterBar;
+    @FXML private Button inventoryMenu;
 
     @FXML private Canvas roomLayer;
     @FXML private Canvas playerLayer;
@@ -90,6 +95,13 @@ public class InitialGameController implements Initializable {
         timer.scheduleAtFixedRate(this.monsterSelfMovement(), 1000, 1000);
         System.out.println("set timer");
         //this.player.getHealth().addListener(this::onPlayerHealthUpdate);
+        this.inventoryMenu.setOnMouseClicked(this::onInventoryClick);
+    }
+
+    private void onInventoryClick(MouseEvent event) {
+        Node node = (Node) event.getSource();
+        Stage thisStage = (Stage) node.getScene().getWindow();
+        AppScenes.navigateTo(thisStage, SceneNames.SHOP);
     }
 
     /**

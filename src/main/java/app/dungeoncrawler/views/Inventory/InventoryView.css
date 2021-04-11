@@ -1,0 +1,96 @@
+.inventoryClass {
+    -fx-border-color: blue;
+    -fx-border-width: 3px;
+    -fx-background-image: url("../../../assets/inventorybackground.png");
+}
+
+.inventoryEntity {
+    -fx-background-color: black;
+    -fx-border-color: blue;
+    -fx-border-width: 3px;
+}
+
+.player_image {
+    -fx-border-width: 1px;
+    -fx-border-color: red;
+    -fx-border-style: solid;
+}
+
+.listitem {
+    -fx-text-fill: black;
+    -fx-font-size: 12;
+    -fx-font-weight: 500;
+}
+
+.listview {
+    -fx-background-color: transparent;
+}
+
+.scrollClass_vbox {
+    -fx-background-color: black;
+    -fx-border-width: 3px;
+    -fx-pref-width: 200;
+    -fx-pref-height: 500;
+}
+
+.lineitem {
+    -fx-pref-width: 500;
+    -fx-border-width: 1px;
+    -fx-border-color: blue;
+}
+
+.scrollClass {
+    -fx-background-color: grey;
+    -fx-pref-height: 400;
+}
+
+.page_details {
+    -fx-background-color: grey;
+    -fx-pref-width: 500;
+    -fx-pref-height: 400;
+}
+
+.attackpotion {
+    -fx-background-image: url("../../../assets/attackpotion.png");
+    -fx-pref-height: 100;
+    -fx-pref-width: 100;
+    -fx-background-size: contain;
+    -fx-background-color: transparent;
+}
+
+.healthpotion {
+    -fx-background-image: url("../../../assets/healthpotion.png");
+    -fx-pref-height: 100;
+    -fx-pref-width: 100;
+    -fx-background-size: contain;
+    -fx-background-color: transparent;
+}
+
+.shield {
+    -fx-background-image: url("../../../assets/shield.png");
+    -fx-pref-height: 100;
+    -fx-pref-width: 100;
+    -fx-background-size: contain;
+    -fx-background-color: transparent;
+}
+.weapon1 {
+    -fx-background-image: url("../../../assets/weapon1.png");
+    -fx-pref-height: 100;
+    -fx-pref-width: 100;
+    -fx-background-size: contain;
+    -fx-background-color: transparent;
+}
+.weapon2 {
+    -fx-background-image: url("../../../assets/weapon2.png");
+    -fx-pref-height: 100;
+    -fx-pref-width: 100;
+    -fx-background-size: contain;
+    -fx-background-color: transparent;
+}
+.weapon3 {
+    -fx-background-image: url("../../../assets/weapon3.png");
+    -fx-pref-height: 100;
+    -fx-pref-width: 100;
+    -fx-background-size: contain;
+    -fx-background-color: transparent;
+}

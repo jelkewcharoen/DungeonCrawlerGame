@@ -5,3 +5,10 @@
 .loaderPane {
     -fx-background-color: black;
 }
+
+.inventoryMenu {
+    -fx-pref-height: 60;
+    -fx-pref-width: 60;
+    -fx-background-image: url("../../../assets/bag.jpeg");
+    -fx-background-size: contain;
+}

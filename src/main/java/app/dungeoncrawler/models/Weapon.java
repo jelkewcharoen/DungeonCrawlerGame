@@ -1,15 +1,17 @@
 package app.dungeoncrawler.models;
 
 import app.dungeoncrawler.utils.DefaultWeapons;
+import app.dungeoncrawler.utils.Fighter;
+import app.dungeoncrawler.utils.AttachableItems;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Weapon {
-    private static final Map<DefaultWeapons, Weapon> WEAPONS_WEAPON_MAP = new HashMap<>() {{
-            put(DefaultWeapons.WEAPON1, new Weapon(10));
-            put(DefaultWeapons.WEAPON2, new Weapon(20));
-            put(DefaultWeapons.WEAPON3, new Weapon(30));
+public class Weapon extends AttachableItems {
+    public static final Map<DefaultWeapons, Weapon> WEAPONS_WEAPON_MAP = new HashMap<>() {{
+            put(DefaultWeapons.WEAPON1, new Weapon(10, "weapon1"));
+            put(DefaultWeapons.WEAPON2, new Weapon(20, "weapon2"));
+            put(DefaultWeapons.WEAPON3, new Weapon(30, "weapon3"));
         }
     };
     
@@ -21,6 +23,13 @@ public class Weapon {
      */
     public Weapon(int power) {
         this.power = power;
+    }   
+    
+    public Weapon(int power, String image) {
+        this.power = power;
+        this.setImage(image);
+        this.setName(image);
+        this.setType("weapon");
     }
 
     /**
@@ -37,5 +46,15 @@ public class Weapon {
      */
     public int getPower() {
         return power;
+    }
+
+    @Override
+    public void addToPlayer(Fighter fighter) {
+        
+    }
+
+    @Override
+    public void removeFromPlayer(Fighter fighter) {
+        
     }
 }
