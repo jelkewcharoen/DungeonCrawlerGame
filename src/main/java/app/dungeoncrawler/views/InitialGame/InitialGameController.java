@@ -10,6 +10,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -83,8 +85,6 @@ public class InitialGameController implements Initializable {
         healthBar.setHeight(20);
         monsterBar.setHeight(20);
         
-        this.initialGamePane.setOnKeyPressed(this::handleOnKeyPressed);
-        
         SimpleObjectProperty<ObserverObject<Room>> roomSimpleObjectProperty =
                 Game.gameSingleInstance().getDungeonI().activeRoomObProperty();
         roomSimpleObjectProperty.addListener(this::onRoomUpdate);
@@ -96,12 +96,16 @@ public class InitialGameController implements Initializable {
         System.out.println("set timer");
         //this.player.getHealth().addListener(this::onPlayerHealthUpdate);
         this.inventoryMenu.setOnMouseClicked(this::onInventoryClick);
+        this.inventoryMenu.setOnKeyPressed(this::handleOnKeyPressed);
+        this.inventoryMenu.setOnKeyReleased(this::handleOnKeyPressed);
+
     }
 
     private void onInventoryClick(MouseEvent event) {
         Node node = (Node) event.getSource();
         Stage thisStage = (Stage) node.getScene().getWindow();
         AppScenes.navigateTo(thisStage, SceneNames.SHOP);
+        event.consume();
     }
 
     /**
@@ -269,7 +273,8 @@ public class InitialGameController implements Initializable {
      * moves character each time we press key
      * @param e key event
      */
-    @FXML public void handleOnKeyPressed(KeyEvent e) {
+    public void handleOnKeyPressed(KeyEvent e) {
+        System.out.println("ivan");
         int x = this.player.getX();
         int y = this.player.getY();
         if (e.getCode().equals(KeyCode.DOWN)) {
@@ -316,6 +321,7 @@ public class InitialGameController implements Initializable {
             Stage thisStage = (Stage) thisScene.getWindow();
             AppScenes.navigateTo(thisStage, SceneNames.LOSE);
         }
+        e.consume();
     }
 
     /**

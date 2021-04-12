@@ -8,14 +8,14 @@
 
 <?import java.util.ArrayList?>
 <?import javafx.scene.control.Button?>
-<StackPane fx:id="initialGamePane"
-           onKeyPressed="#handleOnKeyPressed"
-           onKeyReleased="#handleOnKeyPressed"
-           styleClass="hBoxMainContainer"
-           stylesheets="@InitialGame.css"
-           xmlns="http://javafx.com/javafx/11.0.1"
-           xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="app.dungeoncrawler.views.InitialGame.InitialGameController">
+<StackPane 
+    fx:id="initialGamePane"
+    styleClass="hBoxMainContainer"
+    stylesheets="@InitialGame.css"
+    xmlns="http://javafx.com/javafx/11.0.1"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="app.dungeoncrawler.views.InitialGame.InitialGameController"
+>
     <Canvas fx:id="roomLayer" />
     <Canvas fx:id="doorsLayer" />
     <Canvas fx:id="monsterLayer" />
@@ -36,7 +36,6 @@
             <Insets bottom="8" left="8" right="8" />
         </StackPane.margin>
     </Rectangle>
-    <Button fx:id="inventoryMenu" styleClass="inventoryMenu" StackPane.alignment="TOP_RIGHT"></Button>
     <fx:define>
         <ArrayList fx:id="canvasList">
             <fx:reference source="roomLayer" />
@@ -45,4 +44,5 @@
             <fx:reference source="monsterLayer" />
         </ArrayList>
     </fx:define>
+    <Button fx:id="inventoryMenu" styleClass="inventoryMenu" StackPane.alignment="TOP_RIGHT"/>
 </StackPane>
