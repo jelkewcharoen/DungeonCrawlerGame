@@ -10,6 +10,7 @@ import app.dungeoncrawler.models.Shop;
 import app.dungeoncrawler.utils.InventoryItem;
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.AppScenes;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -44,11 +45,15 @@ public class InventoryViewController implements Initializable {
         
         this.backButton.setOnMouseClicked(this::onBackClick);
     }
-
+    
     public void onBackClick(MouseEvent e) {
         Node node = (Node) e.getSource();
         Stage thisStage = (Stage) node.getScene().getWindow();
         AppScenes.navigateTo(thisStage, SceneNames.INITIAL_GAME);
+    }
+    
+   public ActionEvent onBuyItem(MouseEvent e) {
+        System.out.println("sdsdsdsdsds");
     }
 
     public void renderShop(Inventory inventory) {
@@ -56,7 +61,9 @@ public class InventoryViewController implements Initializable {
         int row = 0;
         int column = 0;
         for (InventoryItem inventoryItem: inventoryItems) {
-            new ShopItemView(this.shop, inventoryItem, column, row);
+            ShopItemView shopItemView = new ShopItemView(this.shop, inventoryItem, column, row);
+            shopItemView.getController().getBuy_potion().setOnMouseClicked(this::onBuyItem);
+
             if (column == 3) {
                 row++;
                 column = 0;

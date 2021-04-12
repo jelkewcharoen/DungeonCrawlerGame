@@ -1,6 +1,5 @@
 package app.dungeoncrawler.models;
 
-import app.dungeoncrawler.utils.DefaultWeapons;
 import app.dungeoncrawler.utils.InventoryItem;
 import app.dungeoncrawler.utils.Wallet;
 

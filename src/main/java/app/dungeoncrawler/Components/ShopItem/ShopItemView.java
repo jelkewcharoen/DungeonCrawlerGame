@@ -33,4 +33,8 @@ public class ShopItemView {
             e.printStackTrace();
         }
     }
+
+    public ShopItemController getController() {
+        return controller;
+    }
 }

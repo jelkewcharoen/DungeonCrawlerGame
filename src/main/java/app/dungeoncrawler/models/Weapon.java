@@ -50,7 +50,6 @@ public class Weapon extends AttachableItems {
 
     @Override
     public void addToPlayer(Fighter fighter) {
-        
     }
 
     @Override
