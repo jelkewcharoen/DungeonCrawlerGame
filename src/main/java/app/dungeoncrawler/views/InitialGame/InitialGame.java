@@ -31,6 +31,7 @@ public class InitialGame extends ViewBase {
             Pane root = loader.load();
             InitialGameController controller = loader.getController();
             this.controller = controller;
+            this.controller.setStage(this.stage);
             this.scene = new Scene(root, this.stage.getWidth(), this.stage.getHeight());
             this.scene.setOnKeyPressed(this.controller::handleOnKeyPressed);
         } catch (Exception e) {

@@ -49,6 +49,7 @@ public class InitialGameController implements Initializable {
 
     private Monster monster;
     private Timer timer;
+    private Stage stage;
 
 
     /**
@@ -94,7 +95,7 @@ public class InitialGameController implements Initializable {
         timer = new Timer();
         timer.scheduleAtFixedRate(this.monsterSelfMovement(), 1000, 1000);
         System.out.println("set timer");
-        //this.player.getHealth().addListener(this::onPlayerHealthUpdate);
+        this.player.getHealth().addListener(this::onPlayerHealthUpdate);
         this.inventoryMenu.setOnMouseClicked(this::onInventoryClick);
         this.inventoryMenu.setOnKeyPressed(this::handleOnKeyPressed);
         this.inventoryMenu.setOnKeyReleased(this::handleOnKeyPressed);
@@ -102,9 +103,7 @@ public class InitialGameController implements Initializable {
     }
 
     private void onInventoryClick(MouseEvent event) {
-        Node node = (Node) event.getSource();
-        Stage thisStage = (Stage) node.getScene().getWindow();
-        AppScenes.navigateTo(thisStage, SceneNames.SHOP);
+        AppScenes.navigateTo(this.stage, SceneNames.SHOP);
         event.consume();
     }
 
@@ -274,7 +273,11 @@ public class InitialGameController implements Initializable {
      * @param e key event
      */
     public void handleOnKeyPressed(KeyEvent e) {
-        System.out.println("ivan");
+        if (player.getHealth().getValue() <= 0) {
+            AppScenes.navigateTo(this.stage, SceneNames.LOSE);
+            return;
+        }
+
         int x = this.player.getX();
         int y = this.player.getY();
         if (e.getCode().equals(KeyCode.DOWN)) {
@@ -311,16 +314,9 @@ public class InitialGameController implements Initializable {
         }
         
         if (this.dungeon.getActiveRoomOb().isPlayerExitedRoom()) {
-            Scene thisScene = (Scene) e.getSource();
-            Stage thisStage = (Stage) thisScene.getWindow();
-            AppScenes.navigateTo(thisStage, SceneNames.WIN);
+            AppScenes.navigateTo(this.stage, SceneNames.WIN);
         }
-
-        if (player.getHealth().get() <= 0) {
-            Scene thisScene = (Scene) e.getSource();
-            Stage thisStage = (Stage) thisScene.getWindow();
-            AppScenes.navigateTo(thisStage, SceneNames.LOSE);
-        }
+        
         e.consume();
     }
 
@@ -364,5 +360,9 @@ public class InitialGameController implements Initializable {
                     doorNodeLayer.getPositionAtY());
             doorNodeLayer.draw(doorsLayer.getGraphicsContext2D());
         }
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 }

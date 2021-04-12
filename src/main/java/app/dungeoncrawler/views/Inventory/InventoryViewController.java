@@ -10,7 +10,6 @@ import app.dungeoncrawler.models.Shop;
 import app.dungeoncrawler.utils.InventoryItem;
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.AppScenes;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -52,18 +51,18 @@ public class InventoryViewController implements Initializable {
         AppScenes.navigateTo(thisStage, SceneNames.INITIAL_GAME);
     }
     
-   public ActionEvent onBuyItem(MouseEvent e) {
-        System.out.println("sdsdsdsdsds");
-    }
+   public void onBuyItem(MouseEvent e) {
+        System.out.println("sdsdsdsdsds"); 
+   }
 
-    public void renderShop(Inventory inventory) {
+   public void renderShop(Inventory inventory) {
         Collection<InventoryItem> inventoryItems = inventory.getInventoryItems().values();
         int row = 0;
         int column = 0;
         for (InventoryItem inventoryItem: inventoryItems) {
             ShopItemView shopItemView = new ShopItemView(this.shop, inventoryItem, column, row);
             shopItemView.getController().getBuy_potion().setOnMouseClicked(this::onBuyItem);
-
+    
             if (column == 3) {
                 row++;
                 column = 0;
@@ -71,7 +70,7 @@ public class InventoryViewController implements Initializable {
                 column++;
             }
         }
-    }    
+   }    
     
     public void renderPotion(Inventory inventory) {
         Collection<InventoryItem> inventoryItems = inventory.getInventoryItems().values();
