@@ -1,9 +1,6 @@
 package app.dungeoncrawler.models;
 
-import app.dungeoncrawler.utils.DefaultWeapons;
-import app.dungeoncrawler.utils.Difficulties;
-import app.dungeoncrawler.utils.Fighter;
-import app.dungeoncrawler.utils.InventoryItem;
+import app.dungeoncrawler.utils.*;
 import javafx.beans.property.SimpleObjectProperty;
 
 import java.util.ArrayList;
@@ -24,7 +21,7 @@ public class Player extends Fighter {
     public static final int DEFAULTHEALTH = 10;
     private final int defaultGold = 10;
     private final Weapon weapon;
-    private int gold;
+    private Wallet wallet;
     private final String name;
     public static final int PLAYER_SPEED = 15;
     private Inventory playerInventory = new Inventory();
@@ -46,8 +43,7 @@ public class Player extends Fighter {
         InventoryItem inventoryItem = new InventoryItem(selectedWeapon, 0, 1);
         playerInventory.addItem(inventoryItem, selectedWeapon.getImage());
         this.weapon = selectedWeapon;
-
-        this.gold = defaultGold * multiplier;
+        wallet = new Wallet(defaultGold * multiplier);
         this.setHealth((Player.DEFAULTHEALTH * Player.playerLevelsMultiplier.get(difficulties)));
         this.setPower(this.weapon.getPower());
     }
@@ -111,11 +107,17 @@ public class Player extends Fighter {
      * @return the integer amount of gold.
      */
     public int getGold() {
-        return gold;
+        return wallet.getGold();
     }
 
     public void addGold(int income) {
+        wallet.setGold(wallet.getGold() + income);
+    }
+    public void reduceGold(int money) {
+        wallet.setGold(wallet.getGold() - money);
+    }
 
-        this.gold = this.gold + income;
+    public Wallet getWallet() {
+        return wallet;
     }
 }

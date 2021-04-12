@@ -33,6 +33,7 @@ public class ShopItemController implements Initializable {
         this.image.getStyleClass().add(wp.getImage());
         this.priceLabel.setText("Price: "+ inventoryItem.getPrice());
         this.priceLabel.getStyleClass().add("listitem");
+        buy_potion.setId(wp.getName());
     }
 
     public Button getBuy_potion() {
