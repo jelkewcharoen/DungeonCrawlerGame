@@ -23,10 +23,10 @@ public class Inventory {
         items.put(itemName, inventoryItem);
     }
     
-    public void removeItem(String itemType) {
-        InventoryItem item = items.get(itemType);
+    public void removeItem(String itemName) {
+        InventoryItem item = items.get(itemName);
         if (item != null) {
-            items.remove(itemType);
+            items.remove(itemName);
         }
     }
     

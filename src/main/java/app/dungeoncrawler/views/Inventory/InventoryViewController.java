@@ -31,6 +31,7 @@ public class InventoryViewController implements Initializable {
     private Inventory playerInventory;
     private Inventory shopInventory;
     private Player pl;
+    private Button potionButton;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Shop shops = Game.gameSingleInstance().getShop();
@@ -72,6 +73,10 @@ public class InventoryViewController implements Initializable {
         renderWeapons(playerInventory);
    }
 
+    /**
+     * calls the methods that perform of the action of the item
+     * @param e - event for buttons on items
+     */
    public void onUseItem(MouseEvent e) {
         String potionName = ((Button)e.getSource()).getId();
         Collection<InventoryItem> inventoryItems = shopInventory.getInventoryItems().values();
@@ -81,7 +86,10 @@ public class InventoryViewController implements Initializable {
            }
        }
        item.getItem().addToPlayer(pl);
-       //potions.getChildren().remove(e.getSource());
+
+       // trying to remove the items
+       playerInventory.removeItem(potionName);
+       renderPotion(playerInventory);
 
 
    }
@@ -114,8 +122,8 @@ public class InventoryViewController implements Initializable {
             if (inventoryItem.getType().equals("potion")) {
                 PotionInvView potionInvView = new PotionInvView(this.potions, inventoryItem, column, row);
                 PotionInvController potionInvController = potionInvView.getController();
-                Button usePotionButton = potionInvController.getUsePotion();
-                usePotionButton.setOnMouseClicked(this::onUseItem);
+                potionButton = potionInvController.getUsePotion();
+                potionButton.setOnMouseClicked(this::onUseItem);
 
                 if (column == 3) {
                     row++;
