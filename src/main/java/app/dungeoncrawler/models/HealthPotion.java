@@ -12,7 +12,9 @@ public class HealthPotion extends Potion {
 
     @Override
     public void addToPlayer(Fighter fighter) {
-        System.out.println("Adding Health POtion");
+        Player player = Game.getPlayer();
+        player.setHealth(player.getHealth().getValue() + 5);
+        System.out.println("Adding Health Potion");
     }
 
     @Override
