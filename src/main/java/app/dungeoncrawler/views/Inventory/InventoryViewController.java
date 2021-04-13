@@ -3,6 +3,7 @@ package app.dungeoncrawler.views.Inventory;
 import app.dungeoncrawler.Components.PotionInv.PotionInvController;
 import app.dungeoncrawler.Components.PotionInv.PotionInvView;
 import app.dungeoncrawler.Components.ShopItem.ShopItemView;
+import app.dungeoncrawler.Components.WeaponInv.WeaponInvController;
 import app.dungeoncrawler.Components.WeaponInv.WeaponInvView;
 import app.dungeoncrawler.models.Game;
 import app.dungeoncrawler.models.Inventory;
@@ -57,11 +58,11 @@ public class InventoryViewController implements Initializable {
     
    public void onBuyItem(MouseEvent e) {
         String itemName = ((Button)e.getSource()).getId();
-        System.out.println("add " + itemName);
+        //System.out.println("add " + itemName);
         Collection<InventoryItem> inventoryItems = shopInventory.getInventoryItems().values();
         for (InventoryItem inventoryItem: inventoryItems) {
             if (inventoryItem.getItem().getName().equals(itemName)) {
-                System.out.println("item added to inventory");
+                //System.out.println("item added to inventory");
                 item = inventoryItem;
                 break;
             }
@@ -82,7 +83,6 @@ public class InventoryViewController implements Initializable {
        }
        item.getItem().addToPlayer(pl);
        //potions.getChildren().remove(e.getSource());
-
 
    }
 
@@ -110,7 +110,7 @@ public class InventoryViewController implements Initializable {
         int column = 0;
 
         for (InventoryItem inventoryItem: inventoryItems) {
-            System.out.println("has item" + inventoryItem.getItem().getName());
+            //System.out.println("has item" + inventoryItem.getItem().getName());
             if (inventoryItem.getType().equals("potion")) {
                 PotionInvView potionInvView = new PotionInvView(this.potions, inventoryItem, column, row);
                 PotionInvController potionInvController = potionInvView.getController();
@@ -134,9 +134,10 @@ public class InventoryViewController implements Initializable {
         int row = 0;
         int column = 0;
         for (InventoryItem inventoryItem: inventoryItems) {
-            System.out.println("has item" + inventoryItem.getItem().getName());
+            //System.out.println("has item" + inventoryItem.getItem().getName());
             if (inventoryItem.getType().equals("weapon")) {
-                new WeaponInvView(this.weapon, inventoryItem, column, row);
+                WeaponInvView weaponInvView = new WeaponInvView(this.weapon, inventoryItem, column, row);
+                weaponInvView.getController().getButton().setOnMouseClicked(this::onUseItem);
                 if (column == 3) {
                     row++;
                     column = 0;
