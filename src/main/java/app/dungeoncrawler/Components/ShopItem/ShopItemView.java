@@ -31,6 +31,7 @@ public class ShopItemView {
             pane.getChildren().add(box);
         } catch (Exception e) {
             e.printStackTrace();
+           // System.out.println("ERROR");
         }
     }
 

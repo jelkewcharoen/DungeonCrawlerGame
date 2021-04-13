@@ -1,5 +1,6 @@
 package app.dungeoncrawler.views.Inventory;
 
+import app.dungeoncrawler.Components.PotionInv.PotionInvController;
 import app.dungeoncrawler.Components.PotionInv.PotionInvView;
 import app.dungeoncrawler.Components.ShopItem.ShopItemView;
 import app.dungeoncrawler.Components.WeaponInv.WeaponInvView;
@@ -62,12 +63,27 @@ public class InventoryViewController implements Initializable {
             if (inventoryItem.getItem().getName().equals(itemName)) {
                 System.out.println("item added to inventory");
                 item = inventoryItem;
+                break;
             }
         }
-        playerInventory.addItem(item, item.getType());
+        playerInventory.addItem(item, itemName);
         pl.reduceGold(item.getPrice());
         renderPotion(playerInventory);
         renderWeapons(playerInventory);
+   }
+
+   public void onUseItem(MouseEvent e) {
+        String potionName = ((Button)e.getSource()).getId();
+        Collection<InventoryItem> inventoryItems = shopInventory.getInventoryItems().values();
+       for (InventoryItem inventoryItem: inventoryItems) {
+           if (inventoryItem.getItem().getName().equals(potionName)) {
+               item = inventoryItem;
+           }
+       }
+       item.getItem().addToPlayer(pl);
+       //potions.getChildren().remove(e.getSource());
+
+
    }
 
    public void renderShop(Inventory inventory) {
@@ -92,10 +108,15 @@ public class InventoryViewController implements Initializable {
         Collection<InventoryItem> inventoryItems = inventory.getInventoryItems().values();
         int row = 0;
         int column = 0;
+
         for (InventoryItem inventoryItem: inventoryItems) {
             System.out.println("has item" + inventoryItem.getItem().getName());
             if (inventoryItem.getType().equals("potion")) {
-                new PotionInvView(this.potions, inventoryItem, column, row);
+                PotionInvView potionInvView = new PotionInvView(this.potions, inventoryItem, column, row);
+                PotionInvController potionInvController = potionInvView.getController();
+                Button usePotionButton = potionInvController.getUsePotion();
+                usePotionButton.setOnMouseClicked(this::onUseItem);
+
                 if (column == 3) {
                     row++;
                     column = 0;
@@ -104,6 +125,7 @@ public class InventoryViewController implements Initializable {
                 }
             }
         }
+
     }    
     
     public void renderWeapons(Inventory inventory) {

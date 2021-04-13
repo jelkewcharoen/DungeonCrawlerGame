@@ -13,14 +13,14 @@ public class Inventory {
         return items;
     }
     
-    public void addItem(InventoryItem inventoryItem, String itemType) {
-        InventoryItem item = items.get(itemType);
+    public void addItem(InventoryItem inventoryItem, String itemName) {
+        InventoryItem item = items.get(itemName);
         if (item != null) {
             item.increaseLevel(item.getLevels());
             return;
         }
 
-        items.put(itemType, inventoryItem);
+        items.put(itemName, inventoryItem);
     }
     
     public void removeItem(String itemType) {

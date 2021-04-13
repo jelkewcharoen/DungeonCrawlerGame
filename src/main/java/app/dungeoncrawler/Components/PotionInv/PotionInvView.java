@@ -32,4 +32,8 @@ public class PotionInvView {
             e.printStackTrace();
         }
     }
+
+    public PotionInvController getController() {
+        return controller;
+    }
 }

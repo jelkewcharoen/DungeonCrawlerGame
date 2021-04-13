@@ -6,9 +6,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
+import java.util.Collection;
 import java.util.ResourceBundle;
 
 public class PotionInvController implements Initializable {
@@ -30,5 +32,9 @@ public class PotionInvController implements Initializable {
         this.image.getStyleClass().add(wp.getImage());
         this.count.setText("Count: "+ inventoryItem.getLevels());
         this.count.getStyleClass().add("listitem");
+    }
+
+    public Button getUsePotion() {
+        return use;
     }
 }
