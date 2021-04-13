@@ -53,6 +53,10 @@ public class Weapon extends AttachableItems {
         System.out.println("attaching weapon");
     }
 
+    public void addToPlayer(Fighter fighter, String itemName) {
+        System.out.println("attaching " + itemName);
+    }
+
     @Override
     public void removeFromPlayer(Fighter fighter) {
         

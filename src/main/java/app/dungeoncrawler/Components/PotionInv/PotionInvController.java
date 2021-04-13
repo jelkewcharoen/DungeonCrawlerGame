@@ -26,12 +26,12 @@ public class PotionInvController implements Initializable {
 
     public void setData(InventoryItem inventoryItem) {
         AttachableItems wp = inventoryItem.getItem();
-        System.out.println(wp.getName());
         this.text.setText(wp.getName());
         this.text.getStyleClass().add("listitem");
         this.image.getStyleClass().add(wp.getImage());
         this.count.setText("Count: "+ inventoryItem.getLevels());
         this.count.getStyleClass().add("listitem");
+        use.setId(wp.getName());
     }
 
     public Button getUsePotion() {

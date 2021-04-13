@@ -27,10 +27,10 @@ public class WeaponInvController implements Initializable {
 
     public void setData(InventoryItem inventoryItem) {
         AttachableItems wp = inventoryItem.getItem();
-        System.out.println(wp.getName());
         this.weaponLabel.setText(wp.getName());
         this.weaponLabel.getStyleClass().add("listitem");
         this.weaponImage.getStyleClass().add(wp.getImage());
+        weaponButtonAttach.setId(wp.getName());
     }
 
     public Button getButton() {

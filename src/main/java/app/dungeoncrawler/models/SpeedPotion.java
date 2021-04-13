@@ -11,11 +11,11 @@ public class SpeedPotion extends Potion{
 
     @Override
     public void addToPlayer(Fighter fighter) {
-        System.out.println("Adding Speed POtion");
+        System.out.println("Adding Speed Potion");
     }
 
     @Override
     public void removeFromPlayer(Fighter fighter) {
-        System.out.println("removing Speed POtion");
+        System.out.println("removing Speed Potion");
     }
 }

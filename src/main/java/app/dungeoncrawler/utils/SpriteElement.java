@@ -88,7 +88,7 @@ public abstract class SpriteElement {
     public void draw(GraphicsContext graphicsContext) {
         this.clear(graphicsContext);
         Image cachedImage = SpriteElement.imageCached.get(this.image);
-        System.out.println(this.image);
+        //System.out.println(this.image);
         Image usedImage = cachedImage == null 
             ? new Image(
                 getClass()

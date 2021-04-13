@@ -181,16 +181,15 @@ public class InitialGameController implements Initializable {
             return;
         }
 
-        System.out.println("monester creatong");
+        //System.out.println("monester creatong");
         monster = Game.gameSingleInstance().getActiveRoom().getNewMonster();
-        System.out.println(Game.gameSingleInstance().getActiveRoom().getCurrentMonster());
+        //System.out.println(Game.gameSingleInstance().getActiveRoom().getCurrentMonster());
         monster.setPosition(225, 240);
         IntegerProperty monsterHealth = monster.getHealth();
         //10 is monster's health
         int multiplier1 = 200 / monster.getHealth().getValue();
         monsterBar.widthProperty().bind(monsterHealth.multiply(multiplier1));
         monster.getHealth().addListener(this::onMonsterHealthUpdate);
-        System.out.println();
         monster.draw(monsterLayer.getGraphicsContext2D());
     }
 
@@ -239,7 +238,6 @@ public class InitialGameController implements Initializable {
 
                 monster.move(x, y);
                 player.reduceHealth(monster);
-                System.out.print("/");
                 monster.draw(monsterLayer.getGraphicsContext2D());
             }
         };
@@ -263,7 +261,7 @@ public class InitialGameController implements Initializable {
     public void unmount() {
         if (timer != null) {
             timer.purge();
-            System.out.println("stop timer");
+            //System.out.println("stop timer");
         }
 
     }

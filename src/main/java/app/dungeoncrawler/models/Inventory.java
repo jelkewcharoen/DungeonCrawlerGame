@@ -19,7 +19,6 @@ public class Inventory {
             item.increaseLevel(item.getLevels());
             return;
         }
-
         items.put(itemName, inventoryItem);
     }
     
