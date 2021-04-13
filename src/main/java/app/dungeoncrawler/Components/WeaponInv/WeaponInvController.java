@@ -22,7 +22,7 @@ public class WeaponInvController implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("Ivan");
+        //System.out.println("Ivan");
     }
 
     public void setData(InventoryItem inventoryItem) {
@@ -31,5 +31,9 @@ public class WeaponInvController implements Initializable {
         this.weaponLabel.setText(wp.getName());
         this.weaponLabel.getStyleClass().add("listitem");
         this.weaponImage.getStyleClass().add(wp.getImage());
+    }
+
+    public Button getButton() {
+        return weaponButtonAttach;
     }
 }

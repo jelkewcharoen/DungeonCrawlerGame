@@ -33,4 +33,8 @@ public class WeaponInvView {
             e.printStackTrace();
         }
     }
+
+    public WeaponInvController getController() {
+        return controller;
+    }
 }

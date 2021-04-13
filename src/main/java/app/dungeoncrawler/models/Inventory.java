@@ -39,7 +39,7 @@ public class Inventory {
                 return item.getItem();
             }
             
-            System.out.println("Item not available or player doesnt have enough funds");
+            System.out.println("Item not available or player doesn't have enough funds");
             return null;
         }
         

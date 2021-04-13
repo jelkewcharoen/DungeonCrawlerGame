@@ -50,6 +50,7 @@ public class Weapon extends AttachableItems {
 
     @Override
     public void addToPlayer(Fighter fighter) {
+        System.out.println("attaching weapon");
     }
 
     @Override
