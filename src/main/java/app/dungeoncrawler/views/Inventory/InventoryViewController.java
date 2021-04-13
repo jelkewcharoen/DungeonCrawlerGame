@@ -3,10 +3,7 @@ package app.dungeoncrawler.views.Inventory;
 import app.dungeoncrawler.Components.PotionInv.PotionInvView;
 import app.dungeoncrawler.Components.ShopItem.ShopItemView;
 import app.dungeoncrawler.Components.WeaponInv.WeaponInvView;
-import app.dungeoncrawler.models.Game;
-import app.dungeoncrawler.models.Inventory;
-import app.dungeoncrawler.models.Player;
-import app.dungeoncrawler.models.Shop;
+import app.dungeoncrawler.models.*;
 import app.dungeoncrawler.utils.InventoryItem;
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.AppScenes;
@@ -53,8 +50,8 @@ public class InventoryViewController implements Initializable {
         Stage thisStage = (Stage) node.getScene().getWindow();
         AppScenes.navigateTo(thisStage, SceneNames.INITIAL_GAME);
     }
-    
-   public void onBuyItem(MouseEvent e) {
+
+    public void onBuyItem(MouseEvent e) {
         String itemName = ((Button)e.getSource()).getId();
         System.out.println("add " + itemName);
         Collection<InventoryItem> inventoryItems = shopInventory.getInventoryItems().values();
@@ -64,18 +61,31 @@ public class InventoryViewController implements Initializable {
                 item = inventoryItem;
             }
         }
-        playerInventory.addItem(item, item.getType());
+        playerInventory.addItem(item, itemName);
+       //System.out.println("add "+item.getItem() + "of type" + item.getType());
         pl.reduceGold(item.getPrice());
         renderPotion(playerInventory);
         renderWeapons(playerInventory);
-   }
-
-   public void renderShop(Inventory inventory) {
+    }
+    public void onAttachWeapon(MouseEvent e) {
+        String itemName = ((Button)e.getSource()).getId();
+        System.out.println("attach " + itemName);
+        Collection<InventoryItem> inventoryItems = playerInventory.getInventoryItems().values();
+        for (InventoryItem inventoryItem: inventoryItems) {
+            if (inventoryItem.getItem().getName().equals(itemName)) {
+                System.out.println("attach weapon");
+                item = inventoryItem;
+            }
+        }
+        (item.getItem()).addToPlayer(pl);
+        playerInventory.removeItem(itemName);
+        renderWeapons(playerInventory);
+    }
+    public void renderShop(Inventory inventory) {
         Collection<InventoryItem> inventoryItems = inventory.getInventoryItems().values();
         int row = 0;
         int column = 0;
         for (InventoryItem inventoryItem: inventoryItems) {
-
             ShopItemView shopItemView = new ShopItemView(this.shop, inventoryItem, column, row);
             shopItemView.getController().getBuy_potion().setOnMouseClicked(this::onBuyItem);
             if (column == 3) {
@@ -85,7 +95,7 @@ public class InventoryViewController implements Initializable {
                 column++;
             }
         }
-   }    
+    }
     
     public void renderPotion(Inventory inventory) {
         //System.out.println("rendering potion inventory");
@@ -93,7 +103,7 @@ public class InventoryViewController implements Initializable {
         int row = 0;
         int column = 0;
         for (InventoryItem inventoryItem: inventoryItems) {
-            System.out.println("has item" + inventoryItem.getItem().getName());
+            System.out.println("player has potion " + inventoryItem.getItem().getName());
             if (inventoryItem.getType().equals("potion")) {
                 new PotionInvView(this.potions, inventoryItem, column, row);
                 if (column == 3) {
@@ -112,7 +122,9 @@ public class InventoryViewController implements Initializable {
         int row = 0;
         int column = 0;
         for (InventoryItem inventoryItem: inventoryItems) {
-            System.out.println("has item" + inventoryItem.getItem().getName());
+            WeaponInvView weaponInvView = new WeaponInvView(this.shop, inventoryItem, column, row);
+            weaponInvView.getController().getButton().setOnMouseClicked(this::onAttachWeapon);
+            System.out.println("player has weapon " + inventoryItem.getItem().getName());
             if (inventoryItem.getType().equals("weapon")) {
                 new WeaponInvView(this.weapon, inventoryItem, column, row);
                 if (column == 3) {

@@ -1,5 +1,6 @@
 package app.dungeoncrawler.Components.WeaponInv;
 
+import app.dungeoncrawler.Components.ShopItem.ShopItemController;
 import app.dungeoncrawler.utils.InventoryItem;
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.ViewBase;
@@ -32,5 +33,9 @@ public class WeaponInvView {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public WeaponInvController getController() {
+        return controller;
     }
 }

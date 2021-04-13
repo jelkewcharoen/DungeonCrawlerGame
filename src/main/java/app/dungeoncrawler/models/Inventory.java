@@ -12,26 +12,26 @@ public class Inventory {
     public HashMap<String, InventoryItem> getInventoryItems() {
         return items;
     }
-    
-    public void addItem(InventoryItem inventoryItem, String itemType) {
-        InventoryItem item = items.get(itemType);
+
+    public void addItem(InventoryItem inventoryItem, String itemName) {
+        InventoryItem item = items.get(itemName);
         if (item != null) {
             item.increaseLevel(item.getLevels());
             return;
         }
 
-        items.put(itemType, inventoryItem);
+        items.put(itemName, inventoryItem);
     }
     
-    public void removeItem(String itemType) {
-        InventoryItem item = items.get(itemType);
+    public void removeItem(String itemName) {
+        InventoryItem item = items.get(itemName);
         if (item != null) {
-            items.remove(itemType);
+            items.remove(itemName);
         }
     }
     
-    public AttachableItems purchaseItem(String itemType, Wallet playerWallet) {
-        InventoryItem item = items.get(itemType);
+    public AttachableItems purchaseItem(String itemName, Wallet playerWallet) {
+        InventoryItem item = items.get(itemName);
         if (item != null) {
             if (item.getLevels() > 0 && playerWallet.getGold() > item.getPrice()) {
                 playerWallet.reduceGold(item.getPrice());
@@ -39,7 +39,7 @@ public class Inventory {
                 return item.getItem();
             }
             
-            System.out.println("Item not available or player doesnt have enough funds");
+            System.out.println("Item not available or player doesn't have enough funds");
             return null;
         }
         

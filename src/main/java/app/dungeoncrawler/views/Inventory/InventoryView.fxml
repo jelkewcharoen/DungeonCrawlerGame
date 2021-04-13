@@ -44,18 +44,19 @@
                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                              </rowConstraints>
                               <children>
-<!--                                       <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">-->
-<!--                                         <items>-->
-<!--                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="68.0" prefWidth="148.0" style="-fx-background-repeat: no-repeat; -fx-background-position: center;" styleClass="attackPotion" stylesheets="@InventoryView.css" />-->
-<!--                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">-->
-<!--                                                <children>-->
-<!--                                                   <Label layoutX="-1.0" layoutY="6.0" text="Health Potion" />-->
-<!--                                                   <Button layoutX="108.0" layoutY="15.0" mnemonicParsing="false" text="Use" />-->
-<!--                                                   <Label layoutY="28.0" text="Count: 4" />-->
-<!--                                                </children>-->
-<!--                                             </AnchorPane>-->
-<!--                                         </items>-->
-<!--                                       </SplitPane>-->
+
+<!--                                       <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                                         <items>
+                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="68.0" prefWidth="148.0" style="-fx-background-repeat: no-repeat; -fx-background-position: center;" styleClass="attackPotion" stylesheets="@InventoryView.css" />
+                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                                <children>
+                                                   <Label layoutX="-1.0" layoutY="6.0" text="Health Potion" />
+                                                   <Button layoutX="108.0" layoutY="15.0" mnemonicParsing="false" text="Use" />
+                                                   <Label layoutY="28.0" text="Count: 4" />
+                                                </children>
+                                             </AnchorPane>
+                                         </items>
+                                       </SplitPane>-->
                                     </children>
                            </GridPane>
                         </children>

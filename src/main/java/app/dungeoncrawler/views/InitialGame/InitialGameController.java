@@ -94,7 +94,7 @@ public class InitialGameController implements Initializable {
         cordinates.addListener(this::onPlayerMove);
         timer = new Timer();
         timer.scheduleAtFixedRate(this.monsterSelfMovement(), 1000, 1000);
-        System.out.println("set timer");
+        //System.out.println("set timer");
         this.player.getHealth().addListener(this::onPlayerHealthUpdate);
         this.inventoryMenu.setOnMouseClicked(this::onInventoryClick);
         this.inventoryMenu.setOnKeyPressed(this::handleOnKeyPressed);
@@ -263,7 +263,7 @@ public class InitialGameController implements Initializable {
     public void unmount() {
         if (timer != null) {
             timer.purge();
-            System.out.println("stop timer");
+            //System.out.println("stop timer");
         }
 
     }

@@ -19,7 +19,7 @@ public class PotionInvController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("potion item");
+        //System.out.println("potion item");
     }
 
     public void setData(InventoryItem inventoryItem) {

@@ -21,7 +21,7 @@ public class ShopItemController implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("Shop item");
+        //System.out.println("Shop item");
     }
 
     public void setData(InventoryItem inventoryItem) {
@@ -31,7 +31,7 @@ public class ShopItemController implements Initializable {
         this.text.setText(wp.getName());
         this.text.getStyleClass().add("listitem");
         this.image.getStyleClass().add(wp.getImage());
-        this.priceLabel.setText("Price: "+ inventoryItem.getPrice());
+        this.priceLabel.setText("Price: " + inventoryItem.getPrice());
         this.priceLabel.getStyleClass().add("listitem");
         buy_potion.setId(wp.getName());
     }
