@@ -214,11 +214,9 @@ public class InitialGameTest extends ApplicationTest {
     @Test
     public void t95testMonsterDies() {
         // to go to the next room that has a monster
-        for (int i = 0; i < 2; i++) {
-            press(LEFT).release(LEFT);
-        }
+
         for (int i = 0; i < 10; i++) {
-            press(DOWN).release(DOWN);
+            press(UP).release(UP);
         }
         Monster m = Game.gameSingleInstance().getActiveRoom().getCurrentMonster();
         System.out.println(m);
@@ -228,7 +226,7 @@ public class InitialGameTest extends ApplicationTest {
     }
 
     @Test
-    public void t96testPlayerAllowToGoBackWhenMonsterInTheRoom() {
+    public void t94testPlayerAllowToGoBackWhenMonsterInTheRoom() {
         sleep(1000);
         for (int i = 0; i < 3; i++) {
             press(LEFT).release(LEFT);
@@ -246,5 +244,57 @@ public class InitialGameTest extends ApplicationTest {
         }
         ArrayList<Room> history = Game.gameSingleInstance().getDungeonI().getHistory();
         assertEquals(history.size(), 3);
+    }
+
+    @Test
+    public void testNavigationToInventoryMenu() {
+        clickOn("#inventoryMenu");
+        WaitForAsyncUtils.waitForFxEvents();
+        FxAssert.verifyThat("#inventoryViewPane", NodeMatchers.isNotNull());
+    }
+
+    @Test
+    public void testNavigationToGameScreen() {
+        clickOn("#inventoryMenu");
+        WaitForAsyncUtils.waitForFxEvents();
+        clickOn("#backButton");
+        WaitForAsyncUtils.waitForFxEvents();
+        FxAssert.verifyThat("#initialGamePane", NodeMatchers.isNotNull());
+    }
+
+    @Test
+    public void t95testKillsMonsterGetsMoney() {
+        // to go to the next room that has a monster
+        for (int i = 0; i < 2; i++) {
+            press(LEFT).release(LEFT);
+        }
+        for (int i = 0; i < 10; i++) {
+            press(DOWN).release(DOWN);
+        }
+        Integer prevMoney = Game.getPlayer().getGold();
+
+        Monster m = Game.gameSingleInstance().getActiveRoom().getCurrentMonster();
+        System.out.println(m);
+        m.setHealth(0);
+        sleep(5);
+
+        press(SPACE).release(SPACE);
+
+        Integer postMoney = Game.getPlayer().getGold();
+
+        assertTrue(prevMoney < postMoney);
+    }
+
+    @Test
+    public void testBuyLeadsMoneyGoesDown() {
+        clickOn("#inventoryMenu");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        Integer prevMoney = Game.getPlayer().getGold();
+
+
+        clickOn("#backButton");
+        WaitForAsyncUtils.waitForFxEvents();
+        FxAssert.verifyThat("#initialGamePane", NodeMatchers.isNotNull());
     }
 }
