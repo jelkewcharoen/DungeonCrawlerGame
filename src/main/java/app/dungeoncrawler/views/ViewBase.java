@@ -36,13 +36,13 @@ public abstract class ViewBase implements ViewMaker {
      * Helps mount the Scene of the game
      */
     public void mountingScene() {
-        System.out.println(String.format("%s: mounting", this.sceneName));
+        //System.out.println(String.format("%s: mounting", this.sceneName));
     }
 
     /**
      * Helps unmount the scene of the game
      */
     public void unMountingScene() {
-        System.out.println(String.format("%s: unmounting", this.sceneName));
+        //System.out.println(String.format("%s: unmounting", this.sceneName));
     }
 }

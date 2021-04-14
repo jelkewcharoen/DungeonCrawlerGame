@@ -21,13 +21,12 @@ public class ShopItemController implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("Shop item");
+        //System.out.println("Shop item");
     }
 
     public void setData(InventoryItem inventoryItem) {
         this.inventoryItem = inventoryItem;
         AttachableItems wp = inventoryItem.getItem();
-        System.out.println(wp.getName());
         this.text.setText(wp.getName());
         this.text.getStyleClass().add("listitem");
         this.image.getStyleClass().add(wp.getImage());

@@ -22,14 +22,18 @@ public class WeaponInvController implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("Ivan");
+        //System.out.println("Ivan");
     }
 
     public void setData(InventoryItem inventoryItem) {
         AttachableItems wp = inventoryItem.getItem();
-        System.out.println(wp.getName());
         this.weaponLabel.setText(wp.getName());
         this.weaponLabel.getStyleClass().add("listitem");
         this.weaponImage.getStyleClass().add(wp.getImage());
+        weaponButtonAttach.setId(wp.getName());
+    }
+
+    public Button getButton() {
+        return weaponButtonAttach;
     }
 }

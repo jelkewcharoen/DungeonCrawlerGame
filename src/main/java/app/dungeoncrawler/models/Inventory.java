@@ -13,20 +13,19 @@ public class Inventory {
         return items;
     }
     
-    public void addItem(InventoryItem inventoryItem, String itemType) {
-        InventoryItem item = items.get(itemType);
+    public void addItem(InventoryItem inventoryItem, String itemName) {
+        InventoryItem item = items.get(itemName);
         if (item != null) {
             item.increaseLevel(item.getLevels());
             return;
         }
-
-        items.put(itemType, inventoryItem);
+        items.put(itemName, inventoryItem);
     }
     
-    public void removeItem(String itemType) {
-        InventoryItem item = items.get(itemType);
+    public void removeItem(String itemName) {
+        InventoryItem item = items.get(itemName);
         if (item != null) {
-            items.remove(itemType);
+            items.remove(itemName);
         }
     }
     
@@ -39,7 +38,7 @@ public class Inventory {
                 return item.getItem();
             }
             
-            System.out.println("Item not available or player doesnt have enough funds");
+            System.out.println("Item not available or player doesn't have enough funds");
             return null;
         }
         

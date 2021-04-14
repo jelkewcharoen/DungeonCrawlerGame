@@ -30,7 +30,12 @@ public class WeaponInvView {
             this.controller.setData(inventoryItem);
             pane.add(box, column, row);
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println("ERROR WeaponInvView");
         }
+    }
+
+    public WeaponInvController getController() {
+        return controller;
     }
 }

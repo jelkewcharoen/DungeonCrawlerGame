@@ -30,7 +30,8 @@ public class ShopItemView {
             pane.add(box, column, row);
             pane.getChildren().add(box);
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+           System.out.println("ERROR ShopItemView");
         }
     }
 
