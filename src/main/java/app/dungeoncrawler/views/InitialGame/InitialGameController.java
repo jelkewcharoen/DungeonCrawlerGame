@@ -98,8 +98,6 @@ public class InitialGameController implements Initializable {
         this.player.getHealth().addListener(this::onPlayerHealthUpdate);
         this.inventoryMenu.setOnMouseClicked(this::onInventoryClick);
         this.inventoryMenu.setOnKeyPressed(this::handleOnKeyPressed);
-        this.inventoryMenu.setOnKeyReleased(this::handleOnKeyPressed);
-
     }
 
     private void onInventoryClick(MouseEvent event) {
