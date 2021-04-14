@@ -28,7 +28,7 @@
          </ToolBar>
          <TabPane prefHeight="394.0" prefWidth="809.0" tabClosingPolicy="UNAVAILABLE">
            <tabs>
-             <Tab text="Potion">
+             <Tab fx:id="potiontab" text="Potion">
                   <content>
                      <StackPane prefHeight="150.0" prefWidth="200.0" stylesheets="@InventoryView.css">
                         <children>
@@ -97,7 +97,7 @@
                      </StackPane>
                   </content>
                </Tab>
-               <Tab text="Shop">
+               <Tab fx:id="shoptab" text="Shop">
                   <content>
                      <StackPane prefHeight="150.0" prefWidth="200.0">
                         <children>

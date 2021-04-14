@@ -5,11 +5,13 @@ import app.dungeoncrawler.models.Game;
 import app.dungeoncrawler.models.Monster;
 import app.dungeoncrawler.models.Player;
 import app.dungeoncrawler.models.Room;
+import app.dungeoncrawler.utils.AttachableItems;
 import app.dungeoncrawler.utils.DefaultWeapons;
 import app.dungeoncrawler.views.AppScenes;
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.ViewBase;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -175,7 +177,7 @@ public class InitialGameTest extends ApplicationTest {
     }
 
     @Test
-    public void t91testPlayerEnterPreviousRoom() {
+    public void t92testPlayerEnterPreviousRoom() {
         Room initialRoom = Game.getDungeon().getActiveRoomOb();
         Player player = Game.getPlayer();
         player.setPosition(initialRoom.getRoomMap().getRoomLayer().getDimension().averageX(),
@@ -193,11 +195,11 @@ public class InitialGameTest extends ApplicationTest {
 
 
     @Test
-    public void t92testPlayerHealthBar() {
+    public void t91testPlayerHealthBar() {
         FxAssert.verifyThat("#healthBar", NodeMatchers.isNotNull());
     }
     @Test
-    public void t93testMonsterHealthBar() {
+    public void t8testMonsterHealthBar() {
         FxAssert.verifyThat("#monsterBar", NodeMatchers.isNotNull());
     }
 
@@ -247,14 +249,14 @@ public class InitialGameTest extends ApplicationTest {
     }
 
     @Test
-    public void testNavigationToInventoryMenu() {
+    public void t96testNavigationToInventoryMenu() {
         clickOn("#inventoryMenu");
         WaitForAsyncUtils.waitForFxEvents();
         FxAssert.verifyThat("#inventoryViewPane", NodeMatchers.isNotNull());
     }
 
     @Test
-    public void testNavigationToGameScreen() {
+    public void t99testNavigationToGameScreen() {
         clickOn("#inventoryMenu");
         WaitForAsyncUtils.waitForFxEvents();
         clickOn("#backButton");
@@ -286,15 +288,129 @@ public class InitialGameTest extends ApplicationTest {
     }
 
     @Test
-    public void testBuyLeadsMoneyGoesDown() {
+    public void t98testBuyShield() {
         clickOn("#inventoryMenu");
         WaitForAsyncUtils.waitForFxEvents();
 
         Integer prevMoney = Game.getPlayer().getGold();
 
 
-        clickOn("#backButton");
+        clickOn("#shoptab");
         WaitForAsyncUtils.waitForFxEvents();
-        FxAssert.verifyThat("#initialGamePane", NodeMatchers.isNotNull());
+
+        //AttachableItems weaponitem =
+        clickOn("#shield");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        assertEquals(prevMoney - 50, Game.getPlayer().getGold());
+
     }
+
+    @Test
+    public void t98testBuySpeed() {
+        clickOn("#inventoryMenu");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        Integer prevMoney = Game.getPlayer().getGold();
+
+
+        clickOn("#shoptab");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        //AttachableItems weaponitem =
+        clickOn("#speed");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        assertTrue(prevMoney > Game.getPlayer().getGold());
+
+    }
+
+
+    @Test
+    public void t97testBuyMoneyDecreases() {
+        clickOn("#inventoryMenu");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        Integer prevMoney = Game.getPlayer().getGold();
+
+
+        clickOn("#shoptab");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        //AttachableItems weaponitem =
+        clickOn("#shield");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        assertEquals(prevMoney - 50, Game.getPlayer().getGold());
+
+    }
+
+    @Test
+    public void t97testBuyHealthPotion() {
+        clickOn("#inventoryMenu");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        int health = Game.getPlayer().getHealth().getValue() + 5;
+
+
+        clickOn("#shoptab");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        //AttachableItems weaponitem =
+        clickOn("#shield");
+        clickOn("#health");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        clickOn("#potiontab");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        clickOn("#health");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        int currenthealth = Game.getPlayer().getHealth().getValue() + 0;
+
+        assertEquals( health, currenthealth);
+
+    }
+
+
+
+    @Test
+    public void t98testBuyWeapon2() {
+        clickOn("#inventoryMenu");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        Integer prevMoney = Game.getPlayer().getGold();
+
+
+        clickOn("#shoptab");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        //AttachableItems weaponitem =
+        clickOn("#weapon2");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        assertTrue(prevMoney > Game.getPlayer().getGold());
+
+    }
+
+    @Test
+    public void t98testBuyWeapon3() {
+        clickOn("#inventoryMenu");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        Integer prevMoney = Game.getPlayer().getGold();
+
+
+        clickOn("#shoptab");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        //AttachableItems weaponitem =
+        clickOn("#weapon3");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        assertTrue(prevMoney > Game.getPlayer().getGold());
+
+    }
+
 }
