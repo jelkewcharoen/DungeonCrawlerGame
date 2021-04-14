@@ -75,6 +75,7 @@ public class InventoryViewController implements Initializable {
      */
    public void onUseItem(MouseEvent e) {
        String itemName = ((Button)e.getSource()).getId();
+       System.out.println("USE ITEM AKA ID: " + itemName);
        Collection<InventoryItem> inventoryItems = playerInventory.getInventoryItems().values();
        for (InventoryItem inventoryItem: inventoryItems) {
            if (inventoryItem.getItem().getName().equals(itemName)) {
