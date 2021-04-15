@@ -413,4 +413,23 @@ public class InitialGameTest extends ApplicationTest {
 
     }
 
+    @Test
+    public void t98testBuyWeapon1() {
+        clickOn("#inventoryMenu");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        Integer prevMoney = Game.getPlayer().getGold();
+
+
+        clickOn("#shoptab");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        //AttachableItems weaponitem =
+        clickOn("#weapon1");
+        WaitForAsyncUtils.waitForFxEvents();
+
+        assertTrue(prevMoney > Game.getPlayer().getGold());
+
+    }
+
 }
