@@ -1,5 +1,4 @@
 package app.dungeoncrawler.models;
-
 import app.dungeoncrawler.utils.Fighter;
 
 public class ShieldPotion extends Potion {

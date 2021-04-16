@@ -1,11 +1,10 @@
 package app.dungeoncrawler.views.InitialGame;
 
-import app.dungeoncrawler.models.Dungeon;
-import app.dungeoncrawler.models.Game;
-import app.dungeoncrawler.models.Player;
-import app.dungeoncrawler.models.Room;
-import app.dungeoncrawler.models.Monster;
-import app.dungeoncrawler.utils.*;
+import app.dungeoncrawler.models.*;
+import app.dungeoncrawler.utils.NodeLayer;
+import app.dungeoncrawler.utils.ObserverObject;
+import app.dungeoncrawler.utils.SceneNames;
+import app.dungeoncrawler.views.AppScenes;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
@@ -17,31 +16,37 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import app.dungeoncrawler.views.AppScenes;
 import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.*;
 
 public class InitialGameController implements Initializable {
-    @FXML private Text money;
-    @FXML private Rectangle healthBar;
-    @FXML private Rectangle monsterBar;
-    @FXML private Button inventoryMenu;
-    @FXML private Label weaponImageInit;
-
-    @FXML private Canvas roomLayer;
-    @FXML private Canvas playerLayer;
-    @FXML private Canvas doorsLayer;
-    @FXML private Canvas monsterLayer;
-    
-    @FXML private List<Canvas> canvasList;
-    @FXML private final Pane initialGamePane = new Pane();
-
+    @FXML
+    private final Pane initialGamePane = new Pane();
+    @FXML
+    private Text money;
+    @FXML
+    private Rectangle healthBar;
+    @FXML
+    private Rectangle monsterBar;
+    @FXML
+    private Button inventoryMenu;
+    @FXML
+    private Label weaponImageInit;
+    @FXML
+    private Canvas roomLayer;
+    @FXML
+    private Canvas playerLayer;
+    @FXML
+    private Canvas doorsLayer;
+    @FXML
+    private Canvas monsterLayer;
+    @FXML
+    private List<Canvas> canvasList;
     private Player player;
     private Dungeon dungeon;
 
@@ -63,7 +68,7 @@ public class InitialGameController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -72,6 +77,7 @@ public class InitialGameController implements Initializable {
             e.printStackTrace();
         }
     }
+
     /**
      * trigger the scene to start
      */
@@ -81,7 +87,7 @@ public class InitialGameController implements Initializable {
         healthBar.widthProperty().bind(player.getHealth());
         healthBar.setHeight(20);
         monsterBar.setHeight(20);
-        
+
         SimpleObjectProperty<ObserverObject<Room>> roomSimpleObjectProperty =
                 Game.gameSingleInstance().getDungeonI().activeRoomObProperty();
         roomSimpleObjectProperty.addListener(this::onRoomUpdate);
@@ -104,6 +110,7 @@ public class InitialGameController implements Initializable {
 
     /**
      * handler for the player's health update
+     *
      * @param observable health object
      * @param obOldValue old health
      * @param obNewValue new health
@@ -116,7 +123,8 @@ public class InitialGameController implements Initializable {
     }
 
     /**
-     handler for the monster's health update
+     * handler for the monster's health update
+     *
      * @param observable health object
      * @param obOldValue old health
      * @param obNewValue new health
@@ -131,25 +139,26 @@ public class InitialGameController implements Initializable {
 
     /**
      * handler for the room update
-     *     @param observable room object
-     *     @param obOldValue old room
-     *     @param obNewValue new room
+     *
+     * @param observable room object
+     * @param obOldValue old room
+     * @param obNewValue new room
      */
     public void onRoomUpdate(ObservableValue<? extends ObserverObject<Room>> observable,
                              ObserverObject<Room> obOldValue, ObserverObject<Room> obNewValue) {
         Room newValue = obNewValue.getField();
         Room oldValue = obOldValue.getField();
-        
+
         if (oldValue != null) {
             oldValue.clearRoom(doorsLayer.getGraphicsContext2D());
         }
-        
+
         int x = 0;
         int y = 0;
-        
+
         int newRoomLeftFlag = newValue.getDoorIdWherePlayerLeftTheRoom();
         int newRoomEnterFlag = newValue.getDoorIdWherePlayerEnterTheRoom();
-        
+
         if (newRoomLeftFlag > -1) { // player has a left room flag
             x = newValue.getDoorDimension(newRoomLeftFlag).getPositionXForPlayer();
             y = newValue.getDoorDimension(newRoomLeftFlag).getPositionYForPlayer();
@@ -157,10 +166,10 @@ public class InitialGameController implements Initializable {
             x = newValue.getDoorDimension(newRoomEnterFlag).getPositionXForPlayer();
             y = newValue.getDoorDimension(newRoomEnterFlag).getPositionYForPlayer();
         }
-        
+
         newValue.drawRoom(roomLayer.getGraphicsContext2D(), doorsLayer.getGraphicsContext2D());
         player.move(x, y);
-        
+
         if (monster != null) {
             monster.getHealth().removeListener(this::onMonsterHealthUpdate);
             monster.clearCurrent(monsterLayer.getGraphicsContext2D());
@@ -190,6 +199,7 @@ public class InitialGameController implements Initializable {
 
     /**
      * method for the monster to move by itself
+     *
      * @return Timer
      */
     public TimerTask monsterSelfMovement() {
@@ -199,7 +209,7 @@ public class InitialGameController implements Initializable {
                 if (monster == null) {
                     return;
                 }
-                
+
                 if (player == null) {
                     return;
                 }
@@ -218,7 +228,7 @@ public class InitialGameController implements Initializable {
                 } else if (player.getY() < y + Monster.MONSTER_SPEED) {
                     y -= Monster.MONSTER_SPEED;
                 }
-                
+
                 if (monster.getHealth().get() <= 0) {
                     Game.gameSingleInstance().getActiveRoom().clearCurrentMonster();
                     return;
@@ -239,11 +249,11 @@ public class InitialGameController implements Initializable {
     }
 
     /**
-     *
      * handler for the player's movement
-     *      @param observable position of the player
-     *      @param oldValue old position
-     *      @param newValue new position
+     *
+     * @param observable position of the player
+     * @param oldValue   old position
+     * @param newValue   new position
      */
     public void onPlayerMove(ObservableValue<? extends ArrayList<Integer>> observable,
                              ArrayList<Integer> oldValue, ArrayList<Integer> newValue) {
@@ -263,6 +273,7 @@ public class InitialGameController implements Initializable {
 
     /**
      * moves character each time we press key
+     *
      * @param e key event
      */
     public void handleOnKeyPressed(KeyEvent e) {
@@ -275,7 +286,7 @@ public class InitialGameController implements Initializable {
         int y = this.player.getY();
         if (e.getCode().equals(KeyCode.DOWN)) {
             y += this.player.getPlayerSpeed();
-            
+
         } else if (e.getCode().equals(KeyCode.UP)) {
             y -= this.player.getPlayerSpeed();
 
@@ -301,16 +312,16 @@ public class InitialGameController implements Initializable {
                 Game.gameSingleInstance().getActiveRoom().setIsMoneyUpdated(true);
             }
         }
-        
+
         if (this.dungeon.isPositionValid(x, y)) {
             this.player.move(x, y);
             this.dungeon.getActiveRoomOb().trackPlayerMovement(player.getX(), player.getY());
         }
-        
+
         if (this.dungeon.getActiveRoomOb().isPlayerExitedRoom()) {
             AppScenes.navigateTo(this.stage, SceneNames.WIN);
         }
-        
+
         e.consume();
     }
 
@@ -333,7 +344,7 @@ public class InitialGameController implements Initializable {
             canvas.setHeight(Game.WINDOW_HEIGHT);
             canvas.setWidth(Game.WINDOW_WIDTH);
         }
-        
+
         this.drawGame();
     }
 
