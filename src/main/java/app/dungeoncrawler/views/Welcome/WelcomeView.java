@@ -2,7 +2,6 @@ package app.dungeoncrawler.views.Welcome;
 
 import app.dungeoncrawler.models.Game;
 import app.dungeoncrawler.utils.SceneNames;
-import app.dungeoncrawler.views.AppScenes;
 import app.dungeoncrawler.views.ViewBase;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,6 +13,7 @@ public class WelcomeView extends ViewBase {
 
     /**
      * Constructor to create the Welcome View
+     *
      * @param stage - used to set up the welcome view
      */
     public WelcomeView(Stage stage) {

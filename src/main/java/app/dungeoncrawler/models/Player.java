@@ -25,7 +25,7 @@ public class Player extends Fighter {
     private final String name;
     public static final int PLAYER_SPEED = 15;
     private Inventory playerInventory = new Inventory();
-    public int speed = 0;
+    private int speed = 0;
 
     /**
      * Creates a new player.

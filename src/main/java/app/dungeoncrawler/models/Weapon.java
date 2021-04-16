@@ -50,7 +50,7 @@ public class Weapon extends AttachableItems {
 
     @Override
     public void addToPlayer(Fighter fighter) {
-        ((Player)fighter).setWeapon(this);
+        ((Player) fighter).setWeapon(this);
     }
 
     @Override
