@@ -1,9 +1,9 @@
 package app.dungeoncrawler.utils;
 
 public class InventoryItem {
-    int price = 0;
-    int levels = 0;
-    AttachableItems item;
+    private int price = 0;
+    private int levels = 0;
+    private AttachableItems item;
 
     private InventoryItem() { }
 

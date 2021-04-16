@@ -7,7 +7,7 @@ import app.dungeoncrawler.utils.Wallet;
 import java.util.HashMap;
 
 public class Inventory {
-    HashMap<String, InventoryItem> items = new HashMap<>();
+    private HashMap<String, InventoryItem> items = new HashMap<>();
     
     public HashMap<String, InventoryItem> getInventoryItems() {
         return items;

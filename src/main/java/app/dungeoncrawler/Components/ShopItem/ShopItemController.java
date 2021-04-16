@@ -12,12 +12,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ShopItemController implements Initializable {
-    @FXML AnchorPane image;
-    @FXML Label text;
-    @FXML Button buy_potion;
-    @FXML Label priceLabel;
+    @FXML private AnchorPane image;
+    @FXML private Label text;
+    @FXML private Button buyPotion;
+    @FXML private Label priceLabel;
     
-    InventoryItem inventoryItem;
+    private InventoryItem inventoryItem;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -30,12 +30,12 @@ public class ShopItemController implements Initializable {
         this.text.setText(wp.getName());
         this.text.getStyleClass().add("listitem");
         this.image.getStyleClass().add(wp.getImage());
-        this.priceLabel.setText("Price: "+ inventoryItem.getPrice());
+        this.priceLabel.setText("Price: " + inventoryItem.getPrice());
         this.priceLabel.getStyleClass().add("listitem");
-        buy_potion.setId(wp.getName());
+        buyPotion.setId(wp.getName());
     }
 
-    public Button getBuy_potion() {
-        return buy_potion;
+    public Button getBuyPotion() {
+        return buyPotion;
     }
 }

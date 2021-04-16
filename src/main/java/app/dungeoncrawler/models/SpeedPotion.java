@@ -2,7 +2,7 @@ package app.dungeoncrawler.models;
 
 import app.dungeoncrawler.utils.Fighter;
 
-public class SpeedPotion extends Potion{
+public class SpeedPotion extends Potion {
     public SpeedPotion(String name) {
         this.setName(name);
         this.setImage("attackpotion");

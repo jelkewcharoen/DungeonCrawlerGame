@@ -5,13 +5,11 @@ import app.dungeoncrawler.models.Game;
 import app.dungeoncrawler.models.Monster;
 import app.dungeoncrawler.models.Player;
 import app.dungeoncrawler.models.Room;
-import app.dungeoncrawler.utils.AttachableItems;
 import app.dungeoncrawler.utils.DefaultWeapons;
 import app.dungeoncrawler.views.AppScenes;
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.ViewBase;
 
-import javafx.beans.property.IntegerProperty;
 import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -369,7 +367,7 @@ public class InitialGameTest extends ApplicationTest {
 
         int currenthealth = Game.getPlayer().getHealth().getValue() + 0;
 
-        assertEquals( health, currenthealth);
+        assertEquals(health, currenthealth);
 
     }
 
