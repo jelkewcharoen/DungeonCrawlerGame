@@ -1,14 +1,9 @@
 package app.dungeoncrawler.Components.ShopItem;
 
 import app.dungeoncrawler.utils.InventoryItem;
-import app.dungeoncrawler.utils.SceneNames;
-import app.dungeoncrawler.views.ViewBase;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 public class ShopItemView {
     private ShopItemController controller;
@@ -16,6 +11,9 @@ public class ShopItemView {
     /**
      * initialize the configuration screen
      * @param pane the stage for the screen
+     * @param inventoryItem the inventory item
+     * @param column the column to add in the GridPane
+     * @param row the row to add in the GridPane
      */
     public ShopItemView(GridPane pane, InventoryItem inventoryItem, int column, int row) {
         this.buildScene(pane, inventoryItem, column, row);
@@ -30,7 +28,7 @@ public class ShopItemView {
             pane.add(box, column, row);
         } catch (Exception e) {
             //e.printStackTrace();
-           System.out.println("ERROR ShopItemView");
+            System.out.println("ERROR ShopItemView");
         }
     }
 

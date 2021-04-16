@@ -1,7 +1,6 @@
 package app.dungeoncrawler.views.Inventory;
 
 import app.dungeoncrawler.utils.SceneNames;
-import app.dungeoncrawler.views.Configuration.ConfigurationViewController;
 import app.dungeoncrawler.views.ViewBase;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

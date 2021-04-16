@@ -4,8 +4,8 @@ import app.dungeoncrawler.utils.InventoryItem;
 import app.dungeoncrawler.utils.Wallet;
 
 public class Shop {
-    public Wallet wallet;
-    public Inventory shopInventory;
+    private Wallet wallet;
+    private Inventory shopInventory;
 
     public Shop() {
         wallet = new Wallet();

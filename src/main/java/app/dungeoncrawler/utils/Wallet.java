@@ -1,7 +1,7 @@
 package app.dungeoncrawler.utils;
 
 public class Wallet {
-    int gold;
+    private int gold;
     
     public Wallet() {
         gold = 0;

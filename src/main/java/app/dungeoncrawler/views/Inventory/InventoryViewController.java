@@ -3,7 +3,6 @@ package app.dungeoncrawler.views.Inventory;
 import app.dungeoncrawler.Components.PotionInv.PotionInvController;
 import app.dungeoncrawler.Components.PotionInv.PotionInvView;
 import app.dungeoncrawler.Components.ShopItem.ShopItemView;
-import app.dungeoncrawler.Components.WeaponInv.WeaponInvController;
 import app.dungeoncrawler.Components.WeaponInv.WeaponInvView;
 import app.dungeoncrawler.models.*;
 import app.dungeoncrawler.utils.InventoryItem;
@@ -21,10 +20,10 @@ import java.net.URL;
 import java.util.*;
 
 public class InventoryViewController implements Initializable {
-    @FXML GridPane potions;
-    @FXML GridPane weapon;
-    @FXML GridPane shop;
-    @FXML Button backButton;
+    @FXML private GridPane potions;
+    @FXML private GridPane weapon;
+    @FXML private GridPane shop;
+    @FXML private Button backButton;
     private InventoryItem item;
     private Inventory playerInventory;
     private Inventory shopInventory;
@@ -54,8 +53,8 @@ public class InventoryViewController implements Initializable {
         AppScenes.navigateTo(thisStage, SceneNames.INITIAL_GAME);
     }
     
-   public void onBuyItem(MouseEvent e) {
-        String itemName = ((Button)e.getSource()).getId();
+    public void onBuyItem(MouseEvent e) {
+        String itemName = ((Button) e.getSource()).getId();
         Collection<InventoryItem> inventoryItems = shopInventory.getInventoryItems().values();
         for (InventoryItem inventoryItem: inventoryItems) {
             if (inventoryItem.getItem().getName().equals(itemName)) {
@@ -67,36 +66,36 @@ public class InventoryViewController implements Initializable {
         pl.reduceGold(item.getPrice());
         renderPotion(playerInventory);
         renderWeapons(playerInventory);
-   }
+    }
 
     /**
      * calls the methods that perform of the action of the item
      * @param e - event for buttons on items
      */
-   public void onUseItem(MouseEvent e) {
-       String itemName = ((Button)e.getSource()).getId();
-       System.out.println("USE ITEM AKA ID: " + itemName);
-       Collection<InventoryItem> inventoryItems = playerInventory.getInventoryItems().values();
-       for (InventoryItem inventoryItem: inventoryItems) {
-           if (inventoryItem.getItem().getName().equals(itemName)) {
-               item = inventoryItem;
-               item.getItem().addToPlayer(pl);
-               break;
-           }
-       }
-
-       playerInventory.removeItem(itemName);
-       renderPotion(playerInventory);
-
-   }
-
-    public void onAttachWeapon(MouseEvent e) {
-        String itemName = ((Button)e.getSource()).getId();
+    public void onUseItem(MouseEvent e) {
+        String itemName = ((Button) e.getSource()).getId();
+        System.out.println("USE ITEM AKA ID: " + itemName);
         Collection<InventoryItem> inventoryItems = playerInventory.getInventoryItems().values();
         for (InventoryItem inventoryItem: inventoryItems) {
             if (inventoryItem.getItem().getName().equals(itemName)) {
                 item = inventoryItem;
-                ((Weapon)item.getItem()).addToPlayer(pl, itemName);
+                item.getItem().addToPlayer(pl);
+                break;
+            }
+        }
+
+        playerInventory.removeItem(itemName);
+        renderPotion(playerInventory);
+
+    }
+
+    public void onAttachWeapon(MouseEvent e) {
+        String itemName = ((Button) e.getSource()).getId();
+        Collection<InventoryItem> inventoryItems = playerInventory.getInventoryItems().values();
+        for (InventoryItem inventoryItem: inventoryItems) {
+            if (inventoryItem.getItem().getName().equals(itemName)) {
+                item = inventoryItem;
+                ((Weapon) item.getItem()).addToPlayer(pl, itemName);
                 break;
             }
         }
@@ -112,7 +111,7 @@ public class InventoryViewController implements Initializable {
         int column = 0;
         for (InventoryItem inventoryItem: inventoryItems) {
             ShopItemView shopItemView = new ShopItemView(this.shop, inventoryItem, column, row);
-            shopItemView.getController().getBuy_potion().setOnMouseClicked(this::onBuyItem);
+            shopItemView.getController().getBuyPotion().setOnMouseClicked(this::onBuyItem);
             if (column == 3) {
                 row++;
                 column = 0;
@@ -120,7 +119,7 @@ public class InventoryViewController implements Initializable {
                 column++;
             }
         }
-   }    
+    }
     
     public void renderPotion(Inventory inventory) {
         this.potions.getChildren().clear();
@@ -129,7 +128,8 @@ public class InventoryViewController implements Initializable {
         int column = 0;
         for (InventoryItem inventoryItem: inventoryItems) {
             if (inventoryItem.getType().equals("potion")) {
-                PotionInvView potionInvView = new PotionInvView(this.potions, inventoryItem, column, row);
+                PotionInvView potionInvView = new PotionInvView(this.potions,
+                        inventoryItem, column, row);
                 PotionInvController potionInvController = potionInvView.getController();
                 potionButton = potionInvController.getUsePotion();
                 potionButton.setOnMouseClicked(this::onUseItem);
@@ -151,7 +151,8 @@ public class InventoryViewController implements Initializable {
         int column = 0;
         for (InventoryItem inventoryItem: inventoryItems) {
             if (inventoryItem.getType().equals("weapon")) {
-                WeaponInvView weaponInvView = new WeaponInvView(this.weapon, inventoryItem, column, row);
+                WeaponInvView weaponInvView = new WeaponInvView(this.weapon,
+                        inventoryItem, column, row);
                 weaponInvView.getController().getButton().setOnMouseClicked(this::onAttachWeapon);
                 if (column == 3) {
                     row++;

@@ -1,11 +1,7 @@
 package app.dungeoncrawler.Components.PotionInv;
 
-import app.dungeoncrawler.Components.WeaponInv.WeaponInvController;
 import app.dungeoncrawler.utils.InventoryItem;
-import app.dungeoncrawler.utils.SceneNames;
-import app.dungeoncrawler.views.ViewBase;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.GridPane;
 
@@ -15,6 +11,9 @@ public class PotionInvView {
     /**
      * initialize the configuration screen
      * @param pane the stage for the screen
+     * @param inventoryItem the inventory item being added
+     * @param column the column to add in the GridPane
+     * @param row the row to add in the GridPane
      */
     public PotionInvView(GridPane pane, InventoryItem inventoryItem, int column, int row) {
         this.buildScene(pane, inventoryItem, column, row);

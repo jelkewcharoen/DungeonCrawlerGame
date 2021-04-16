@@ -18,7 +18,7 @@
                     fx:id="text"
                     layoutX="-1.0" layoutY="6.0" text="Health Potion" />
             <Button
-                    fx:id="buy_potion"
+                    fx:id="buyPotion"
                     layoutX="109.0" layoutY="10.0" mnemonicParsing="false" text="buy" />
             <Label
                     fx:id="priceLabel"

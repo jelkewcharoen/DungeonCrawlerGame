@@ -9,12 +9,8 @@ import app.dungeoncrawler.utils.*;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
@@ -25,7 +21,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import app.dungeoncrawler.views.AppScenes;
 import javafx.stage.Stage;
-import javafx.scene.Scene;
 
 import java.net.URL;
 import java.util.*;
@@ -293,10 +288,11 @@ public class InitialGameController implements Initializable {
                 monster.reduceHealth(player);
             }
 
-            if (monster != null && !Game.gameSingleInstance().getActiveRoom().getIsMoneyUpdated() &&
-                monster.getHealth().get() <= 0) {
+            if (monster != null && !Game.gameSingleInstance().getActiveRoom().getIsMoneyUpdated()
+                    && monster.getHealth().get() <= 0) {
 
-                Game.getPlayer().addGold(Game.gameSingleInstance().getActiveRoom().getGoldFoundInTheRoom());
+                Game.getPlayer().addGold(Game.gameSingleInstance().getActiveRoom()
+                        .getGoldFoundInTheRoom());
 
                 this.money.setText("$" + Game.getPlayer().getGold());
 

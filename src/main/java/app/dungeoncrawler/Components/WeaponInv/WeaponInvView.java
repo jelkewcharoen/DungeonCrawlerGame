@@ -1,14 +1,9 @@
 package app.dungeoncrawler.Components.WeaponInv;
 
 import app.dungeoncrawler.utils.InventoryItem;
-import app.dungeoncrawler.utils.SceneNames;
-import app.dungeoncrawler.views.ViewBase;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 public class WeaponInvView {
     private WeaponInvController controller;
@@ -16,6 +11,9 @@ public class WeaponInvView {
     /**
      * initialize the configuration screen
      * @param pane the stage for the screen
+     * @param inventoryItem the inventory item being added
+     * @param column the column to add in the GridPane
+     * @param row the row to add in the GridPane
      */
     public WeaponInvView(GridPane pane, InventoryItem inventoryItem, int column, int row) {
         this.buildScene(pane, inventoryItem, column, row);
