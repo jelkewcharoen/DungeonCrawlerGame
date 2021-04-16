@@ -8,6 +8,7 @@
 
 <?import java.util.ArrayList?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <StackPane 
     fx:id="initialGamePane"
     styleClass="hBoxMainContainer"
@@ -20,12 +21,17 @@
     <Canvas fx:id="doorsLayer" />
     <Canvas fx:id="monsterLayer" />
     <Canvas fx:id="playerLayer" />
+    <HBox StackPane.alignment="TOP_LEFT">
+        <Label
+                fx:id="weaponImageInit"
+                prefHeight="30.0" prefWidth="30.0" style="-fx-background-repeat: no-repeat; -fx-background-position: center;"/>
 
-    <Text fx:id="money" fill="white" StackPane.alignment="TOP_LEFT">
-        <font>
-            <Font name="verdana" size="35" />
-        </font>
-    </Text>
+        <Text fx:id="money" fill="white">
+            <font>
+                <Font name="verdana" size="35" />
+            </font>
+        </Text>
+    </HBox>
     <Rectangle fx:id="healthBar" fill="royalblue" StackPane.alignment="BOTTOM_LEFT">
             <StackPane.margin>
                 <Insets bottom="8.0" left="8.0" right="8.0" />

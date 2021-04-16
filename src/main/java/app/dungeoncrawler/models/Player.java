@@ -20,11 +20,12 @@ public class Player extends Fighter {
 
     public static final int DEFAULTHEALTH = 10;
     private final int defaultGold = 10;
-    private final Weapon weapon;
+    private Weapon weapon;
     private Wallet wallet;
     private final String name;
     public static final int PLAYER_SPEED = 15;
     private Inventory playerInventory = new Inventory();
+    public int speed = 0;
 
     /**
      * Creates a new player.
@@ -34,7 +35,7 @@ public class Player extends Fighter {
      */
     public Player(String name, DefaultWeapons weapons, Difficulties difficulties) {
 
-        super("/app/assets/player.png", 10, 85, 100);
+        super("/app/assets/player.png", 200, 85, 100);
 
         int multiplier = Player.playerLevelsMultiplier.get(difficulties);
         this.name = name;
@@ -44,7 +45,6 @@ public class Player extends Fighter {
         playerInventory.addItem(inventoryItem, selectedWeapon.getImage());
         this.weapon = selectedWeapon;
         wallet = new Wallet(defaultGold * multiplier);
-        this.setHealth((Player.DEFAULTHEALTH * Player.playerLevelsMultiplier.get(difficulties)));
         this.setPower(this.weapon.getPower());
     }
 
@@ -52,6 +52,14 @@ public class Player extends Fighter {
         return playerInventory;
     }
 
+    @Override
+    public void setHealth(int health) {
+        if (health > 250) {
+            return;
+        }
+
+        super.setHealth(health);
+    }
     /**
      * gets position at x
      * @return position at x
@@ -74,6 +82,25 @@ public class Player extends Fighter {
      */
     public int getY() {
         return this.getPositionAtY();
+    }
+    
+    @Override
+    public int getPlayerSpeed() {
+        return speed == 0 ? PLAYER_SPEED : speed;
+    }
+    
+    @Override
+    public void setSpeed(int sp) {
+        if (this.speed > 25) {
+            return;
+        } 
+        
+        if (this.speed == 0) {
+            this.speed = PLAYER_SPEED + sp;
+            return;
+        }
+
+        this.speed += sp;
     }
     
     /**
@@ -119,5 +146,14 @@ public class Player extends Fighter {
 
     public Wallet getWallet() {
         return wallet;
+    }
+
+    public Weapon getWeapon() {
+        return weapon;
+    }
+
+    public void setWeapon(Weapon weapon) {
+        this.weapon = weapon;
+        this.setPower(weapon.getPower());
     }
 }

@@ -5,6 +5,7 @@ import app.dungeoncrawler.Components.PotionInv.PotionInvView;
 import app.dungeoncrawler.Components.ShopItem.ShopItemView;
 import app.dungeoncrawler.Components.WeaponInv.WeaponInvView;
 import app.dungeoncrawler.models.*;
+import app.dungeoncrawler.utils.AttachableItems;
 import app.dungeoncrawler.utils.InventoryItem;
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.AppScenes;
@@ -24,11 +25,9 @@ public class InventoryViewController implements Initializable {
     @FXML private GridPane weapon;
     @FXML private GridPane shop;
     @FXML private Button backButton;
-    private InventoryItem item;
-    private Inventory playerInventory;
     private Inventory shopInventory;
-    private Player pl;
     private Button potionButton;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Shop shops = Game.gameSingleInstance().getShop();
@@ -38,9 +37,9 @@ public class InventoryViewController implements Initializable {
 
         shopInventory = shops.getShopInventory();
         this.renderShop(shopInventory);
-        
-        pl = Game.gameSingleInstance().getPlayerI();
-        playerInventory = pl.getPlayerInventory();
+
+        Player pl = Game.gameSingleInstance().getPlayerI();
+        Inventory playerInventory = pl.getPlayerInventory();
         this.renderPotion(playerInventory);
         this.renderWeapons(playerInventory);
         
@@ -53,54 +52,67 @@ public class InventoryViewController implements Initializable {
         AppScenes.navigateTo(thisStage, SceneNames.INITIAL_GAME);
     }
     
-    public void onBuyItem(MouseEvent e) {
-        String itemName = ((Button) e.getSource()).getId();
+   public void onBuyItem(MouseEvent e) { 
+        String itemName = ((Button)e.getSource()).getId();
+        Player pl = Game.gameSingleInstance().getPlayerI();
         Collection<InventoryItem> inventoryItems = shopInventory.getInventoryItems().values();
+
         for (InventoryItem inventoryItem: inventoryItems) {
             if (inventoryItem.getItem().getName().equals(itemName)) {
-                item = inventoryItem;
-                break;
+                AttachableItems newItem = shopInventory.purchaseItem(inventoryItem.getItem().getImage(), pl.getWallet());
+                
+                if (newItem != null) {
+                    pl.getPlayerInventory().addItem(new InventoryItem(newItem, 0, 1), itemName);
+                }
+
+                Inventory inventory = pl.getPlayerInventory();
+                renderPotion(inventory);
+                renderWeapons(inventory);
             }
         }
-        playerInventory.addItem(item, itemName);
-        pl.reduceGold(item.getPrice());
-        renderPotion(playerInventory);
-        renderWeapons(playerInventory);
-    }
+   }
 
     /**
      * calls the methods that perform of the action of the item
      * @param e - event for buttons on items
      */
-    public void onUseItem(MouseEvent e) {
-        String itemName = ((Button) e.getSource()).getId();
-        System.out.println("USE ITEM AKA ID: " + itemName);
-        Collection<InventoryItem> inventoryItems = playerInventory.getInventoryItems().values();
-        for (InventoryItem inventoryItem: inventoryItems) {
-            if (inventoryItem.getItem().getName().equals(itemName)) {
-                item = inventoryItem;
-                item.getItem().addToPlayer(pl);
-                break;
-            }
-        }
+   public void onUseItem(MouseEvent e) {
+       String itemName = ((Button)e.getSource()).getId();
+       System.out.println("USE ITEM AKA ID: " + itemName);
+       Player pl = Game.gameSingleInstance().getPlayerI();
+       Inventory inventory = pl.getPlayerInventory();
+       Collection<InventoryItem> inventoryItems = inventory.getInventoryItems().values();
+       
+       for (InventoryItem inventoryItem: inventoryItems) {
+           if (inventoryItem.getItem().getName().equals(itemName)) {
+               inventoryItem.getItem().addToPlayer(pl);
+               inventoryItem.increaseLevel(-1);
 
-        playerInventory.removeItem(itemName);
-        renderPotion(playerInventory);
+               if (inventoryItem.getLevels() == 0) {
+                   inventory.removeItem(inventoryItem.getItem().getName());
+               }
 
-    }
+               break;
+           }
+       }
+
+       renderPotion(inventory);
+   }
 
     public void onAttachWeapon(MouseEvent e) {
-        String itemName = ((Button) e.getSource()).getId();
-        Collection<InventoryItem> inventoryItems = playerInventory.getInventoryItems().values();
+        String itemName = ((Button)e.getSource()).getId();
+        Player pl = Game.gameSingleInstance().getPlayerI();
+        Inventory inventory = pl.getPlayerInventory();
+        Collection<InventoryItem> inventoryItems = inventory.getInventoryItems().values();
+
         for (InventoryItem inventoryItem: inventoryItems) {
             if (inventoryItem.getItem().getName().equals(itemName)) {
-                item = inventoryItem;
-                ((Weapon) item.getItem()).addToPlayer(pl, itemName);
+                inventoryItem.getItem().addToPlayer(pl);
                 break;
             }
         }
-        renderWeapons(playerInventory);
 
+        renderWeapons(inventory);
     }
 
 

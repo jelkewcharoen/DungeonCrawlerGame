@@ -13,9 +13,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -30,6 +32,7 @@ public class InitialGameController implements Initializable {
     @FXML private Rectangle healthBar;
     @FXML private Rectangle monsterBar;
     @FXML private Button inventoryMenu;
+    @FXML private Label weaponImageInit;
 
     @FXML private Canvas roomLayer;
     @FXML private Canvas playerLayer;
@@ -59,7 +62,6 @@ public class InitialGameController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
     
     @Override
@@ -75,9 +77,8 @@ public class InitialGameController implements Initializable {
      */
     public void mounting() {
         this.money.setText("$" + Game.getPlayer().getGold());
-        IntegerProperty playerHealth = player.getHealth();
-        int multiplier = 200 / playerHealth.getValue();
-        healthBar.widthProperty().bind(playerHealth.multiply(multiplier));
+        System.out.println(player.getHealth().getValue());
+        healthBar.widthProperty().bind(player.getHealth());
         healthBar.setHeight(20);
         monsterBar.setHeight(20);
         
@@ -93,6 +94,7 @@ public class InitialGameController implements Initializable {
         this.player.getHealth().addListener(this::onPlayerHealthUpdate);
         this.inventoryMenu.setOnMouseClicked(this::onInventoryClick);
         this.inventoryMenu.setOnKeyPressed(this::handleOnKeyPressed);
+        this.weaponImageInit.getStyleClass().add(this.player.getWeapon().getImage());
     }
 
     private void onInventoryClick(MouseEvent event) {
@@ -272,16 +274,16 @@ public class InitialGameController implements Initializable {
         int x = this.player.getX();
         int y = this.player.getY();
         if (e.getCode().equals(KeyCode.DOWN)) {
-            y += Player.PLAYER_SPEED;
+            y += this.player.getPlayerSpeed();
             
         } else if (e.getCode().equals(KeyCode.UP)) {
-            y -= Player.PLAYER_SPEED;
+            y -= this.player.getPlayerSpeed();
 
         } else if (e.getCode().equals(KeyCode.LEFT)) {
-            x -= Player.PLAYER_SPEED;
+            x -= this.player.getPlayerSpeed();
 
         } else if (e.getCode().equals(KeyCode.RIGHT)) {
-            x += Player.PLAYER_SPEED;
+            x += this.player.getPlayerSpeed();
         } else if (e.getCode().equals(KeyCode.SPACE)) {
 
             if (Game.gameSingleInstance().getActiveRoom().getCurrentMonster() != null) {

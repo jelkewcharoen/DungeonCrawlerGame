@@ -31,8 +31,10 @@ public class Inventory {
     
     public AttachableItems purchaseItem(String itemType, Wallet playerWallet) {
         InventoryItem item = items.get(itemType);
+        System.out.println(items);
+        System.out.println(itemType);
         if (item != null) {
-            if (item.getLevels() > 0 && playerWallet.getGold() > item.getPrice()) {
+            if (item.getLevels() > 0 && playerWallet.getGold() >= item.getPrice()) {
                 playerWallet.reduceGold(item.getPrice());
                 item.increaseLevel(-1);
                 return item.getItem();

@@ -1,5 +1,6 @@
 package app.dungeoncrawler.views.Welcome;
 
+import app.dungeoncrawler.models.Game;
 import app.dungeoncrawler.views.AppScenes;
 import app.dungeoncrawler.utils.SceneNames;
 import javafx.fxml.FXML;
@@ -25,6 +26,6 @@ public class WelcomeViewController implements Initializable {
             Node node = (Node) event.getSource();
             Stage thisStage = (Stage) node.getScene().getWindow();
             AppScenes.navigateTo(thisStage, SceneNames.CONFIGURATION);
-        }); 
+        });
     }
 }

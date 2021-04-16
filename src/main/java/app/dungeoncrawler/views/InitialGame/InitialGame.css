@@ -12,3 +12,25 @@
     -fx-background-image: url("../../../assets/bag.jpeg");
     -fx-background-size: contain;
 }
+
+.weapon1 {
+    -fx-background-image: url("../../../assets/weapon1.png");
+    -fx-pref-height: 100;
+    -fx-pref-width: 100;
+    -fx-background-size: contain;
+    -fx-background-color: transparent;
+}
+.weapon2 {
+    -fx-background-image: url("../../../assets/weapon2.png");
+    -fx-pref-height: 100;
+    -fx-pref-width: 100;
+    -fx-background-size: contain;
+    -fx-background-color: transparent;
+}
+.weapon3 {
+    -fx-background-image: url("../../../assets/weapon3.png");
+    -fx-pref-height: 100;
+    -fx-pref-width: 100;
+    -fx-background-size: contain;
+    -fx-background-color: transparent;
+}

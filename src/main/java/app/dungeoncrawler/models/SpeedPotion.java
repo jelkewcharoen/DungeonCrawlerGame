@@ -12,6 +12,7 @@ public class SpeedPotion extends Potion {
     @Override
     public void addToPlayer(Fighter fighter) {
         System.out.println("Adding Speed Potion");
+        fighter.setSpeed(5);
     }
 
     @Override
