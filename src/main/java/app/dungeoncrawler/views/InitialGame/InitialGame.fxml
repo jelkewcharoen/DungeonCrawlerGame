@@ -36,6 +36,16 @@
             <Insets bottom="8" left="8" right="8" />
         </StackPane.margin>
     </Rectangle>
+    <Rectangle fx:id="monsterBar2" fill="darkred" StackPane.alignment="BOTTOM_RIGHT">
+        <StackPane.margin>
+            <Insets bottom="30" left="8" right="8" />
+        </StackPane.margin>
+    </Rectangle>
+    <Rectangle fx:id="monsterBar3" fill="darkred" StackPane.alignment="BOTTOM_RIGHT">
+        <StackPane.margin>
+            <Insets bottom="52" left="8" right="8" />
+        </StackPane.margin>
+    </Rectangle>
     <fx:define>
         <ArrayList fx:id="canvasList">
             <fx:reference source="roomLayer" />
