@@ -70,6 +70,7 @@ public class AppScenes {
      * @return uiViews of appScenes
      */
     public static ViewBase buildScreen(SceneNames scene, Stage stage) {
+        System.out.println(AppScenes.uiViews.get(scene));
         if (AppScenes.uiViews.get(scene) != null) {
             return AppScenes.uiViews.get(scene);
         } else if (SceneNames.CONFIGURATION == scene) {
@@ -116,6 +117,17 @@ public class AppScenes {
      */
     public static Map<SceneNames, ViewBase> getUiViews() {
         return uiViews;
+    }
+
+    /**
+     * Reset all the screens
+     */
+    public static void reset() {
+        AppScenes.uiViews.remove(SceneNames.CONFIGURATION);
+        AppScenes.uiViews.remove(SceneNames.WIN);
+        AppScenes.uiViews.remove(SceneNames.LOSE);
+        AppScenes.uiViews.remove(SceneNames.INITIAL_GAME);
+        AppScenes.uiViews.remove(SceneNames.SHOP);
     }
 
     /**

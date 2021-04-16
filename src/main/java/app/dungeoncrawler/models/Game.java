@@ -1,6 +1,7 @@
 package app.dungeoncrawler.models;
 
 import app.dungeoncrawler.utils.*;
+import app.dungeoncrawler.views.AppScenes;
 
 import java.util.ArrayList;
 
@@ -39,8 +40,10 @@ public class Game {
     public static Game newGame(boolean startNewGame) {
         if (startNewGame) {
             Game.currentGame = new Game();
+            AppScenes.reset();
             return Game.currentGame;
         }
+
         return Game.gameSingleInstance();
     }
     

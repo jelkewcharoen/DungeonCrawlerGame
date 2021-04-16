@@ -3,7 +3,7 @@ package app.dungeoncrawler.utils;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public class Fighter extends SpriteElement {
+public abstract class Fighter extends SpriteElement {
     private IntegerProperty health = new SimpleIntegerProperty(10);
     private int power;
 
@@ -23,7 +23,6 @@ public class Fighter extends SpriteElement {
      * @param health new health
      */
     public void setHealth(int health) {
-
         this.health.set(health);
     }
 
@@ -60,4 +59,8 @@ public class Fighter extends SpriteElement {
             this.setHealth(this.getHealth().getValue() - obj2.getPower());
         }
     }
+
+    public int getPlayerSpeed() {return 0;};
+
+    public void setSpeed(int sp) {};
 }

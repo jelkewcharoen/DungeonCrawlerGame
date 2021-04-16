@@ -31,4 +31,5 @@ public abstract class AttachableItems {
     public void setImage(String image) {
         this.image = image;
     }
+    
 }

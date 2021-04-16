@@ -1,6 +1,8 @@
 package app.dungeoncrawler.views.Welcome;
 
+import app.dungeoncrawler.models.Game;
 import app.dungeoncrawler.utils.SceneNames;
+import app.dungeoncrawler.views.AppScenes;
 import app.dungeoncrawler.views.ViewBase;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -34,6 +36,11 @@ public class WelcomeView extends ViewBase {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void mountingScene() {
+        Game.newGame(true);
     }
 
     @Override
