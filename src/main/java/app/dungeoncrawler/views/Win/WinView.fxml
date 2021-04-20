@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@WinView.css" styleClass="borderPaneMainContainer" fx:controller="app.dungeoncrawler.views.Win.WinViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="borderPaneMainContainer" stylesheets="@WinView.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.dungeoncrawler.views.Win.WinViewController">
    <bottom>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -20,4 +20,11 @@
          </children>
       </HBox>
    </bottom>
+   <center>
+      <Label fx:id="labelstat" prefHeight="107.0" prefWidth="239.0" text="Label" textFill="WHITE" translateY="50.0" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+   </center>
 </BorderPane>

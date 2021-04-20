@@ -11,6 +11,8 @@ public class ShieldPotion extends Potion {
 
     @Override
     public void addToPlayer(Fighter fighter) {
+        Player player = Game.gameSingleInstance().getPlayerI();
+        player.setHealth(player.getHealth().getValue() + 10);
         System.out.println("Adding Shield Potion");
     }
 

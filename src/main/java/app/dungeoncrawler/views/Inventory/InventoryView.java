@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 public class InventoryView extends ViewBase {
     private Scene scene;
+    private InventoryViewController controller;
 
     /**
      * initialize the configuration screen
@@ -36,5 +37,8 @@ public class InventoryView extends ViewBase {
     @Override
     public Scene getScene() {
         return scene;
+    }
+    public InventoryViewController getController() {
+        return controller;
     }
 }
