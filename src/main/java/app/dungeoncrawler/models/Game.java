@@ -181,8 +181,8 @@ public class Game {
         return itemsBought;
     }
 
-    public static void incMonstersDied() {
-        monstersDied++;
+    public static void incMonstersDied(int number) {
+        monstersDied += number;
     }
     public static void incItemsUsed() {
         itemsUsed++;

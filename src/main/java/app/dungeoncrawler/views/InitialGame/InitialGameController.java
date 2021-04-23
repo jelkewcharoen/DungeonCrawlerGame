@@ -39,7 +39,7 @@ public class InitialGameController implements Initializable {
     
     @FXML private List<Canvas> canvasList;
     @FXML private final Pane initialGamePane = new Pane();
-
+    @FXML private Label weaponImageInit;
     private Player player;
     private Dungeon dungeon;
 
@@ -49,8 +49,6 @@ public class InitialGameController implements Initializable {
     private ArrayList<Rectangle> monsterBarList = new ArrayList<>();
     private Timer timer;
     private Stage stage;
-
-
 
 
 
@@ -139,14 +137,15 @@ public class InitialGameController implements Initializable {
         boolean allDead = true;
         for (Monster monster: monsterList) {
             if (monster.getHealth().get() <= 0 ) {
-                Game.incMonstersDied();
-                System.out.println("The number of monsters that died: " + Game.getMonstersDied());
                 monster.clearCurrent(monsterLayer.getGraphicsContext2D());
             } else {
                 allDead = false;
             }
         }
         if (allDead) {
+            Game.incMonstersDied(monsterList.size());
+            //System.out.println("The number of monsters that died: " + Game.getMonstersDied());
+
             Game.gameSingleInstance().getActiveRoom().setHasMonster(false);
             for (Rectangle r: monsterHealthBars) {
                 r.widthProperty().unbind();
@@ -190,6 +189,10 @@ public class InitialGameController implements Initializable {
         player.move(x, y);
 
         if (!newValue.isHasMonster()) {
+            for (Rectangle r: monsterHealthBars) {
+                r.widthProperty().unbind();
+                r.setWidth(0);
+            }
             for (Monster monster: monsterList) {
                 monster.getHealth().removeListener(this::onMonsterHealthUpdate);
                 monster.clearCurrent(monsterLayer.getGraphicsContext2D());
@@ -211,7 +214,6 @@ public class InitialGameController implements Initializable {
                 monsterHealthBars[i].widthProperty().bind(monsterHealth.multiply(multiplier1));
                 m.getHealth().addListener(this::onMonsterHealthUpdate);
                 m.draw(monsterLayer.getGraphicsContext2D());
-                m.getHealth().addListener(this::onMonsterHealthUpdate);
             }
             return;
 
@@ -238,10 +240,9 @@ public class InitialGameController implements Initializable {
             @Override
             public void run() {
                 for (Monster monster: monsterList) {
-                    if (monster == null) {
+                     if (!Game.gameSingleInstance().getActiveRoom().isHasMonster()) {
                         return;
                     }
-
                     if (player == null) {
                         return;
                     }
@@ -263,11 +264,9 @@ public class InitialGameController implements Initializable {
 
                     if (monster.getHealth().get() <= 0) {
                         Game.gameSingleInstance().getActiveRoom().clearCurrentMonster();
-                        return;
+                        continue;
                     }
-                    if (!Game.gameSingleInstance().getActiveRoom().isHasMonster()) {
-                        return;
-                    }
+
                     if (player.getHealth().get() <= 0) {
                         player.clear(playerLayer.getGraphicsContext2D());
                         return;
