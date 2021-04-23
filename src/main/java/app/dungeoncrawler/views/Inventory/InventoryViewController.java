@@ -36,6 +36,8 @@ public class InventoryViewController implements Initializable {
     private Inventory shopInventory;
     private Button potionButton;
 
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Shop shops = Game.gameSingleInstance().getShop();
@@ -81,6 +83,10 @@ public class InventoryViewController implements Initializable {
                 renderWeapons(inventory);
             }
         }
+
+        // counts how many items the user bought
+        Game.incItemsBought();
+        System.out.println("The number of items bought: " + Game.getItemsBought());
     }
 
     /**
@@ -109,6 +115,8 @@ public class InventoryViewController implements Initializable {
         }
 
         renderPotion(inventory);
+        Game.incItemsUsed();
+        System.out.println("The number of items used: " + Game.getItemsUsed());
     }
 
     public void onAttachWeapon(MouseEvent e) {
@@ -186,4 +194,5 @@ public class InventoryViewController implements Initializable {
             }
         }
     }
+
 }

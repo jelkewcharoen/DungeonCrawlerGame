@@ -55,6 +55,10 @@ public class InitialGameController implements Initializable {
     private Stage stage;
 
 
+
+
+
+
     /**
      * initialize the controller of the scene
      */
@@ -132,6 +136,11 @@ public class InitialGameController implements Initializable {
     public void onMonsterHealthUpdate(ObservableValue<? extends Number> observable,
                                       Number obOldValue, Number obNewValue) {
         if (this.monster.getHealth().get() <= 0) {
+            // increments the number of monsters died counter
+            Game.incMonstersDied();
+            System.out.println("The number of monsters that died: " + Game.getMonstersDied());
+
+            // clears the monster from the screen
             this.monster.clearCurrent(monsterLayer.getGraphicsContext2D());
             Game.gameSingleInstance().getActiveRoom().setHasMonster(false);
         }
@@ -166,6 +175,7 @@ public class InitialGameController implements Initializable {
             x = newValue.getDoorDimension(newRoomEnterFlag).getPositionXForPlayer();
             y = newValue.getDoorDimension(newRoomEnterFlag).getPositionYForPlayer();
         }
+
 
         newValue.drawRoom(roomLayer.getGraphicsContext2D(), doorsLayer.getGraphicsContext2D());
         player.move(x, y);

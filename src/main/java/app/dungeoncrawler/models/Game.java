@@ -14,6 +14,12 @@ public class Game {
     private GameMap currentGameMap;
 
     private Shop shop;
+    // counter for the number of monsters that died
+    private static int monstersDied = 0;
+    // counter for the number of rooms visited
+    private static int itemsUsed= 0;
+    // counter for how many items the user bought
+    private static int itemsBought = 0;
 
     /**
      * creates and get the current instance of the game
@@ -161,5 +167,28 @@ public class Game {
         this.currentGameMap = GameMap.getAvailableMaps().get(MapName.MAP_1);
         this.setDungeon(new Dungeon(difficulties));
         this.shop = new Shop();
+    }
+
+    public static int getItemsUsed() {
+        return itemsUsed;
+    }
+
+    public static int getMonstersDied() {
+        return monstersDied;
+    }
+
+    public static int getItemsBought() {
+        return itemsBought;
+    }
+
+    public static void incMonstersDied() {
+        monstersDied++;
+    }
+    public static void incItemsUsed() {
+        itemsUsed++;
+    }
+
+    public static void incItemsBought() {
+        itemsBought++;
     }
 }
