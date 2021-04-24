@@ -50,8 +50,7 @@ public class InitialGameController implements Initializable {
     private Timer timer;
     private Stage stage;
 
-
-
+    private boolean isBoss = false;
 
     /**
      * initialize the controller of the scene
@@ -219,7 +218,20 @@ public class InitialGameController implements Initializable {
 
         }
         monsterList.clear();
-        Monster monster = Game.gameSingleInstance().getActiveRoom().getNewMonster();
+
+        Monster monster = null;
+
+        if (!newValue.isChallengeRoom()) {
+
+            if (!this.dungeon.getActiveRoomOb().isPlayerExitsExitRoom()) {
+                monster = Game.gameSingleInstance().getActiveRoom().getNewMonster();
+            } else {
+                monster = Game.gameSingleInstance().getActiveRoom().getBossMonster();
+                isBoss = true;
+                System.out.println("Warning: boss is here");
+            }
+        }
+
         monsterList.add(monster);
         monster.setPosition(225, 240);
         IntegerProperty monsterHealth = monster.getHealth();
@@ -339,6 +351,11 @@ public class InitialGameController implements Initializable {
                     this.money.setText("$" + Game.getPlayer().getGold());
 
                     Game.gameSingleInstance().getActiveRoom().setIsMoneyUpdated(true);
+
+                    if (isBoss) {
+
+                        AppScenes.navigateTo(this.stage, SceneNames.WIN);
+                    }
                 }
             }
         }
@@ -346,10 +363,6 @@ public class InitialGameController implements Initializable {
         if (this.dungeon.isPositionValid(x, y)) {
             this.player.move(x, y);
             this.dungeon.getActiveRoomOb().trackPlayerMovement(player.getX(), player.getY());
-        }
-
-        if (this.dungeon.getActiveRoomOb().isPlayerExitedRoom()) {
-            AppScenes.navigateTo(this.stage, SceneNames.WIN);
         }
 
         e.consume();

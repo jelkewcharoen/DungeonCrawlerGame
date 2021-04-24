@@ -475,6 +475,11 @@ public class Room {
         return currentMonster;
     }
 
+    public Monster getBossMonster() {
+        currentMonster = Monster.getBossMonster();
+        return currentMonster;
+    }
+
     /**
      * clear current monster
      */
