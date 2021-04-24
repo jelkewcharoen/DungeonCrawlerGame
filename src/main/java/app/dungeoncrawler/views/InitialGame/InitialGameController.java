@@ -25,36 +25,30 @@ import java.net.URL;
 import java.util.*;
 
 public class InitialGameController implements Initializable {
-    @FXML
-    private final Pane initialGamePane = new Pane();
-    @FXML
-    private Text money;
-    @FXML
-    private Rectangle healthBar;
-    @FXML
-    private Rectangle monsterBar;
-    @FXML
-    private Button inventoryMenu;
-    @FXML
-    private Label weaponImageInit;
-    @FXML
-    private Canvas roomLayer;
-    @FXML
-    private Canvas playerLayer;
-    @FXML
-    private Canvas doorsLayer;
-    @FXML
-    private Canvas monsterLayer;
-    @FXML
-    private List<Canvas> canvasList;
+    @FXML private Text money;
+    @FXML private Rectangle healthBar;
+    @FXML private Rectangle monsterBar;
+    @FXML private Rectangle monsterBar2;
+    @FXML private Rectangle monsterBar3;
+    @FXML private Button inventoryMenu;
+
+    @FXML private Canvas roomLayer;
+    @FXML private Canvas playerLayer;
+    @FXML private Canvas doorsLayer;
+    @FXML private Canvas monsterLayer;
+    
+    @FXML private List<Canvas> canvasList;
+    @FXML private final Pane initialGamePane = new Pane();
+    @FXML private Label weaponImageInit;
     private Player player;
     private Dungeon dungeon;
 
-    private Monster monster;
+    private Rectangle[] monsterHealthBars = new Rectangle[3];
+
+    private ArrayList<Monster> monsterList = new ArrayList<>();
+    private ArrayList<Rectangle> monsterBarList = new ArrayList<>();
     private Timer timer;
     private Stage stage;
-
-
 
 
 
@@ -90,8 +84,13 @@ public class InitialGameController implements Initializable {
         System.out.println(player.getHealth().getValue());
         healthBar.widthProperty().bind(player.getHealth());
         healthBar.setHeight(20);
-        monsterBar.setHeight(20);
-
+        monsterHealthBars[0] = monsterBar;
+        monsterHealthBars[1] = monsterBar2;
+        monsterHealthBars[2] = monsterBar3;
+        for (Rectangle r: monsterHealthBars) {
+            r.setHeight(20);
+        }
+        
         SimpleObjectProperty<ObserverObject<Room>> roomSimpleObjectProperty =
                 Game.gameSingleInstance().getDungeonI().activeRoomObProperty();
         roomSimpleObjectProperty.addListener(this::onRoomUpdate);
@@ -135,14 +134,23 @@ public class InitialGameController implements Initializable {
      */
     public void onMonsterHealthUpdate(ObservableValue<? extends Number> observable,
                                       Number obOldValue, Number obNewValue) {
-        if (this.monster.getHealth().get() <= 0) {
-            // increments the number of monsters died counter
-            Game.incMonstersDied();
-            System.out.println("The number of monsters that died: " + Game.getMonstersDied());
+        boolean allDead = true;
+        for (Monster monster: monsterList) {
+            if (monster.getHealth().get() <= 0 ) {
+                monster.clearCurrent(monsterLayer.getGraphicsContext2D());
+            } else {
+                allDead = false;
+            }
+        }
+        if (allDead) {
+            Game.incMonstersDied(monsterList.size());
+            //System.out.println("The number of monsters that died: " + Game.getMonstersDied());
 
-            // clears the monster from the screen
-            this.monster.clearCurrent(monsterLayer.getGraphicsContext2D());
             Game.gameSingleInstance().getActiveRoom().setHasMonster(false);
+            for (Rectangle r: monsterHealthBars) {
+                r.widthProperty().unbind();
+                r.widthProperty().set(0);
+            }
         }
     }
 
@@ -180,31 +188,46 @@ public class InitialGameController implements Initializable {
         newValue.drawRoom(roomLayer.getGraphicsContext2D(), doorsLayer.getGraphicsContext2D());
         player.move(x, y);
 
-        if (monster != null) {
-            monster.getHealth().removeListener(this::onMonsterHealthUpdate);
-            monster.clearCurrent(monsterLayer.getGraphicsContext2D());
-        }
-
-
         if (!newValue.isHasMonster()) {
-            //backupMonster = monster;
-            monster.getHealth().removeListener(this::onMonsterHealthUpdate);
-            monster.clearCurrent(monsterLayer.getGraphicsContext2D());
-            //monster = null;
-            Game.gameSingleInstance().getActiveRoom().clearCurrentMonster();
-            return;
+            for (Rectangle r: monsterHealthBars) {
+                r.widthProperty().unbind();
+                r.setWidth(0);
+            }
+            for (Monster monster: monsterList) {
+                monster.getHealth().removeListener(this::onMonsterHealthUpdate);
+                monster.clearCurrent(monsterLayer.getGraphicsContext2D());
+                Game.gameSingleInstance().getActiveRoom().clearCurrentMonster();
+                return;
+            }
         }
+        //logic for the challenge room
+        if (newValue.isChallengeRoom()) {
+            System.out.println("this room is a challenge room");
+            monsterList = Game.gameSingleInstance().getActiveRoom().getChallengeMonster();
+            monsterList.get(0).setPosition(320,180);
+            monsterList.get(1).setPosition(250,250);
+            monsterList.get(2).setPosition(190 ,120);
+            for (int i = 0; i < 3; i++) {
+                Monster m = monsterList.get(i);
+                IntegerProperty monsterHealth = m.getHealth();
+                double multiplier1 = 200.0 / monsterHealth.getValue();
+                monsterHealthBars[i].widthProperty().bind(monsterHealth.multiply(multiplier1));
+                m.getHealth().addListener(this::onMonsterHealthUpdate);
+                m.draw(monsterLayer.getGraphicsContext2D());
+            }
+            return;
 
-        //System.out.println("monester creatong");
-        monster = Game.gameSingleInstance().getActiveRoom().getNewMonster();
-        //System.out.println(Game.gameSingleInstance().getActiveRoom().getCurrentMonster());
+        }
+        monsterList.clear();
+        Monster monster = Game.gameSingleInstance().getActiveRoom().getNewMonster();
+        monsterList.add(monster);
         monster.setPosition(225, 240);
         IntegerProperty monsterHealth = monster.getHealth();
-        //10 is monster's health
-        int multiplier1 = 200 / monster.getHealth().getValue();
+        double multiplier1 = 200.0 / monster.getHealth().getValue();
         monsterBar.widthProperty().bind(monsterHealth.multiply(multiplier1));
         monster.getHealth().addListener(this::onMonsterHealthUpdate);
         monster.draw(monsterLayer.getGraphicsContext2D());
+
     }
 
     /**
@@ -216,44 +239,42 @@ public class InitialGameController implements Initializable {
         return new TimerTask() {
             @Override
             public void run() {
-                if (monster == null) {
-                    return;
-                }
+                for (Monster monster: monsterList) {
+                     if (!Game.gameSingleInstance().getActiveRoom().isHasMonster()) {
+                        return;
+                    }
+                    if (player == null) {
+                        return;
+                    }
 
-                if (player == null) {
-                    return;
-                }
+                    int x = monster.getX();
+                    int y = monster.getY();
 
-                int x = monster.getX();
-                int y = monster.getY();
+                    if (player.getX() > x + Monster.MONSTER_SPEED) {
+                        x += Monster.MONSTER_SPEED;
+                    } else if (player.getX() < x + Monster.MONSTER_SPEED) {
+                        x -= Monster.MONSTER_SPEED;
+                    }
 
-                if (player.getX() > x + Monster.MONSTER_SPEED) {
-                    x += Monster.MONSTER_SPEED;
-                } else if (player.getX() < x + Monster.MONSTER_SPEED) {
-                    x -= Monster.MONSTER_SPEED;
-                }
+                    if (player.getY() > y + Monster.MONSTER_SPEED) {
+                        y += Monster.MONSTER_SPEED;
+                    } else if (player.getY() < y + Monster.MONSTER_SPEED) {
+                        y -= Monster.MONSTER_SPEED;
+                    }
 
-                if (player.getY() > y + Monster.MONSTER_SPEED) {
-                    y += Monster.MONSTER_SPEED;
-                } else if (player.getY() < y + Monster.MONSTER_SPEED) {
-                    y -= Monster.MONSTER_SPEED;
-                }
+                    if (monster.getHealth().get() <= 0) {
+                        Game.gameSingleInstance().getActiveRoom().clearCurrentMonster();
+                        continue;
+                    }
 
-                if (monster.getHealth().get() <= 0) {
-                    Game.gameSingleInstance().getActiveRoom().clearCurrentMonster();
-                    return;
+                    if (player.getHealth().get() <= 0) {
+                        player.clear(playerLayer.getGraphicsContext2D());
+                        return;
+                    }
+                    monster.move(x, y);
+                    player.reduceHealth(monster);
+                    monster.draw(monsterLayer.getGraphicsContext2D());
                 }
-                if (!Game.gameSingleInstance().getActiveRoom().isHasMonster()) {
-                    return;
-                }
-                if (player.getHealth().get() <= 0) {
-                    player.clear(playerLayer.getGraphicsContext2D());
-                    return;
-                }
-
-                monster.move(x, y);
-                player.reduceHealth(monster);
-                monster.draw(monsterLayer.getGraphicsContext2D());
             }
         };
     }
@@ -276,7 +297,6 @@ public class InitialGameController implements Initializable {
     public void unmount() {
         if (timer != null) {
             timer.purge();
-            //System.out.println("stop timer");
         }
 
     }
@@ -306,20 +326,20 @@ public class InitialGameController implements Initializable {
         } else if (e.getCode().equals(KeyCode.RIGHT)) {
             x += this.player.getPlayerSpeed();
         } else if (e.getCode().equals(KeyCode.SPACE)) {
+            //player attack monster
+            for (Monster monster: monsterList) {
+                if (Game.gameSingleInstance().getActiveRoom().isHasMonster()) {
+                    monster.reduceHealth(player);
+                }
+                if (monster != null && !Game.gameSingleInstance().getActiveRoom().getIsMoneyUpdated() &&
+                        monster.getHealth().get() <= 0) {
 
-            if (Game.gameSingleInstance().getActiveRoom().getCurrentMonster() != null) {
-                monster.reduceHealth(player);
-            }
+                    Game.getPlayer().addGold(Game.gameSingleInstance().getActiveRoom().getGoldFoundInTheRoom());
 
-            if (monster != null && !Game.gameSingleInstance().getActiveRoom().getIsMoneyUpdated()
-                    && monster.getHealth().get() <= 0) {
+                    this.money.setText("$" + Game.getPlayer().getGold());
 
-                Game.getPlayer().addGold(Game.gameSingleInstance().getActiveRoom()
-                        .getGoldFoundInTheRoom());
-
-                this.money.setText("$" + Game.getPlayer().getGold());
-
-                Game.gameSingleInstance().getActiveRoom().setIsMoneyUpdated(true);
+                    Game.gameSingleInstance().getActiveRoom().setIsMoneyUpdated(true);
+                }
             }
         }
 

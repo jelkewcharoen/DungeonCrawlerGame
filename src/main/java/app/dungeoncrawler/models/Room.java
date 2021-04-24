@@ -17,6 +17,16 @@ public class Room {
 
     private final Room parent;
     private boolean hasMonster = false; //has a monster
+
+    public boolean isChallengeRoom() {
+        return isChallengeRoom;
+    }
+
+    public void setChallengeRoom(boolean challengeRoom) {
+        isChallengeRoom = challengeRoom;
+    }
+
+    private boolean isChallengeRoom = false;
     private final int doors; //number of doors
     private final int depth;
     private final HashMap<Integer, Room> roomsTree = new HashMap<>();
@@ -53,6 +63,9 @@ public class Room {
         }
         if (parent != null) {
             this.hasMonster = true;
+        }
+        if (parent != null) {
+            this.isChallengeRoom = (new Random()).nextBoolean(); //randoming the challenge room
         }
         this.parent = parent;
 
@@ -311,13 +324,13 @@ public class Room {
 
             if (isPlayerInsideDoorDimension
                     && isPlayerInDoorWhereHeEntered
-                    && this.parent != null
+                    && this.parent != null && !(isChallengeRoom && isHasMonster())
             ) {
                 // go back to previous room
                 Game.gameSingleInstance().setActiveRoom(this.parent);
 
             } else if (isPlayerInsideDoorDimension && !isPlayerInDoorWhereHeEntered
-                    && Game.gameSingleInstance().getActiveRoom().getCurrentMonster() == null) {
+                    && ! Game.gameSingleInstance().getActiveRoom().isHasMonster()) {
                 // player going to a new door
                 this.doorIdWherePlayerLeftTheRoom = doorNode.getId();
 
@@ -399,7 +412,8 @@ public class Room {
         ArrayList<NodeLayer> doors = Game.gameSingleInstance().getCurrentGameMapDoorsLayer();
 
         int randomNumberOfDoors = (int) (Math.random() * (3 - 1 + 1) + 1);
-
+        Random rand = new Random();
+        boolean isChallengeRoom = rand.nextBoolean();
         Room randomRoom = new Room(
                 this,
                 false,
@@ -439,6 +453,18 @@ public class Room {
     public Monster getNewMonster() {
         currentMonster = Monster.getNewMonster();
         return currentMonster;
+    }
+
+    /**
+     * create 3 monsters for the challenge room
+     * @return list of monsters
+     */
+    public ArrayList<Monster> getChallengeMonster() {
+        ArrayList<Monster> list = new ArrayList<>();
+        list.add(Monster.getNewMonster());
+        list.add(Monster.getNewMonster());
+        list.add(Monster.getNewMonster());
+        return list;
     }
 
     /**
