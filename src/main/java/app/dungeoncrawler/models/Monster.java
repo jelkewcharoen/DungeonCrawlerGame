@@ -9,10 +9,14 @@ public class Monster extends Fighter {
 
     public static int MONSTER_SPEED = 5;
 
-    public Monster(String imageurl, int health) {
-        super(imageurl, health, 85, 100);
+    public Monster(String imageurl, int health, int width, int height) {
+        super(imageurl, health, width, height);
         this.health.set(health);
         this.setPower(10);
+    }
+
+    public Monster(String imageurl, int health) {
+        this(imageurl, health, 85, 100);
     }
 
     public void setImage(String url) {
@@ -44,8 +48,7 @@ public class Monster extends Fighter {
     }
 
     public static Monster getBossMonster() {
-        int rand = (int) (Math.random() * (3 - 1 + 1) + 1); // generates 0, 1 or 2
-        Monster boss = new Monster(String.format("/app/assets/monster%s.png", rand), 60 * rand);
+        Monster boss = new Monster("/app/assets/bowser.png", 400, 120, 120);
         boss.MONSTER_SPEED = 20;
         boss.setPower(40);
 
