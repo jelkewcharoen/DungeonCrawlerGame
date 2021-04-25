@@ -412,8 +412,6 @@ public class Room {
         ArrayList<NodeLayer> doors = Game.gameSingleInstance().getCurrentGameMapDoorsLayer();
 
         int randomNumberOfDoors = (int) (Math.random() * (3 - 1 + 1) + 1);
-        Random rand = new Random();
-        boolean isChallengeRoom = rand.nextBoolean();
         Room randomRoom = new Room(
                 this,
                 false,

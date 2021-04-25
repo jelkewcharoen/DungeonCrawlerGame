@@ -175,7 +175,6 @@ public class InitialGameController implements Initializable {
             al.setContentText("Would you like to do a Challenge room");
             al.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
-                    System.out.println("IVAN");
                     al.hide();
                 } else {
                     newValue.setChallengeRoom(false);
