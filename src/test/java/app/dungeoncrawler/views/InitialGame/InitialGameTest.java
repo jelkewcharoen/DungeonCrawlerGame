@@ -225,6 +225,8 @@ public class InitialGameTest extends ApplicationTest {
         assertFalse(Game.gameSingleInstance().getActiveRoom().isHasMonster());
     }
 
+
+
     @Test
     public void t94testPlayerAllowToGoBackWhenMonsterInTheRoom() {
         sleep(1000);
