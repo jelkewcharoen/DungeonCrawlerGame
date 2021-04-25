@@ -12,7 +12,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -40,6 +43,8 @@ public class InitialGameController implements Initializable {
     @FXML private List<Canvas> canvasList;
     @FXML private final Pane initialGamePane = new Pane();
     @FXML private Label weaponImageInit;
+
+    
     private Player player;
     private Dungeon dungeon;
 
@@ -164,6 +169,20 @@ public class InitialGameController implements Initializable {
                              ObserverObject<Room> obOldValue, ObserverObject<Room> obNewValue) {
         Room newValue = obNewValue.getField();
         Room oldValue = obOldValue.getField();
+
+        if (newValue.getParent() != null && newValue.isChallengeRoom()) {
+            Alert al = new Alert(AlertType.CONFIRMATION);
+            al.setContentText("Would you like to do a Challenge room");
+            al.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    System.out.println("IVAN");
+                    al.hide();
+                } else {
+                    newValue.setChallengeRoom(false);
+                    al.hide();
+                }
+            });
+        }
 
         if (oldValue != null) {
             oldValue.clearRoom(doorsLayer.getGraphicsContext2D());
