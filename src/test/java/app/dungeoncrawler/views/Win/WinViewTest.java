@@ -47,4 +47,10 @@ public class WinViewTest extends ApplicationTest {
         WaitForAsyncUtils.waitForFxEvents();
         FxAssert.verifyThat("#buttonNavigate", NodeMatchers.isNotNull());
     }
+
+    @Test
+    public void displayStatistics() {
+        FxAssert.verifyThat("#labelstat", NodeMatchers.isNotNull());
+    }
+
 }
