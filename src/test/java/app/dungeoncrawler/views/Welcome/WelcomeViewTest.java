@@ -2,7 +2,18 @@ package app.dungeoncrawler.views.Welcome;
 
 import app.dungeoncrawler.models.Game;
 import app.dungeoncrawler.views.AppScenes;
+import app.dungeoncrawler.utils.DefaultWeapons;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
+import app.dungeoncrawler.models.Game;
+import app.dungeoncrawler.models.Monster;
+import app.dungeoncrawler.models.Player;
+import app.dungeoncrawler.models.Room;
+import app.dungeoncrawler.utils.DefaultWeapons;
+import app.dungeoncrawler.views.AppScenes;
+import app.dungeoncrawler.utils.SceneNames;
+import app.dungeoncrawler.views.ViewBase;
+
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -26,12 +37,14 @@ public class WelcomeViewTest extends ApplicationTest {
     
     @Override
     public void start(Stage stage) throws Exception {
-        AppScenes scenes = new AppScenes(stage);
+        AppScenes.clearUiViews();
+        AppScenes scenes = new AppScenes(stage, SceneNames.WELCOME);
+        ViewBase thisScene = scenes.getScreen(SceneNames.WELCOME);
+
         stage.setWidth(Game.WINDOW_WIDTH);
         stage.setHeight(Game.WINDOW_HEIGHT);
-        stage.setScene(scenes.getMainPage());
+        stage.setScene(thisScene.getScene());
         stage.show();
-        stage.toFront();
     }
     
     @Test
@@ -44,6 +57,7 @@ public class WelcomeViewTest extends ApplicationTest {
         FxAssert.verifyThat("#buttonNavigate", LabeledMatchers.hasText("START"));
         clickOn("#buttonNavigate");
         WaitForAsyncUtils.waitForFxEvents();
+        sleep(2000);
         FxAssert.verifyThat("#configurationView", NodeMatchers.isNotNull());
     }
 

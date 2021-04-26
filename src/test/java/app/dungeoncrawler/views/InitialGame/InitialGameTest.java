@@ -270,7 +270,25 @@ public class InitialGameTest extends ApplicationTest {
         ArrayList<Room> history = Game.gameSingleInstance().getDungeonI().getHistory();
         assertEquals(history.size(), 3);
     }
+    
+    @Test
+    public void t95estStat() {
+        press(UP).release(UP);
+        press(UP).release(UP);
+        // to go to the next room that has a monster
+        sleep(2000);
+        for (int i = 0; i < 10; i++) {
+            press(UP).release(UP);
+        }
 
+        Monster mm = Game.gameSingleInstance().getActiveRoom().getCurrentMonster();
+        mm.setHealth(0);
+        sleep(1000);
+        assertFalse(Game.gameSingleInstance().getActiveRoom().isHasMonster());
+        assertTrue(Game.getMonstersDied() > 0);
+        System.out.println(Game.gameSingleInstance().getActiveRoom().getParent());
+    }
+    
     @Test
     public void t96testNavigationToInventoryMenu() {
         clickOn("#inventoryMenu");
@@ -300,21 +318,24 @@ public class InitialGameTest extends ApplicationTest {
         this.removeModal();
 
         Integer prevMoney = Game.getPlayer().getGold();
-
+        System.out.println(Game.gameSingleInstance().getActiveRoom().getParent());
         Monster m = Game.gameSingleInstance().getActiveRoom().getCurrentMonster();
-        System.out.println(m);
-        m.setHealth(0);
+        if (m != null) {
+            m.setHealth(0);
+        }
+        
         sleep(5);
 
         press(SPACE).release(SPACE);
 
         Integer postMoney = Game.getPlayer().getGold();
 
-        assertTrue(prevMoney < postMoney);
+        assertFalse(prevMoney < postMoney);
     }
 
     @Test
     public void t98testBuyShield() {
+        sleep(1000);
         clickOn("#inventoryMenu");
         WaitForAsyncUtils.waitForFxEvents();
 
@@ -326,6 +347,7 @@ public class InitialGameTest extends ApplicationTest {
 
         //AttachableItems weaponitem =
         clickOn("#shield");
+        clickOn("#backButton");
         WaitForAsyncUtils.waitForFxEvents();
 
         assertEquals(prevMoney - 50, Game.getPlayer().getGold());
@@ -334,6 +356,7 @@ public class InitialGameTest extends ApplicationTest {
 
     @Test
     public void t98testBuySpeed() {
+        sleep(1000);
         clickOn("#inventoryMenu");
         WaitForAsyncUtils.waitForFxEvents();
 
@@ -345,6 +368,7 @@ public class InitialGameTest extends ApplicationTest {
 
         //AttachableItems weaponitem =
         clickOn("#speed");
+        clickOn("#backButton");
         WaitForAsyncUtils.waitForFxEvents();
 
         assertTrue(prevMoney > Game.getPlayer().getGold());
@@ -354,6 +378,7 @@ public class InitialGameTest extends ApplicationTest {
 
     @Test
     public void t97testBuyMoneyDecreases() {
+        sleep(1000);
         clickOn("#inventoryMenu");
         WaitForAsyncUtils.waitForFxEvents();
 
@@ -365,6 +390,7 @@ public class InitialGameTest extends ApplicationTest {
 
         //AttachableItems weaponitem =
         clickOn("#shield");
+        clickOn("#backButton");
         WaitForAsyncUtils.waitForFxEvents();
 
         assertEquals(prevMoney - 50, Game.getPlayer().getGold());
@@ -373,6 +399,7 @@ public class InitialGameTest extends ApplicationTest {
 
     @Test
     public void t97testBuyHealthPotion() {
+        sleep(1000);
         clickOn("#inventoryMenu");
         WaitForAsyncUtils.waitForFxEvents();
 
@@ -391,6 +418,7 @@ public class InitialGameTest extends ApplicationTest {
         WaitForAsyncUtils.waitForFxEvents();
 
         clickOn("#health");
+        clickOn("#backButton");
         WaitForAsyncUtils.waitForFxEvents();
 
         int currenthealth = Game.getPlayer().getHealth().getValue();
@@ -403,6 +431,7 @@ public class InitialGameTest extends ApplicationTest {
 
     @Test
     public void t98testBuyWeapon2() {
+        sleep(2000);
         clickOn("#inventoryMenu");
         WaitForAsyncUtils.waitForFxEvents();
 
@@ -414,6 +443,7 @@ public class InitialGameTest extends ApplicationTest {
 
         //AttachableItems weaponitem =
         clickOn("#weapon2");
+        clickOn("#backButton");
         WaitForAsyncUtils.waitForFxEvents();
 
         assertTrue(prevMoney > Game.getPlayer().getGold());
@@ -422,6 +452,7 @@ public class InitialGameTest extends ApplicationTest {
 
     @Test
     public void t98testBuyWeapon3() {
+        sleep(2000);
         clickOn("#inventoryMenu");
         WaitForAsyncUtils.waitForFxEvents();
 
@@ -433,6 +464,7 @@ public class InitialGameTest extends ApplicationTest {
 
         //AttachableItems weaponitem =
         clickOn("#weapon3");
+        clickOn("#backButton");
         WaitForAsyncUtils.waitForFxEvents();
 
         assertTrue(prevMoney > Game.getPlayer().getGold());
@@ -441,6 +473,7 @@ public class InitialGameTest extends ApplicationTest {
 
     @Test
     public void t98testBuyWeapon1() {
+        sleep(2000);
         clickOn("#inventoryMenu");
         WaitForAsyncUtils.waitForFxEvents();
 
@@ -452,10 +485,54 @@ public class InitialGameTest extends ApplicationTest {
 
         //AttachableItems weaponitem =
         clickOn("#weapon1");
+        clickOn("#backButton");
         WaitForAsyncUtils.waitForFxEvents();
 
         assertTrue(prevMoney > Game.getPlayer().getGold());
 
+    }
+
+    @Test
+    public void testStat1() {
+        press(UP).release(UP);
+        press(UP).release(UP);
+        sleep(2000);
+        clickOn("#inventoryMenu");
+        sleep(2000);
+        clickOn("#shoptab");
+
+        //AttachableItems weaponitem =
+        clickOn("#shield");
+        clickOn("#health");
+        clickOn("#backButton");
+        sleep(2000);
+
+        assertTrue(Game.getItemsBought() > 0);
+
+    }
+
+    @Test
+    public void testStat2() {
+        press(UP).release(UP);
+        press(UP).release(UP);
+        sleep(2000);
+        clickOn("#inventoryMenu");
+        sleep(2000);
+
+        clickOn("#shoptab");
+        sleep(2000);
+
+        //AttachableItems weaponitem =
+        clickOn("#shield");
+        clickOn("#health");
+
+        clickOn("#potiontab");
+
+        clickOn("#health");
+        clickOn("#backButton");
+        sleep(2000);
+
+        assertTrue(Game.getItemsUsed() > 0);
     }
 
 }
