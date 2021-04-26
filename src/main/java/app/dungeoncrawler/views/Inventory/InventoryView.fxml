@@ -23,7 +23,7 @@
       <items>
          <ToolBar prefHeight="26.0" prefWidth="598.0">
            <items>
-             <Button fx:id="backButton" mnemonicParsing="false" text="Back" />
+             <Button fx:id="backButton" id="backButton" mnemonicParsing="false" text="Back" />
            </items>
          </ToolBar>
          <TabPane prefHeight="394.0" prefWidth="809.0" tabClosingPolicy="UNAVAILABLE">
