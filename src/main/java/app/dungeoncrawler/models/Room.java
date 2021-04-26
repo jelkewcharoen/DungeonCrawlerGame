@@ -5,6 +5,7 @@ import app.dungeoncrawler.utils.DoorDimension;
 import app.dungeoncrawler.utils.GameMap;
 import app.dungeoncrawler.utils.NodeLayer;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,6 +40,20 @@ public class Room {
     private Monster currentMonster;
     private boolean isMoneyUpdated = false;
     private int goldFoundInTheRoom = 50;
+    private Alert al;
+
+
+    /**
+     * returns alert
+     * @return alert
+     */
+    public Alert getAlert() {
+
+        al = new Alert(Alert.AlertType.CONFIRMATION);
+
+        return al;
+    }
+
     /**
      * construcs room
      *
