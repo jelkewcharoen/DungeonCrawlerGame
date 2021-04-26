@@ -2,11 +2,11 @@ package app.dungeoncrawler.views;
 
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.Configuration.ConfigurationView;
-import app.dungeoncrawler.views.InitialGame.InitialGame;
+import app.dungeoncrawler.views.ViewInitialGame.InitialGame;
 import app.dungeoncrawler.views.Inventory.InventoryView;
 import app.dungeoncrawler.views.Lose.LoseView;
 import app.dungeoncrawler.views.Welcome.WelcomeView;
-import app.dungeoncrawler.views.Win.WinView;
+import app.dungeoncrawler.views.ScreenWin.WinView;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 

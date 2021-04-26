@@ -1,4 +1,4 @@
-package app.dungeoncrawler.views.InitialGame;
+package app.dungeoncrawler.views.ViewInitialGame;
 
 import app.dungeoncrawler.models.*;
 import app.dungeoncrawler.utils.NodeLayer;
