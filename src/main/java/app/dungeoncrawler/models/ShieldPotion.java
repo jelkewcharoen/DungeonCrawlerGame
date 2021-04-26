@@ -15,9 +15,4 @@ public class ShieldPotion extends Potion {
         player.setHealth(player.getHealth().getValue() + 10);
         System.out.println("Adding Shield Potion");
     }
-
-    @Override
-    public void removeFromPlayer(Fighter fighter) {
-        System.out.println("removing Shield Potion");
-    }
 }
