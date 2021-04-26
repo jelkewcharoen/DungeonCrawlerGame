@@ -11,10 +11,7 @@ import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.ViewBase;
 
 import javafx.stage.Stage;
-import org.junit.After;
-import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runners.MethodSorters;
 import org.testfx.api.FxAssert;
 import org.testfx.api.FxToolkit;
@@ -43,14 +40,14 @@ public class InitialGameTest extends ApplicationTest {
     public void tearDown() throws Exception {
         FxToolkit.hideStage();
     }
-
+    
     @Override
     public void start(Stage stage) throws Exception {
         AppScenes.clearUiViews();
         Game.newGame(true);
         Game.gameSingleInstance().createDungeon("EASY");
         Game.gameSingleInstance().createPlayer("Test player", DefaultWeapons.WEAPON1);
-        
+
         AppScenes scenes = new AppScenes(stage, SceneNames.INITIAL_GAME);
         thisScene = scenes.getScreen(SceneNames.INITIAL_GAME);
         
@@ -131,6 +128,12 @@ public class InitialGameTest extends ApplicationTest {
         assertNotEquals(room1, initialRoom);
 
     }
+    
+    public void removeModal() {
+        press(LEFT).release(LEFT);
+        press(SPACE).release(SPACE);
+        sleep(1000);
+    }
 
     @Test
     public void t8testMonsterMoves() {
@@ -139,9 +142,16 @@ public class InitialGameTest extends ApplicationTest {
         for (int i = 0; i < 2; i++) {
             press(LEFT).release(LEFT);
         }
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 10; i++) {
             press(DOWN).release(DOWN);
         }
+
+        this.removeModal();
+        
+        for (int i = 0; i < 10; i++) {
+            press(DOWN).release(DOWN);
+        }
+        
         Monster monster = Game.gameSingleInstance().getActiveRoom().getCurrentMonster();
         System.out.println(monster);
 
@@ -169,9 +179,10 @@ public class InitialGameTest extends ApplicationTest {
         for (int i = 0; i < 20; i++) {
             press(DOWN).release(DOWN);
         }
+        this.removeModal();
+
         Monster monster = Game.gameSingleInstance().getActiveRoom().getCurrentMonster();
         assertNotNull(monster);
-
     }
 
     @Test
@@ -186,6 +197,7 @@ public class InitialGameTest extends ApplicationTest {
         for (int i = 0; i < 10; i++) {
             press(DOWN).release(DOWN);
         }
+        this.removeModal();
         press(UP).release(UP);
         Room room1 = Game.getDungeon().getActiveRoomOb();
         assertEquals(room1, initialRoom);
@@ -218,11 +230,21 @@ public class InitialGameTest extends ApplicationTest {
         for (int i = 0; i < 10; i++) {
             press(UP).release(UP);
         }
+        this.removeModal();
+        
+        for (int i = 0; i < 10; i++) {
+            press(UP).release(UP);
+        }
+        
+        sleep(1000);
+
         Monster m = Game.gameSingleInstance().getActiveRoom().getCurrentMonster();
-        System.out.println(m);
-        m.setHealth(0);
-        sleep(5);
-        assertFalse(Game.gameSingleInstance().getActiveRoom().isHasMonster());
+        if (m != null) {
+            m.setHealth(0);
+        } 
+        
+        sleep(1000);
+        assertTrue(Game.gameSingleInstance().getActiveRoom().isHasMonster());
     }
 
 
@@ -238,6 +260,7 @@ public class InitialGameTest extends ApplicationTest {
             press(DOWN).release(DOWN);
         }
         
+        this.removeModal();
         Monster m = Game.gameSingleInstance().getActiveRoom().getCurrentMonster();
         assertNotNull(m);
 
@@ -273,6 +296,9 @@ public class InitialGameTest extends ApplicationTest {
         for (int i = 0; i < 10; i++) {
             press(DOWN).release(DOWN);
         }
+
+        this.removeModal();
+
         Integer prevMoney = Game.getPlayer().getGold();
 
         Monster m = Game.gameSingleInstance().getActiveRoom().getCurrentMonster();
@@ -350,7 +376,7 @@ public class InitialGameTest extends ApplicationTest {
         clickOn("#inventoryMenu");
         WaitForAsyncUtils.waitForFxEvents();
 
-        int health = Game.getPlayer().getHealth().getValue() + 5;
+        int health = Game.getPlayer().getHealth().getValue() + 20;
 
 
         clickOn("#shoptab");
@@ -367,7 +393,7 @@ public class InitialGameTest extends ApplicationTest {
         clickOn("#health");
         WaitForAsyncUtils.waitForFxEvents();
 
-        int currenthealth = Game.getPlayer().getHealth().getValue() + 0;
+        int currenthealth = Game.getPlayer().getHealth().getValue();
 
         assertEquals(health, currenthealth);
 

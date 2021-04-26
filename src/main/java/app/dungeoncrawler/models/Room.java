@@ -61,12 +61,12 @@ public class Room {
         if (doors > 4 || doors < 1) {
             throw new IllegalArgumentException("doors have to be between 1-4 inclusive");
         }
+
         if (parent != null) {
             this.hasMonster = true;
-        }
-        if (parent != null) {
             this.isChallengeRoom = (new Random()).nextBoolean(); //randoming the challenge room
         }
+      
         this.parent = parent;
 
         this.doors = doors;
