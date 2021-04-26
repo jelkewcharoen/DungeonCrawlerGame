@@ -1,4 +1,4 @@
-package app.dungeoncrawler.views.Welcome;
+package app.dungeoncrawler.views.ScreenWelcome;
 
 import app.dungeoncrawler.models.Game;
 import app.dungeoncrawler.views.AppScenes;
@@ -25,6 +25,8 @@ import org.testfx.matcher.control.LabeledMatchers;
 import org.testfx.util.WaitForAsyncUtils;
 
 public class WelcomeViewTest extends ApplicationTest {
+    Stage stage;
+
     @BeforeClass
     public static void config() throws Exception {
         System.getProperties().put("testfx.robot", "glass");
@@ -37,12 +39,10 @@ public class WelcomeViewTest extends ApplicationTest {
     
     @Override
     public void start(Stage stage) throws Exception {
-        AppScenes.clearUiViews();
-        AppScenes scenes = new AppScenes(stage, SceneNames.WELCOME);
-        ViewBase thisScene = scenes.getScreen(SceneNames.WELCOME);
-
         stage.setWidth(Game.WINDOW_WIDTH);
         stage.setHeight(Game.WINDOW_HEIGHT);
+        AppScenes scenes = new AppScenes(stage, SceneNames.WELCOME);
+        ViewBase thisScene = scenes.getScreen(SceneNames.WELCOME);
         stage.setScene(thisScene.getScene());
         stage.show();
     }

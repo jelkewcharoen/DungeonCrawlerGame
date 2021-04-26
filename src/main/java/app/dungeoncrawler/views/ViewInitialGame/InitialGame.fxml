@@ -15,7 +15,7 @@
     stylesheets="@InitialGame.css"
     xmlns="http://javafx.com/javafx/11.0.1"
     xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="app.dungeoncrawler.views.InitialGame.InitialGameController"
+    fx:controller="app.dungeoncrawler.views.ViewInitialGame.InitialGameController"
 >
     <Canvas fx:id="roomLayer" />
     <Canvas fx:id="doorsLayer" />

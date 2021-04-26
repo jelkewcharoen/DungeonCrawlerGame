@@ -1,4 +1,4 @@
-package app.dungeoncrawler.views.InitialGame;
+package app.dungeoncrawler.views.ViewInitialGame;
 
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.ViewBase;

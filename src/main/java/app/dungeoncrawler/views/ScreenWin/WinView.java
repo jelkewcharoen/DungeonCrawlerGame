@@ -1,4 +1,4 @@
-package app.dungeoncrawler.views.Win;
+package app.dungeoncrawler.views.ScreenWin;
 
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.ViewBase;

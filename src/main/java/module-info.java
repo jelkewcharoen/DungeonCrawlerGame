@@ -4,7 +4,7 @@ module app.dungeoncrawler {
     exports app.dungeoncrawler;
     exports app.dungeoncrawler.views.Welcome;
     exports app.dungeoncrawler.views.Configuration;
-    exports app.dungeoncrawler.views.InitialGame;
+    exports app.dungeoncrawler.views.ViewInitialGame;
     exports app.dungeoncrawler.Components.WeaponInv;
     exports app.dungeoncrawler.Components.ShopItem;
     exports app.dungeoncrawler.utils;
@@ -12,8 +12,8 @@ module app.dungeoncrawler {
     opens app.dungeoncrawler.views.Welcome;
     opens app.dungeoncrawler.Components.WeaponInv;
     opens app.dungeoncrawler.views.Configuration;
-    opens app.dungeoncrawler.views.InitialGame;
-    opens app.dungeoncrawler.views.Win;
+    opens app.dungeoncrawler.views.ViewInitialGame;
+    opens app.dungeoncrawler.views.ScreenWin;
     opens app.dungeoncrawler.views.Lose;
     opens app.dungeoncrawler.views.Inventory;
     opens app.dungeoncrawler.Components.ShopItem;

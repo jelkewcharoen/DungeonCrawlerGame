@@ -1,4 +1,4 @@
-package app.dungeoncrawler.views.InitialGame;
+package app.dungeoncrawler.views.ViewInitialGame;
 
 
 import app.dungeoncrawler.models.Game;
@@ -418,6 +418,8 @@ public class InitialGameTest extends ApplicationTest {
         WaitForAsyncUtils.waitForFxEvents();
 
         clickOn("#health");
+        WaitForAsyncUtils.waitForFxEvents();
+
         clickOn("#backButton");
         WaitForAsyncUtils.waitForFxEvents();
 
@@ -431,7 +433,7 @@ public class InitialGameTest extends ApplicationTest {
 
     @Test
     public void t98testBuyWeapon2() {
-        sleep(2000);
+        sleep(1000);
         clickOn("#inventoryMenu");
         WaitForAsyncUtils.waitForFxEvents();
 
@@ -443,11 +445,12 @@ public class InitialGameTest extends ApplicationTest {
 
         //AttachableItems weaponitem =
         clickOn("#weapon2");
+        WaitForAsyncUtils.waitForFxEvents();
+
         clickOn("#backButton");
         WaitForAsyncUtils.waitForFxEvents();
 
         assertTrue(prevMoney > Game.getPlayer().getGold());
-
     }
 
     @Test

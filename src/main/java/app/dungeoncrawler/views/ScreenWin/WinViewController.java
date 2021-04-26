@@ -1,22 +1,18 @@
-package app.dungeoncrawler.views.Win;
+package app.dungeoncrawler.views.ScreenWin;
 
 import app.dungeoncrawler.models.Game;
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.AppScenes;
-import app.dungeoncrawler.views.InitialGame.InitialGameController;
 import app.dungeoncrawler.views.Inventory.InventoryViewController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import static javafx.application.Platform.exit;
 
 public class WinViewController implements Initializable {
     @FXML
