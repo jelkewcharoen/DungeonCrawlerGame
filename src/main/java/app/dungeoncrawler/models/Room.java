@@ -80,6 +80,10 @@ public class Room {
         if (parent != null) {
             this.hasMonster = true;
             this.isChallengeRoom = (new Random()).nextBoolean(); //randoming the challenge room
+
+            if (depth == 1) {
+                this.isChallengeRoom = true;
+            }
         }
       
         this.parent = parent;

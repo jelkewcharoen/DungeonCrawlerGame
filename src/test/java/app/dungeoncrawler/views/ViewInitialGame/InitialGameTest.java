@@ -213,7 +213,33 @@ public class InitialGameTest extends ApplicationTest {
     }
 
     @Test
-    public void t90hasMonster() {
+    public void t81testGoesNormalRoom() {
+        for (int i = 0; i < 2; i++) {
+            press(LEFT).release(LEFT);
+        }
+        for (int i = 0; i < 20; i++) {
+            press(DOWN).release(DOWN);
+        }
+        this.removeModal();
+
+        assertTrue(!Game.gameSingleInstance().getActiveRoom().isChallengeRoom());
+    }
+
+    @Test
+    public void t81testGoesChallengingRoom() {
+        for (int i = 0; i < 2; i++) {
+            press(LEFT).release(LEFT);
+        }
+        for (int i = 0; i < 20; i++) {
+            press(DOWN).release(DOWN);
+        }
+        this.pressOKButton();
+
+        assertTrue(Game.gameSingleInstance().getActiveRoom().isChallengeRoom());
+    }
+
+    @Test
+    public void t90normalRoomHas1Monster() {
         for (int i = 0; i < 2; i++) {
             press(LEFT).release(LEFT);
         }
@@ -227,7 +253,49 @@ public class InitialGameTest extends ApplicationTest {
     }
 
     @Test
-    public void t92testPlayerEnterPreviousRoom() {
+    public void t91challengingRoomHasMonster1() {
+        for (int i = 0; i < 2; i++) {
+            press(LEFT).release(LEFT);
+        }
+        for (int i = 0; i < 20; i++) {
+            press(DOWN).release(DOWN);
+        }
+        this.pressOKButton();
+
+        ArrayList<Monster> monster = Game.gameSingleInstance().getActiveRoom().getChallengeMonster();
+        assertNotNull(monster.get(0));
+    }
+
+    @Test
+    public void t92challengingRoomHasMonster2() {
+        for (int i = 0; i < 2; i++) {
+            press(LEFT).release(LEFT);
+        }
+        for (int i = 0; i < 20; i++) {
+            press(DOWN).release(DOWN);
+        }
+        this.pressOKButton();
+
+        ArrayList<Monster> monster = Game.gameSingleInstance().getActiveRoom().getChallengeMonster();
+        assertNotNull(monster.get(1));
+    }
+
+    @Test
+    public void t93challengingRoomHasMonster3() {
+        for (int i = 0; i < 2; i++) {
+            press(LEFT).release(LEFT);
+        }
+        for (int i = 0; i < 20; i++) {
+            press(DOWN).release(DOWN);
+        }
+        this.pressOKButton();
+
+        ArrayList<Monster> monster = Game.gameSingleInstance().getActiveRoom().getChallengeMonster();
+        assertNotNull(monster.get(2));
+    }
+
+    @Test
+    public void t94testPlayerEnterPreviousRoom() {
         Room initialRoom = Game.getDungeon().getActiveRoomOb();
         Player player = Game.getPlayer();
         player.setPosition(initialRoom.getRoomMap().getRoomLayer().getDimension().averageX(),
@@ -246,16 +314,16 @@ public class InitialGameTest extends ApplicationTest {
 
 
     @Test
-    public void t91testPlayerHealthBar() {
+    public void t95testPlayerHealthBar() {
         FxAssert.verifyThat("#healthBar", NodeMatchers.isNotNull());
     }
     @Test
-    public void t8testMonsterHealthBar() {
+    public void t96testMonsterHealthBar() {
         FxAssert.verifyThat("#monsterBar", NodeMatchers.isNotNull());
     }
 
     @Test
-    public void t94testPlayerDies() {
+    public void t97testPlayerDies() {
         Player  p = Game.getPlayer();
         p.setHealth(10);
         p.setHealth(0);
