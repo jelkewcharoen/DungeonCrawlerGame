@@ -171,7 +171,7 @@ public class InitialGameController implements Initializable {
         Room oldValue = obOldValue.getField();
 
         if (newValue.getParent() != null && newValue.isChallengeRoom()) {
-            Alert al = new Alert(AlertType.CONFIRMATION);
+            Alert al = Game.gameSingleInstance().getActiveRoom().getAlert();
             al.setContentText("Would you like to do a Challenge room");
             al.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {

@@ -10,6 +10,9 @@ import app.dungeoncrawler.views.AppScenes;
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.ViewBase;
 
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
@@ -130,8 +133,46 @@ public class InitialGameTest extends ApplicationTest {
     }
     
     public void removeModal() {
-        press(LEFT).release(LEFT);
-        press(SPACE).release(SPACE);
+
+        Platform.runLater(
+                () -> {
+                    // Update UI here.
+                    Alert al = Game.gameSingleInstance().getActiveRoom().getAlert();
+
+                    ButtonType b1 = al.getButtonTypes().get(0);
+                    ButtonType b2 = al.getButtonTypes().get(1);
+
+                    if (!b1.equals(ButtonType.OK)) {
+                        press(LEFT).release(LEFT);
+                    } else {
+                        press(RIGHT).release(RIGHT);
+                    }
+                    press(SPACE).release(SPACE);
+                }
+        );
+
+        sleep(1000);
+    }
+
+    public void pressOKButton() {
+
+        Platform.runLater(
+                () -> {
+                    // Update UI here.
+                    Alert al = Game.gameSingleInstance().getActiveRoom().getAlert();
+
+                    ButtonType b1 = al.getButtonTypes().get(0);
+                    ButtonType b2 = al.getButtonTypes().get(1);
+
+                    if (b1.equals(ButtonType.OK)) {
+                        press(LEFT).release(LEFT);
+                    } else {
+                        press(RIGHT).release(RIGHT);
+                    }
+                    press(SPACE).release(SPACE);
+                }
+        );
+
         sleep(1000);
     }
 
@@ -280,6 +321,8 @@ public class InitialGameTest extends ApplicationTest {
         for (int i = 0; i < 10; i++) {
             press(UP).release(UP);
         }
+
+        this.removeModal();
 
         Monster mm = Game.gameSingleInstance().getActiveRoom().getCurrentMonster();
         mm.setHealth(0);
