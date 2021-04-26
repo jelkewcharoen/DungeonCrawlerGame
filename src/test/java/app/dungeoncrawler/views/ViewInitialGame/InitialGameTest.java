@@ -472,9 +472,7 @@ public class InitialGameTest extends ApplicationTest {
         assertEquals(health, currenthealth);
 
     }
-
-
-
+    
     @Test
     public void t98testBuyWeapon2() {
         sleep(1000);
