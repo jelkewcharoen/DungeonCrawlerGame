@@ -75,6 +75,7 @@ public class Dungeon {
         return activeRoomOb.get().getField();
     }
 
+
     public SimpleObjectProperty<ObserverObject<Room>> activeRoomObProperty() {
         return activeRoomOb;
     }

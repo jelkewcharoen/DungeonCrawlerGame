@@ -291,29 +291,31 @@ public class InitialGameTest extends ApplicationTest {
 
 
     @Test
-    public void t94testPlayerAllowToGoBackWhenMonsterInTheRoom() {
+    public void testPlayerGoBackToPreviousRoom() {
         sleep(1000);
         for (int i = 0; i < 3; i++) {
             press(LEFT).release(LEFT);
         }
-
         for (int i = 0; i < 15; i++) {
             press(DOWN).release(DOWN);
         }
-        
-        this.removeModal();
-        Monster m = Game.gameSingleInstance().getActiveRoom().getCurrentMonster();
-        assertNotNull(m);
-
-        for (int i = 0; i < 15; i++) {
-            press(UP).release(UP);
+        Room room = Game.gameSingleInstance().getActiveRoom();
+        if (room.isChallengeRoom()) {
+            this.pressOKButton();
+            ArrayList<Room> history = Game.gameSingleInstance().getDungeonI().getHistory();
+            assertEquals(history.size(), 2);
+        } else {
+            Monster m = room.getCurrentMonster();
+            for (int i = 0; i < 15; i++) {
+                press(UP).release(UP);
+            }
+            ArrayList<Room> history = Game.gameSingleInstance().getDungeonI().getHistory();
+            assertEquals(history.size(), 3);
         }
-        ArrayList<Room> history = Game.gameSingleInstance().getDungeonI().getHistory();
-        assertEquals(history.size(), 3);
     }
     
     @Test
-    public void t95estStat() {
+    public void t95testStat() {
         press(UP).release(UP);
         press(UP).release(UP);
         // to go to the next room that has a monster
@@ -321,7 +323,6 @@ public class InitialGameTest extends ApplicationTest {
         for (int i = 0; i < 10; i++) {
             press(UP).release(UP);
         }
-
         this.removeModal();
 
         Monster mm = Game.gameSingleInstance().getActiveRoom().getCurrentMonster();
