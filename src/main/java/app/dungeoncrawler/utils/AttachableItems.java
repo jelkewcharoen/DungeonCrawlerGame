@@ -6,7 +6,6 @@ public abstract class AttachableItems {
     private String image;
     
     public abstract void addToPlayer(Fighter fighter);
-    public abstract void removeFromPlayer(Fighter fighter);
 
     public String getType() {
         return type;

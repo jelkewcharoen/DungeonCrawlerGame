@@ -52,9 +52,4 @@ public class Weapon extends AttachableItems {
     public void addToPlayer(Fighter fighter) {
         ((Player) fighter).setWeapon(this);
     }
-
-    @Override
-    public void removeFromPlayer(Fighter fighter) {
-        
-    }
 }
