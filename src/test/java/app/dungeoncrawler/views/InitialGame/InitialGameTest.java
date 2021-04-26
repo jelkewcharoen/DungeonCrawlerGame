@@ -21,7 +21,9 @@ import org.testfx.matcher.base.NodeMatchers;
 import org.testfx.util.WaitForAsyncUtils;
 
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 import static javafx.scene.input.KeyCode.*;
 import static org.junit.Assert.*;
@@ -129,7 +131,12 @@ public class InitialGameTest extends ApplicationTest {
 
     }
     
-    public void removeModal() {
+    public void rejectChallengeRoom() {
+        press(RIGHT).release(RIGHT);
+        press(SPACE).release(SPACE);
+        sleep(1000);
+    }
+    public void acceptChallengeRoom() {
         press(LEFT).release(LEFT);
         press(SPACE).release(SPACE);
         sleep(1000);
@@ -146,7 +153,7 @@ public class InitialGameTest extends ApplicationTest {
             press(DOWN).release(DOWN);
         }
 
-        this.removeModal();
+        this.rejectChallengeRoom();
         
         for (int i = 0; i < 10; i++) {
             press(DOWN).release(DOWN);
@@ -179,7 +186,7 @@ public class InitialGameTest extends ApplicationTest {
         for (int i = 0; i < 20; i++) {
             press(DOWN).release(DOWN);
         }
-        this.removeModal();
+        this.rejectChallengeRoom();
 
         Monster monster = Game.gameSingleInstance().getActiveRoom().getCurrentMonster();
         assertNotNull(monster);
@@ -197,7 +204,7 @@ public class InitialGameTest extends ApplicationTest {
         for (int i = 0; i < 10; i++) {
             press(DOWN).release(DOWN);
         }
-        this.removeModal();
+        this.rejectChallengeRoom();
         press(UP).release(UP);
         Room room1 = Game.getDungeon().getActiveRoomOb();
         assertEquals(room1, initialRoom);
@@ -230,7 +237,7 @@ public class InitialGameTest extends ApplicationTest {
         for (int i = 0; i < 10; i++) {
             press(UP).release(UP);
         }
-        this.removeModal();
+        this.rejectChallengeRoom();
         
         for (int i = 0; i < 10; i++) {
             press(UP).release(UP);
@@ -260,7 +267,7 @@ public class InitialGameTest extends ApplicationTest {
             press(DOWN).release(DOWN);
         }
         
-        this.removeModal();
+        this.rejectChallengeRoom();
         Monster m = Game.gameSingleInstance().getActiveRoom().getCurrentMonster();
         assertNotNull(m);
 
@@ -270,7 +277,46 @@ public class InitialGameTest extends ApplicationTest {
         ArrayList<Room> history = Game.gameSingleInstance().getDungeonI().getHistory();
         assertEquals(history.size(), 3);
     }
-    
+    @Test
+    public void testPlayerCantGoBackWhenInChallengeRoom() {
+        sleep(1000);
+        for (int i = 0; i < 3; i++) {
+            press(LEFT).release(LEFT);
+        }
+
+        for (int i = 0; i < 15; i++) {
+            press(DOWN).release(DOWN);
+        }
+        if (Game.gameSingleInstance().getActiveRoom().isChallengeRoom()) {
+            this.acceptChallengeRoom();
+            Monster m = Game.gameSingleInstance().getActiveRoom().getCurrentMonster();
+            assertNotNull(m);
+
+            for (int i = 0; i < 15; i++) {
+                press(UP).release(UP);
+            }
+            ArrayList<Room> history = Game.gameSingleInstance().getDungeonI().getHistory();
+            assertEquals(history.size(), 2);
+        }
+    }
+    @Test
+    public void testMultipleMonstersChallengeRoom() {
+        sleep(1000);
+        for (int i = 0; i < 3; i++) {
+            press(LEFT).release(LEFT);
+        }
+
+        for (int i = 0; i < 15; i++) {
+            press(DOWN).release(DOWN);
+        }
+        if (Game.gameSingleInstance().getActiveRoom().isChallengeRoom()) {
+            this.acceptChallengeRoom();
+            List<Monster> m = Game.gameSingleInstance().getActiveRoom().getCurrentMonsterList();
+            assertTrue(m.size() > 1);
+        } else {
+            assertNotNull(Game.gameSingleInstance().getActiveRoom().getCurrentMonster());
+        }
+    }
     @Test
     public void t95estStat() {
         press(UP).release(UP);
@@ -315,7 +361,7 @@ public class InitialGameTest extends ApplicationTest {
             press(DOWN).release(DOWN);
         }
 
-        this.removeModal();
+        this.rejectChallengeRoom();
 
         Integer prevMoney = Game.getPlayer().getGold();
         System.out.println(Game.gameSingleInstance().getActiveRoom().getParent());
@@ -534,5 +580,4 @@ public class InitialGameTest extends ApplicationTest {
 
         assertTrue(Game.getItemsUsed() > 0);
     }
-
 }

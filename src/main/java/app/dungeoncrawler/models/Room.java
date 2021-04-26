@@ -6,10 +6,7 @@ import app.dungeoncrawler.utils.GameMap;
 import app.dungeoncrawler.utils.NodeLayer;
 import javafx.scene.canvas.GraphicsContext;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.*;
 
 public class Room {
     private static final int ROOM_HEIGHT = 480;
@@ -37,6 +34,7 @@ public class Room {
     private int doorIdWherePlayerEnterRoom = -1;
     private int doorIdWherePlayerLeftTheRoom = -1;
     private Monster currentMonster;
+    private ArrayList<Monster> currentMonsterList = new ArrayList<>();
     private boolean isMoneyUpdated = false;
     private int goldFoundInTheRoom = 50;
     /**
@@ -66,7 +64,7 @@ public class Room {
             this.hasMonster = true;
             this.isChallengeRoom = (new Random()).nextBoolean(); //randoming the challenge room
         }
-      
+
         this.parent = parent;
 
         this.doors = doors;
@@ -423,6 +421,7 @@ public class Room {
         return randomRoom;
     }
 
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -458,11 +457,10 @@ public class Room {
      * @return list of monsters
      */
     public ArrayList<Monster> getChallengeMonster() {
-        ArrayList<Monster> list = new ArrayList<>();
-        list.add(Monster.getNewMonster());
-        list.add(Monster.getNewMonster());
-        list.add(Monster.getNewMonster());
-        return list;
+        currentMonsterList.add(Monster.getNewMonster());
+        currentMonsterList.add(Monster.getNewMonster());
+        currentMonsterList.add(Monster.getNewMonster());
+        return currentMonsterList;
     }
 
     /**
@@ -470,7 +468,17 @@ public class Room {
      * @return current monster
      */
     public Monster getCurrentMonster() {
-        return currentMonster;
+        if (isChallengeRoom) {
+            return currentMonsterList.get(0);
+        } else {
+            return currentMonster;
+        }
+    }
+    public List<Monster> getCurrentMonsterList() {
+
+        return currentMonsterList;
+
+
     }
 
     public Monster getBossMonster() {

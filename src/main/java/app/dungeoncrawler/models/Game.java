@@ -17,7 +17,7 @@ public class Game {
     // counter for the number of monsters that died
     private static int monstersDied = 0;
     // counter for the number of rooms visited
-    private static int itemsUsed= 0;
+    private static int itemsUsed = 0;
     // counter for how many items the user bought
     private static int itemsBought = 0;
 

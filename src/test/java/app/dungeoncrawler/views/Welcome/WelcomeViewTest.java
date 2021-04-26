@@ -2,15 +2,7 @@ package app.dungeoncrawler.views.Welcome;
 
 import app.dungeoncrawler.models.Game;
 import app.dungeoncrawler.views.AppScenes;
-import app.dungeoncrawler.utils.DefaultWeapons;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import app.dungeoncrawler.models.Game;
-import app.dungeoncrawler.models.Monster;
-import app.dungeoncrawler.models.Player;
-import app.dungeoncrawler.models.Room;
-import app.dungeoncrawler.utils.DefaultWeapons;
-import app.dungeoncrawler.views.AppScenes;
 import app.dungeoncrawler.utils.SceneNames;
 import app.dungeoncrawler.views.ViewBase;
 
